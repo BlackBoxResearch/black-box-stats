@@ -14,7 +14,7 @@ def dashboard_page():
         """,
         ):
         with st.container(border=True):
-            st.title("Welcome, Ben!", anchor=False)
+            st.title("Welcome, Ben!", anchor=True)
 
 def systems_page():
     st.title("Systems", anchor=False)
