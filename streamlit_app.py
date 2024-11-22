@@ -3,20 +3,11 @@ from streamlit_extras.stylable_container import stylable_container
 
 st.logo(image="static/bbs_type_logo.png", icon_image="static/bbs-icon.png", size="large")
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="centered")
 
 def dashboard_page():
-    with stylable_container(
-        key="main_container",
-        css_styles="""
-        {
-            width: 40em;
-            margin: 0 auto; /* Center the container */
-        }
-        """,
-        ):
-        with st.container(border=True):
-            st.title("Welcome, Ben!", anchor=False)
+    with st.container(border=True):
+        st.title("Welcome, Ben!", anchor=False)
 
 def systems_page():
     st.title("Systems", anchor=False)
