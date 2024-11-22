@@ -3,12 +3,14 @@ from streamlit_extras.stylable_container import stylable_container
 
 st.logo(image="static/bbs_type_logo.png", icon_image="static/bbs-icon.png", size="large")
 
+st.set_page_config(layout="wide")
+
 def dashboard_page():
     with stylable_container(
         key="main_container",
         css_styles="""
         {
-            width: 60em;
+            width: 40em;
             margin: 0 auto; /* Center the container */
         }
         """,
