@@ -1,12 +1,14 @@
 import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
+from streamlit_extras.bottom_container import bottom
+from st_social_media_links import SocialMediaIcons
 from sqlalchemy.sql import text  # Import text from sqlalchemy
 import time
 
 st.set_page_config(layout="centered")
-st.logo(image="static/bbs_type_logo.png", size="large")
+st.logo(image="static/bbs_type_logo.png", size="large")    
 
-def metric_tile(key, stat, value, height, type):
+def metric_tile(key, stat, value, height, type, tooltip):
     """
     Creates a stylable metric tile using a custom container in Streamlit.
 
@@ -29,7 +31,7 @@ def metric_tile(key, stat, value, height, type):
                         <p style="margin: 0; font-size: 1em; font-weight: bold; color: {text_color};">{value}</p>
                     </div>
                     """,
-                unsafe_allow_html=True
+                unsafe_allow_html=True, help=tooltip
             )
 
         
@@ -234,11 +236,11 @@ def accounts_page():
                         st.markdown("**Overview**")
 
                 with stats:
-                    metric_tile("performance_overview_stat_1", "Total Gain", "12.36%", 40, "secondary")
-                    metric_tile("performance_overview_stat_2", "Win Rate", "67.21%", 40, "primary")
-                    metric_tile("performance_overview_stat_3", "Profit Factor", "1.12", 40, "primary")
-                    metric_tile("performance_overview_stat_4", "Account Age", "152 days", 40, "primary")
-                    metric_tile("performance_overview_stat_5", "Most Traded Symbol", "XAUUSD", 40, "primary")
+                    metric_tile("performance_overview_stat_1", "Total Gain", "12.36%", 40, "secondary", None)
+                    metric_tile("performance_overview_stat_2", "Win Rate", "67.21%", 40, "primary", None)
+                    metric_tile("performance_overview_stat_3", "Profit Factor", "1.12", 40, "primary", None)
+                    metric_tile("performance_overview_stat_4", "Account Age", "152 days", 40, "primary", None)
+                    metric_tile("performance_overview_stat_5", "Most Traded Symbol", "XAUUSD", 40, "primary", None)
 
                 st.divider()
 
@@ -254,11 +256,11 @@ def accounts_page():
                         st.markdown("**Chart**")
 
                 with stats:
-                    metric_tile("performance_efficiency_stat_1", "Stat 1", "00.00%", 40, "primary")
-                    metric_tile("performance_efficiency_stat_2", "Stat 2", "00.00%", 40, "primary")
-                    metric_tile("performance_efficiency_stat_3", "Stat 3", "00.00%", 40, "primary")
-                    metric_tile("performance_efficiency_stat_4", "Stat 4", "00.00%", 40, "primary")
-                    metric_tile("performance_efficiency_stat_5", "Stat 5", "00.00%", 40, "primary")
+                    metric_tile("performance_efficiency_stat_1", "Stat 1", "00.00%", 40, "primary", None)
+                    metric_tile("performance_efficiency_stat_2", "Stat 2", "00.00%", 40, "primary", None)
+                    metric_tile("performance_efficiency_stat_3", "Stat 3", "00.00%", 40, "primary", None)
+                    metric_tile("performance_efficiency_stat_4", "Stat 4", "00.00%", 40, "primary", None)
+                    metric_tile("performance_efficiency_stat_5", "Stat 5", "00.00%", 40, "primary", None)
 
                 st.divider()
 
@@ -274,11 +276,11 @@ def accounts_page():
                         st.markdown("**Chart**")
 
                 with stats:
-                    metric_tile("performance_risk_stat_1", "Stat 1", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_2", "Stat 2", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_3", "Stat 3", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_4", "Stat 4", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_5", "Stat 5", "00.00%", 40, "primary")
+                    metric_tile("performance_risk_stat_1", "Stat 1", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_2", "Stat 2", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_3", "Stat 3", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_4", "Stat 4", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_5", "Stat 5", "00.00%", 40, "primary", None)
 
                 st.divider()
 
@@ -294,11 +296,11 @@ def accounts_page():
                         st.markdown("**Chart**")
 
                 with stats:
-                    metric_tile("performance_risk_stat_1", "Stat 1", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_2", "Stat 2", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_3", "Stat 3", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_4", "Stat 4", "00.00%", 40, "primary")
-                    metric_tile("performance_risk_stat_5", "Stat 5", "00.00%", 40, "primary")
+                    metric_tile("performance_risk_stat_1", "Stat 1", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_2", "Stat 2", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_3", "Stat 3", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_4", "Stat 4", "00.00%", 40, "primary", None)
+                    metric_tile("performance_risk_stat_5", "Stat 5", "00.00%", 40, "primary", None)
 
                 st.divider()
 
@@ -314,11 +316,11 @@ def accounts_page():
                         st.markdown("**Chart**")
 
                 with stats:
-                    metric_tile("performance_market_stat_1", "Stat 1", "00.00%", 40, "primary")
-                    metric_tile("performance_market_stat_2", "Stat 2", "00.00%", 40, "primary")
-                    metric_tile("performance_market_stat_3", "Stat 3", "00.00%", 40, "primary")
-                    metric_tile("performance_market_stat_4", "Stat 4", "00.00%", 40, "primary")
-                    metric_tile("performance_market_stat_5", "Stat 5", "00.00%", 40, "primary")
+                    metric_tile("performance_market_stat_1", "Stat 1", "00.00%", 40, "primary", None)
+                    metric_tile("performance_market_stat_2", "Stat 2", "00.00%", 40, "primary", None)
+                    metric_tile("performance_market_stat_3", "Stat 3", "00.00%", 40, "primary", None)
+                    metric_tile("performance_market_stat_4", "Stat 4", "00.00%", 40, "primary", None)
+                    metric_tile("performance_market_stat_5", "Stat 5", "00.00%", 40, "primary", None)
 
                 st.divider()
 
@@ -334,15 +336,15 @@ def accounts_page():
                         st.markdown("**Chart**")
 
                 with stats:
-                    metric_tile("performance_summary_stat_1", "Stat 1", "00.00%", 40, "primary")
-                    metric_tile("performance_summary_stat_2", "Stat 2", "00.00%", 40, "primary")
-                    metric_tile("performance_summary_stat_3", "Stat 3", "00.00%", 40, "primary")
-                    metric_tile("performance_summary_stat_4", "Stat 4", "00.00%", 40, "primary")
-                    metric_tile("performance_summary_stat_5", "Stat 5", "00.00%", 40, "primary")
+                    metric_tile("performance_summary_stat_1", "Stat 1", "00.00%", 40, "primary", None)
+                    metric_tile("performance_summary_stat_2", "Stat 2", "00.00%", 40, "primary", None)
+                    metric_tile("performance_summary_stat_3", "Stat 3", "00.00%", 40, "primary", None)
+                    metric_tile("performance_summary_stat_4", "Stat 4", "00.00%", 40, "primary", None)
+                    metric_tile("performance_summary_stat_5", "Stat 5", "00.00%", 40, "primary", None)
 
         else:
             st.info("No Account Selected")
-
+      
 def systems_page():
     with st.container(border=False):
         gradient_text("Systems", "2em")
@@ -409,11 +411,16 @@ with st.sidebar:
         )
 
         st.markdown("")
+    
+    with bottom():
+        social_media_links = [
+            "https://x.com/blackboxstats",
+            "https://www.instagram.com/blackboxstats"
+        ]
 
-    st.caption('''
-                Created with ❤️ by [Black Box Research](https://blackboxresearch.com/).
-                ''')
+        social_media_icons = SocialMediaIcons(social_media_links)
 
+        social_media_icons.render()
 
 # Set up the navigation
 pg = st.navigation(pages, position="sidebar")
