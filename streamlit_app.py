@@ -2,7 +2,7 @@ import streamlit as st
 import hashlib
 from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.switch_page_button import switch_page
-import time
+from time import time
 import asyncio
 from utils import api
 import pandas as pd
