@@ -1,7 +1,6 @@
 streamlit
 streamlit-extras
 streamlit-elements
-yaml
 pandas
 numpy
 SQLAlchemy

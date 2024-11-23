@@ -10,7 +10,8 @@ import datetime as dt
 import altair as alt
 from vega_datasets import data
 from st_aggrid import AgGrid, GridOptionsBuilder
-st.set_page_config(layout="wide")
+
+st.set_page_config(layout="centered")
 
 now = dt.datetime.utcnow()
 current_time = now.hour + now.minute / 60  # Convert to hour with decimal minutes
