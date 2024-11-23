@@ -1,3 +1,11 @@
 streamlit
-streamlit-elements
 streamlit-extras
+streamlit-elements
+yaml
+pandas
+numpy
+SQLAlchemy
+metaapi_cloud_sdk
+altair
+asyncio
+time
