@@ -192,8 +192,8 @@ def scatter_chart(data, x, y, x_label, y_label, height=280):
     Returns:
         alt.Chart: The Altair chart object.
     """
-    # Ensure the x-axis column is interpreted as datetime
-    data[x] = pd.to_datetime(data[x])
+
+    data[x]= pd.to_numeric(data[x], errors='coerce')
     
     # Create the main chart
     chart = alt.Chart(data).mark_circle(
@@ -213,7 +213,7 @@ def scatter_chart(data, x, y, x_label, y_label, height=280):
         strokeWidth=0  # Remove borders around the chart
     )
     
-    return chart
+    return st.altair_chart(chart, use_container_width=True)
 
 def execute_query(query, params=None):
     """
@@ -537,6 +537,15 @@ def accounts_page():
                             with tile("trade_efficiency_chart", 385):
                                 st.markdown("**Chart**")
 
+                                scatter_chart(
+                                    data=trades_df, 
+                                    x='duration_mins', 
+                                    y='gain', 
+                                    x_label='Duration (Mins)', 
+                                    y_label='Gain (%)', 
+                                    height=335
+                                )
+
                         with stats:
                             metric_tile("performance_efficiency_stat_1", "Avg Trade Duration", statistics['Avg Trade Duration'], 40, "primary", None)
                             metric_tile("performance_efficiency_stat_2", "Avg Profit Per Trade", statistics['Avg Profit Per Trade'], 40, "primary", None)
@@ -671,11 +680,9 @@ def accounts_page():
                             },
                             disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
                                     "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
-                            hide_index=True
+                            hide_index=True,
+                            use_container_width=True
                         )
-
-                        st.dataframe(data=trades_display, hide_index=True, use_container_width=True)
-                        
 
         else:
             st.info("No Account Selected")
