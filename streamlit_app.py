@@ -576,6 +576,9 @@ def accounts_page():
                             metric_tile("performance_risk_stat_4", "Risk Reward Ratio", statistics['Risk Reward Ratio'], 40, "primary", None)
                             metric_tile("performance_risk_stat_5", "Trades at Risk", statistics['Trades at Risk'], 40, "primary", None)
 
+                        with tile("risk_analysis_chart_3", 170):
+                                st.markdown("**Chart 3**")
+
                         st.divider()
 
                         # ------ BEHAVIOURAL PATTERNS ------ #
