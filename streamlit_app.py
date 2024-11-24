@@ -371,6 +371,7 @@ def calculate_trade_statistics(trades_df):
     worst_day_profit = daily_profit.idxmin() if not daily_profit.empty else None
     avg_daily_profit = daily_profit.mean()
 
+    
     # Weekly Aggregation
     trades_df['week'] = trades_df['close_time'].dt.to_period('W').apply(lambda r: r.start_time)
     weekly_profit = trades_df.groupby('week')['profit'].sum()
