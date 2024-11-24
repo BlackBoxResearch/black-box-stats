@@ -535,7 +535,7 @@ def accounts_page():
 
                         with chart:
                             with tile("trade_efficiency_chart", 385):
-                                st.markdown("**Chart**")
+                                st.markdown("**Gain vs. Duration**")
 
                                 scatter_chart(
                                     data=trades_df, 
@@ -563,8 +563,11 @@ def accounts_page():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("risk_analysis_chart", 385):
-                                st.markdown("**Chart**")
+                            with tile("risk_analysis_chart_1", 170):
+                                st.markdown("**Chart 1**")
+
+                            with tile("risk_analysis_chart_2", 170):
+                                st.markdown("**Chart 2**")
 
                         with stats:
                             metric_tile("performance_risk_stat_1", "Max Drawdown", statistics['Max Drawdown'], 40, "primary", None)
@@ -587,11 +590,11 @@ def accounts_page():
                                 st.markdown("**Chart**")
 
                         with stats:
-                            metric_tile("performance_behaviour_stat_1", "Most Frequent Symbol", statistics['Most Frequent Symbol'], 40, "primary", None)
+                            metric_tile("performance_behaviour_stat_1", "Favourite Symbol", statistics['Most Frequent Symbol'], 40, "primary", None)
                             metric_tile("performance_behaviour_stat_2", "Most Active Time", statistics['Most Active Time'], 40, "primary", None)
                             metric_tile("performance_behaviour_stat_3", "Avg Trade Volume", statistics['Avg Trade Volume'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_4", "Largest Volume Trade", statistics['Largest Volume Trade'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_5", "Most Frequent Outcome", statistics['Most Frequent Outcome'], 40, "primary", None)
+                            metric_tile("performance_behaviour_stat_4", "Largest Trade", statistics['Largest Volume Trade'], 40, "primary", None)
+                            metric_tile("performance_behaviour_stat_5", "Expected Outcome", statistics['Most Frequent Outcome'], 40, "primary", None)
 
                         st.divider()
 
