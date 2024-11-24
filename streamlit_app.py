@@ -391,7 +391,7 @@ def calculate_trade_statistics(trades_df):
         "Avg Profit Per Trade": f"{avg_profit_per_trade:.2f}",
         "Max Profit": f"{max_profit:.2f}",
         "Min Profit": f"{min_profit:.2f}",
-        "Most Frequent Trade Type": most_frequent_trade_type,
+        "Most Frequent Type": most_frequent_trade_type,
         # Risk Analysis
         "Max Drawdown": f"{max_drawdown:.2f}",
         "Avg Risk Per Trade": f"{avg_risk_per_trade:.2f}",
@@ -403,16 +403,17 @@ def calculate_trade_statistics(trades_df):
         "Most Active Time": f"{most_active_time}:00",
         "Avg Trade Volume": f"{avg_trade_volume:.2f}",
         "Largest Volume Trade": f"{largest_volume_trade:.2f}",
-        "Most Frequent Trade Outcome": most_frequent_trade_outcome,
+        "Most Frequent Outcome": most_frequent_trade_outcome,
         # Market Condition
-        "Best Day Profit": f"{best_day_profit} ({daily_profit[best_day_profit]:.2f})" if best_day_profit else "N/A",
-        "Worst Day Profit": f"{worst_day_profit} ({daily_profit[worst_day_profit]:.2f})" if worst_day_profit else "N/A",
+        "Best Day Profit": f"{daily_profit[best_day_profit]:.2f}" if best_day_profit else "N/A",
+        "Worst Day Profit": f"{daily_profit[worst_day_profit]:.2f}" if worst_day_profit else "N/A",
         "Average Daily Profit": f"{avg_daily_profit:.2f}" if not daily_profit.empty else "N/A",
-        "Best Week Profit": f"{best_week_profit.date()} ({weekly_profit[best_week_profit]:.2f})" if best_week_profit else "N/A",
-        "Worst Week Profit": f"{worst_week_profit.date()} ({weekly_profit[worst_week_profit]:.2f})" if worst_week_profit else "N/A",
+        "Best Week Profit": f"{weekly_profit[best_week_profit]:.2f}" if best_week_profit else "N/A",
+        "Worst Week Profit": f"{weekly_profit[worst_week_profit]:.2f}" if worst_week_profit else "N/A",
         "Best Symbol Profit": best_symbol_profit,
         "Worst Symbol Profit": worst_symbol_profit,
-        
+        "Avg Profit By Symbol": avg_profit_by_symbol,
+        "Profit Volatility By Symbol": profit_volatility_by_symbol
         }
     
     return stats
@@ -485,6 +486,10 @@ def accounts_page():
                 else:
                     trades_df['close_time'] = pd.to_datetime(trades_df['close_time'])
                     trades_df['cum_gain'] = trades_df['gain'].cumsum()
+                    trades_df['type'] = trades_df['type'].replace({
+                                            'DEAL_TYPE_SELL': 'Sell',
+                                            'DEAL_TYPE_BUY': 'Buy'
+                                        })
 
                     statistics = calculate_trade_statistics(trades_df)
 
@@ -537,7 +542,7 @@ def accounts_page():
                             metric_tile("performance_efficiency_stat_2", "Avg Profit Per Trade", statistics['Avg Profit Per Trade'], 40, "primary", None)
                             metric_tile("performance_efficiency_stat_3", "Max Profit", statistics['Max Profit'], 40, "primary", None)
                             metric_tile("performance_efficiency_stat_4", "Min Profit", statistics['Min Profit'], 40, "primary", None)
-                            metric_tile("performance_efficiency_stat_5", "Most Frequent Trade Type", statistics['Most Frequent Trade Type'], 40, "primary", None)
+                            metric_tile("performance_efficiency_stat_5", "Most Frequent Type", statistics['Most Frequent Type'], 40, "primary", None)
 
                         st.divider()
 
@@ -577,7 +582,7 @@ def accounts_page():
                             metric_tile("performance_behaviour_stat_2", "Most Active Time", statistics['Most Active Time'], 40, "primary", None)
                             metric_tile("performance_behaviour_stat_3", "Avg Trade Volume", statistics['Avg Trade Volume'], 40, "primary", None)
                             metric_tile("performance_behaviour_stat_4", "Largest Volume Trade", statistics['Largest Volume Trade'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_5", "Most Frequent Trade Outcome", statistics['Most Frequent Trade Outcome'], 40, "primary", None)
+                            metric_tile("performance_behaviour_stat_5", "Most Frequent Outcome", statistics['Most Frequent Outcome'], 40, "primary", None)
 
                         st.divider()
 
@@ -593,11 +598,11 @@ def accounts_page():
                                 st.markdown("**Chart**")
 
                         with stats:
-                            metric_tile("performance_market_stat_1", "Best Symbol Profit", "PLACEHOLDER", 40, "primary", None)
+                            metric_tile("performance_market_stat_1", "Best Symbol Profit", statistics['Best Symbol Profit'], 40, "primary", None)
                             metric_tile("performance_market_stat_2", "Worst Symbol Profit", statistics['Worst Symbol Profit'], 40, "primary", None)
                             metric_tile("performance_market_stat_3", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", None)
-                            metric_tile("performance_market_stat_4", "Avg Profit By Symbol", f"{statistics['Avg Profit By Symbol']}", 40, "primary", None)
-                            metric_tile("performance_market_stat_5", "Profit Volatility By Symbol", f"{statistics['Profit Volatility By Symbol']}", 40, "primary", None)
+                            metric_tile("performance_market_stat_4", "Stat 4", "Value", 40, "primary", None)
+                            metric_tile("performance_market_stat_5", "Stat 5", "Value", 40, "primary", None)
 
                         st.divider()
 
@@ -623,7 +628,54 @@ def accounts_page():
                         st.subheader("Trading Jorunal", anchor=False)
                         st.caption(f"Journal of all trades for account {account_selection}.")
 
-                        st.dataframe(data=trades_df, hide_index=True, use_container_width=True)
+                        # Create the new DataFrame with renamed columns
+                        trades_display = trades_df.rename(columns={
+                            'ticket': 'Ticket',
+                            'symbol': 'Symbol',
+                            'type': 'Type',
+                            'volume': 'Volume',
+                            'open_time': 'Open Time',
+                            'open_price': 'Open Price',
+                            'close_time': 'Close Time',
+                            'close_price': 'Close Price',
+                            'profit': 'Profit',
+                            'gain': 'Gain'
+                        })[
+                            ['Ticket', 'Symbol', 'Type', 'Volume', 'Open Time', 
+                            'Open Price', 'Close Time', 'Close Price', 'Profit', 'Gain']
+                        ]
+
+                        # Add an empty Notes column if not present
+                        if "Notes" not in trades_display.columns:
+                            trades_display['Notes'] = ""
+
+                        # Editable table with disabled columns for read-only data
+                        edited_trades_display = st.data_editor(
+                            trades_display,
+                            column_config={
+                                "Ticket": "Ticket",
+                                "Symbol": "Symbol",
+                                "Type": "Trade Type",
+                                "Volume": "Volume",
+                                "Open Time": "Open Time",
+                                "Open Price": "Open Price",
+                                "Close Time": "Close Time",
+                                "Close Price": "Close Price",
+                                "Profit": "Profit",
+                                "Gain": "Gain",
+                                "Notes": st.column_config.TextColumn(
+                                    "Notes",
+                                    help="Add notes for each trade",
+                                    max_chars=500,
+                                ),
+                            },
+                            disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
+                                    "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
+                            hide_index=True
+                        )
+
+                        st.dataframe(data=trades_display, hide_index=True, use_container_width=True)
+                        
 
         else:
             st.info("No Account Selected")
