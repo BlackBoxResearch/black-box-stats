@@ -2,12 +2,13 @@ import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.bottom_container import bottom
 from st_social_media_links import SocialMediaIcons
-from sqlalchemy.sql import text  # Import text from sqlalchemy
+from sqlalchemy.sql import text
 import time
 import pandas as pd
 import altair as alt
 
 st.set_page_config(layout="centered")
+
 st.logo(image="static/bbs_type_logo.png", size="large")    
 
 def metric_tile(key, stat, value, height, type, tooltip):
@@ -201,7 +202,7 @@ def scatter_chart(data, x, y, x_label, y_label, height=280):
                 color='#94b9ff',  # Solid blue color
                 opacity=0.7  # Set overall opacity of points
     ).encode(
-        x=alt.X(f'{x}:T', title=x_label),  # Specify temporal data type
+        x=alt.X(f'{x}:Q', title=x_label),  # Specify quantitative data type
         y=alt.Y(f'{y}:Q', title=y_label)  # Specify quantitative data type
     ).properties(
         height=height,  # Set the height of the chart
@@ -417,7 +418,6 @@ def calculate_trade_statistics(trades_df):
         }
     
     return stats
-
 
 def dashboard_page():
     with st.container(border=False):
@@ -741,7 +741,6 @@ def settings_page():
 def logout_page():
     gradient_text("Logout", "2em")
 
-# Define pages as a dictionary of page groups and individual pages
 pages = {
     "Home": [
         st.Page(dashboard_page, title="Dashboard", icon=":material/dashboard:"),
@@ -807,6 +806,5 @@ with st.sidebar:
 
         social_media_icons.render()
 
-# Set up the navigation
 pg = st.navigation(pages, position="sidebar")
 pg.run()
