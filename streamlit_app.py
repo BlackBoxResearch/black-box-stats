@@ -690,6 +690,56 @@ def accounts_page():
                             use_container_width=True
                         )
 
+                    with tab3:
+
+                        # Remove existing cum_gain column if it exists
+                        if 'cum_gain' in trades_df.columns:
+                            trades_df = trades_df.drop(columns=['cum_gain'])
+
+                        # Parse dates and extract day of the week
+                        trades_df['open_time'] = pd.to_datetime(trades_df['open_time'])
+                        trades_df['Day of Week'] = trades_df['open_time'].dt.day_name()
+
+                        # Sidebar for "What-If" analysis
+                        st.header("What-If Analysis Filters")
+
+                        # 1. Checkbox for trading days
+                        days_of_week = trades_df['Day of Week'].unique()
+                        selected_days = st.multiselect(
+                            "Select Trading Days", options=days_of_week, default=days_of_week
+                        )
+
+                        # 2. Checkbox for symbols
+                        symbols = trades_df['symbol'].unique()
+                        selected_symbols = st.multiselect(
+                            "Select Symbols", options=symbols, default=symbols
+                        )
+
+                        # 3. Checkbox for trade direction
+                        directions = trades_df['type'].unique()
+                        selected_directions = st.multiselect(
+                            "Select Trade Direction", options=directions, default=directions
+                        )
+
+                        # Filter the dataframe based on selected options
+                        filtered_df = trades_df[
+                            (trades_df['Day of Week'].isin(selected_days)) &
+                            (trades_df['symbol'].isin(selected_symbols)) &
+                            (trades_df['type'].isin(selected_directions))
+                        ]
+
+                        # Calculate new cumulative gain on the filtered dataframe
+                        filtered_df['cum_gain'] = filtered_df['gain'].cumsum()
+
+                        # Display filtered results
+                        st.header("Filtered Trades")
+                        st.dataframe(filtered_df)
+
+                        # Display impact on cumulative gain
+                        st.subheader("Impact of Filters on Cumulative Gain")
+                        st.line_chart(filtered_df['cum_gain'])
+
+
         else:
             st.info("No Account Selected")
       
