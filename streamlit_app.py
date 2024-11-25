@@ -771,11 +771,23 @@ def accounts_page():
                         # Display filtered results
                         with filter:
                             st.subheader("Filtered Trades", anchor=False)
+
+                        st.caption("See below your trading history, with the filters applied.")
                         st.dataframe(filtered_df, hide_index=True)
 
                         # Display impact on cumulative gain
                         st.subheader("Impact of Filters on Cumulative Gain")
-                        line_chart(filtered_df, 'Open Time', 'Total Gain', 'Open Time', 'Cumulative Gain (%)')
+                        with tile("overview_chart", 385):
+                            st.markdown("**Filtered Trading Performance**")
+
+                            line_chart(
+                                filtered_df, 
+                                'Open Time', 
+                                'Total Gain', 
+                                'Open Time', 
+                                'Cumulative Gain (%)',
+                                height=335
+                                )
 
         else:
             st.info("No Account Selected")
