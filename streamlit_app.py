@@ -493,7 +493,24 @@ def accounts_page():
 
                     statistics = calculate_trade_statistics(trades_df)
 
-                    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Performance", "Trade Journal", "Analytic Tools", "AI Insights", "Settings"])
+                    # Create the new DataFrame with renamed columns
+                    trades_display = trades_df.rename(columns={
+                        'ticket': 'Ticket',
+                        'symbol': 'Symbol',
+                        'type': 'Type',
+                        'volume': 'Volume',
+                        'open_time': 'Open Time',
+                        'open_price': 'Open Price',
+                        'close_time': 'Close Time',
+                        'close_price': 'Close Price',
+                        'profit': 'Profit',
+                        'gain': 'Gain'
+                    })[
+                        ['Ticket', 'Symbol', 'Type', 'Volume', 'Open Time', 
+                        'Open Price', 'Close Time', 'Close Price', 'Profit', 'Gain']
+                    ]
+
+                    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Performance", "Trade Journal", "Advanced Analytics", "AI Insights", "Settings"])
 
                     with tab1: # ------ PERFORMANCE STATS ------ #
                         
@@ -643,23 +660,6 @@ def accounts_page():
                         st.subheader("Trading Jorunal", anchor=False)
                         st.caption(f"Journal of all trades for account {account_selection}.")
 
-                        # Create the new DataFrame with renamed columns
-                        trades_display = trades_df.rename(columns={
-                            'ticket': 'Ticket',
-                            'symbol': 'Symbol',
-                            'type': 'Type',
-                            'volume': 'Volume',
-                            'open_time': 'Open Time',
-                            'open_price': 'Open Price',
-                            'close_time': 'Close Time',
-                            'close_price': 'Close Price',
-                            'profit': 'Profit',
-                            'gain': 'Gain'
-                        })[
-                            ['Ticket', 'Symbol', 'Type', 'Volume', 'Open Time', 
-                            'Open Price', 'Close Time', 'Close Price', 'Profit', 'Gain']
-                        ]
-
                         # Add an empty Notes column if not present
                         if "Notes" not in trades_display.columns:
                             trades_display['Notes'] = ""
@@ -690,55 +690,89 @@ def accounts_page():
                             use_container_width=True
                         )
 
-                    with tab3:
-
-                        # Remove existing cum_gain column if it exists
-                        if 'cum_gain' in trades_df.columns:
-                            trades_df = trades_df.drop(columns=['cum_gain'])
+                    with tab3: # ------ Advanced Analytics ------ #
+                        st.subheader("Advanced Analytics", anchor=False)
+                        st.caption(f"Avanced analytical tools to delve further into your trading performance for account {account_selection}.")
 
                         # Parse dates and extract day of the week
-                        trades_df['open_time'] = pd.to_datetime(trades_df['open_time'])
-                        trades_df['Day of Week'] = trades_df['open_time'].dt.day_name()
+                        trades_display['Open Time'] = pd.to_datetime(trades_display['Open Time'])
+                        trades_display['Day of Week'] = trades_display['Open Time'].dt.day_name()
 
-                        # Sidebar for "What-If" analysis
-                        st.header("What-If Analysis Filters")
 
-                        # 1. Checkbox for trading days
-                        days_of_week = trades_df['Day of Week'].unique()
-                        selected_days = st.multiselect(
-                            "Select Trading Days", options=days_of_week, default=days_of_week
-                        )
+                        with st.popover("Filters", icon=":material/filter_alt:"):
+                            
+                            st.subheader("What-If Analysis Filters", anchor=False)
+                            st.caption("Apply filters to your original trading history, to identify areas of potential improvement to your strategy.")
+                            col1, col2 = st.columns(2, vertical_alignment="top")
 
-                        # 2. Checkbox for symbols
-                        symbols = trades_df['symbol'].unique()
-                        selected_symbols = st.multiselect(
-                            "Select Symbols", options=symbols, default=symbols
-                        )
+                            with col1:
+                                with st.container(border=True, height=340):
 
-                        # 3. Checkbox for trade direction
-                        directions = trades_df['type'].unique()
-                        selected_directions = st.multiselect(
-                            "Select Trade Direction", options=directions, default=directions
-                        )
+                                    # 1. Checkbox for trading days
+                                    all_days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                                    existing_days = trades_display['Day of Week'].unique()
+
+                                    # Display checkboxes for each day, with existing days checked by default
+                                    selected_days = []
+                                    st.markdown("**Trading Days**")
+                                    for day in all_days_of_week:
+                                        # If the day exists in the data, make the checkbox enabled and checked by default
+                                        if day in existing_days:
+                                            if st.checkbox(day, value=True):
+                                                selected_days.append(day)
+                                        # If the day doesn't exist in the data, display the checkbox but disable it
+                                        else:
+                                            st.checkbox(day, value=False, disabled=True)
+
+                            with col2:
+                                with st.container(border=True, height=140):
+                                    # Get unique trade directions present in the data
+                                    all_directions = ['Buy', 'Sell']
+                                    existing_directions = trades_display['Type'].unique()
+
+                                    # Sidebar for "What-If" analysis
+                                    st.markdown("**Trade Direction**")
+
+                                    # Display checkboxes for each trade direction, with existing directions checked by default
+                                    selected_directions = []
+                                    for direction in all_directions:
+                                        # If the direction exists in the data, make the checkbox enabled and checked by default
+                                        if direction in existing_directions:
+                                            if st.checkbox(direction, value=True):
+                                                selected_directions.append(direction)
+                                        # If the direction doesn't exist in the data, display the checkbox but disable it
+                                        else:
+                                            st.checkbox(direction, value=False, disabled=True)
+
+                            with col2:
+                                with st.container(border=True, height=183):
+
+                                    # 3. Checkbox for symbols
+                                    symbols = trades_display['Symbol'].unique()
+                                    selected_symbols = st.multiselect(
+                                        "Select Symbols", options=symbols, default=symbols
+                                    )
 
                         # Filter the dataframe based on selected options
-                        filtered_df = trades_df[
-                            (trades_df['Day of Week'].isin(selected_days)) &
-                            (trades_df['symbol'].isin(selected_symbols)) &
-                            (trades_df['type'].isin(selected_directions))
+                        filtered_df = trades_display[
+                            (trades_display['Day of Week'].isin(selected_days)) &
+                            (trades_display['Symbol'].isin(selected_symbols)) &
+                            (trades_display['Type'].isin(selected_directions))
                         ]
 
                         # Calculate new cumulative gain on the filtered dataframe
-                        filtered_df['cum_gain'] = filtered_df['gain'].cumsum()
+                        filtered_df['Total Gain'] = filtered_df['Gain'].cumsum()
+
+
+                        filtered_df = filtered_df.drop(columns=['Notes', 'Day of Week'])
 
                         # Display filtered results
-                        st.header("Filtered Trades")
-                        st.dataframe(filtered_df)
+                        st.subheader("Filtered Trades", anchor=False)
+                        st.dataframe(filtered_df, hide_index=True)
 
                         # Display impact on cumulative gain
                         st.subheader("Impact of Filters on Cumulative Gain")
-                        st.line_chart(filtered_df['cum_gain'])
-
+                        line_chart(filtered_df, 'Open Time', 'Total Gain', 'Open Time', 'Cumulative Gain (%)')
 
         else:
             st.info("No Account Selected")
