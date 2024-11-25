@@ -6,6 +6,7 @@ from sqlalchemy.sql import text
 import time
 import pandas as pd
 import altair as alt
+import random
 
 st.set_page_config(layout="centered")
 
@@ -421,7 +422,28 @@ def calculate_trade_statistics(trades_df):
 
 def dashboard_page():
     with st.container(border=False):
-        gradient_text("Welcome, Ben!", "2em")
+        gradient_text("Welcome, Ben!", "3em")
+        
+        with tile("quite_tile", 25):
+            # List of finance-related funny quotes
+            quotes = [
+                "*\"Inflation is necessary for my financial goals.\"* - **Fed Chair Powell**",
+                "*\"Diversification is admitting you have no idea what's going to happen.\"* - **Every Wealth Manager Ever**",
+                "*\"Remember, you can’t lose money if you don’t check your account.\"* - **Ancient Investing Proverb**",
+                "*\"Bulls make money, bears make money, and my broker takes it all.\"* - **Every Trader**",
+                "*\"Crypto is the future, just like flying cars were in the 80s.\"* - **Blockchain Evangelist**",
+                "*\"If your portfolio doesn’t scare you a little, are you even trying?\"* - **Risk-Tolerant Optimist**",
+                "*\"The market can stay irrational longer than you can stay solvent.\"* - **Trader in Tears**",
+                "*\"HODL is just a fancy way of saying 'I forgot my password.'\"* - **Casual Crypto Investor**",
+                "*\"Stop-losses are for quitters.\"* - **Overconfident Trader**",
+                "*\"Retirement is a myth created by people who bought Apple in 1980.\"* - **Jealous Millennial**"
+            ]
+
+            # Select a random quote
+            random_quote = random.choice(quotes)
+
+            # Display the quote
+            st.caption(random_quote)
 
 def accounts_page():
     with st.container(border=False):
@@ -788,7 +810,7 @@ def accounts_page():
                                 'Cumulative Gain (%)',
                                 height=335
                                 )
-
+                        
         else:
             st.info("No Account Selected")
       
