@@ -424,7 +424,7 @@ def dashboard_page():
     with st.container(border=False):
         gradient_text("Welcome, Ben!", "3em")
         
-        with tile("quite_tile", 25):
+        with tile("quote_tile", 25):
             # List of finance-related funny quotes
             quotes = [
                 "*\"Inflation is necessary for my financial goals.\"* - **Fed Chair Powell**",
@@ -727,55 +727,53 @@ def accounts_page():
                                 
                                 st.subheader("What-If Analysis Filters", anchor=False)
                                 st.caption("Apply filters to your original trading history, to identify areas of potential improvement to your strategy.")
-                                col1, col2 = st.columns(2, vertical_alignment="top")
+                                
+                                with st.expander("Weekday", icon=":material/date_range:"):
 
-                                with col1:
-                                    with st.container(border=True, height=340):
+                                    # 1. Checkbox for trading days
+                                    all_days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                                    existing_days = trades_display['Day of Week'].unique()
 
-                                        # 1. Checkbox for trading days
-                                        all_days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                                        existing_days = trades_display['Day of Week'].unique()
+                                    # Display checkboxes for each day, with existing days checked by default
+                                    selected_days = []
+                                    st.markdown("**Trading Days**")
+                                    for day in all_days_of_week:
+                                        # If the day exists in the data, make the checkbox enabled and checked by default
+                                        if day in existing_days:
+                                            if st.checkbox(day, value=True):
+                                                selected_days.append(day)
+                                        # If the day doesn't exist in the data, display the checkbox but disable it
+                                        else:
+                                            st.checkbox(day, value=False, disabled=True)
 
-                                        # Display checkboxes for each day, with existing days checked by default
-                                        selected_days = []
-                                        st.markdown("**Trading Days**")
-                                        for day in all_days_of_week:
-                                            # If the day exists in the data, make the checkbox enabled and checked by default
-                                            if day in existing_days:
-                                                if st.checkbox(day, value=True):
-                                                    selected_days.append(day)
-                                            # If the day doesn't exist in the data, display the checkbox but disable it
-                                            else:
-                                                st.checkbox(day, value=False, disabled=True)
+                            
+                                with st.expander("Types", icon=":material/swap_vert:"):
+                                    # Get unique trade directions present in the data
+                                    all_directions = ['Buy', 'Sell']
+                                    existing_directions = trades_display['Type'].unique()
 
-                                with col2:
-                                    with st.container(border=True, height=140):
-                                        # Get unique trade directions present in the data
-                                        all_directions = ['Buy', 'Sell']
-                                        existing_directions = trades_display['Type'].unique()
+                                    # Sidebar for "What-If" analysis
+                                    st.markdown("**Trade Direction**")
 
-                                        # Sidebar for "What-If" analysis
-                                        st.markdown("**Trade Direction**")
+                                    # Display checkboxes for each trade direction, with existing directions checked by default
+                                    selected_directions = []
+                                    for direction in all_directions:
+                                        # If the direction exists in the data, make the checkbox enabled and checked by default
+                                        if direction in existing_directions:
+                                            if st.checkbox(direction, value=True):
+                                                selected_directions.append(direction)
+                                        # If the direction doesn't exist in the data, display the checkbox but disable it
+                                        else:
+                                            st.checkbox(direction, value=False, disabled=True)
 
-                                        # Display checkboxes for each trade direction, with existing directions checked by default
-                                        selected_directions = []
-                                        for direction in all_directions:
-                                            # If the direction exists in the data, make the checkbox enabled and checked by default
-                                            if direction in existing_directions:
-                                                if st.checkbox(direction, value=True):
-                                                    selected_directions.append(direction)
-                                            # If the direction doesn't exist in the data, display the checkbox but disable it
-                                            else:
-                                                st.checkbox(direction, value=False, disabled=True)
+                            
+                                with st.expander("Symbols", icon=":material/paid:"):
 
-                                with col2:
-                                    with st.container(border=True, height=183):
-
-                                        # 3. Checkbox for symbols
-                                        symbols = trades_display['Symbol'].unique()
-                                        selected_symbols = st.multiselect(
-                                            "Select Symbols", options=symbols, default=symbols
-                                        )
+                                    # 3. Checkbox for symbols
+                                    symbols = trades_display['Symbol'].unique()
+                                    selected_symbols = st.multiselect(
+                                        "Select Symbols", options=symbols, default=symbols
+                                    )
 
                         # Filter the dataframe based on selected options
                         filtered_df = trades_display[
