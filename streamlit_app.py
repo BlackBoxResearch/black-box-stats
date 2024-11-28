@@ -859,6 +859,26 @@ def systems_page():
         st.markdown("### Highest Growth")
         st.markdown(df.to_html(index=False, escape=False), unsafe_allow_html=True)
 
+        # Sample data
+        data = [
+            {"Name": "Alice", "Value": 10},
+            {"Name": "Bob", "Value": 20},
+            {"Name": "Charlie", "Value": 30},
+        ]
+
+        df = pd.DataFrame(data)
+
+        # Display the table with buttons
+        st.write("### Table with Buttons")
+
+        for index, row in df.iterrows():
+            cols = st.columns(3)  # Create columns
+            cols[0].write(row["Name"])  # First column: Name
+            cols[1].write(row["Value"])  # Second column: Value
+            # Third column: Button
+            if cols[2].button("Action", key=f"btn_{index}"):
+                st.write(f"Button in row {index + 1} clicked!")
+
 def settings_page():
     with st.container(border=False):
         gradient_text("Settings", "2em")
@@ -918,6 +938,7 @@ with st.sidebar:
             """,
             unsafe_allow_html=True
         )
+        
 
         st.markdown("")
     
