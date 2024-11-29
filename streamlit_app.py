@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.bottom_container import bottom
+from streamlit_elements import mui, elements
 from st_social_media_links import SocialMediaIcons
 from sqlalchemy.sql import text
 import time
@@ -420,6 +421,129 @@ def calculate_trade_statistics(trades_df):
     
     return stats
 
+def animated_container(key: str, content: str):
+    """
+    A function to create an animated container with custom content.
+
+    Args:
+        key (str): The container's unique key.
+        content (str): The HTML content to display inside the container.
+    """
+    css_styles = """
+        .animated-container {
+            position: relative;
+            padding: 20px; /* Adjust padding as needed */
+            margin-bottom: 20px; /* Add vertical spacing between containers */
+            border-radius: 1rem; /* Rounded corners */
+            background-color: #171717; /* Inner container background */
+            color: #ffffff; /* Text color */
+            z-index: 2;
+            width: 100%;
+        }
+
+        @property --angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .animated-container::after, .animated-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1rem; /* Match the container's border-radius */
+            padding: 2px; /* Border thickness */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            background-image: conic-gradient(from var(--angle), #94B9FF, #CDFFD8, #94B9FF); /* Smooth circular loop */
+            z-index: -2; /* Place behind the content */
+            animation: spin 3s linear infinite;
+        }
+
+        .animated-container::after {
+            filter: blur(40px);
+            opacity: 0.5;
+        }
+
+        @keyframes spin {
+            from {
+                --angle: 0deg;
+            }
+            to {
+                --angle: 360deg;
+            }
+        }
+    """
+
+    with stylable_container(key=key, css_styles=css_styles):
+        st.markdown(
+            f"""
+            <div class="animated-container">{content}</div>
+            """,
+            unsafe_allow_html=True
+        )
+
+def hover_container(key: str, content: str):
+    """
+    A function to create a hoverable container with custom content.
+
+    Args:
+        key (str): The container's unique key.
+        content (str): The HTML content to display inside the container.
+    """
+    css_styles = """
+        .gradient-container {
+            position: relative;
+            padding: 20px; /* Adjust padding as needed */
+            margin-bottom: 20px; /* Add vertical spacing between containers */
+            border-radius: 1rem; /* Rounded corners */
+            background-color: #171717; /* Inner container background */
+            color: #ffffff; /* Text color */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            z-index: 1;
+            width: 100%;
+        }
+        .gradient-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1rem; /* Match the container's border-radius */
+            padding: 2px; /* Border thickness */
+            background: linear-gradient(to bottom right, #94B9FF, #CDFFD8); /* Gradient border */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            z-index: -1; /* Place behind the content */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+        }
+        .gradient-container:hover {
+            background-color: #1e1e1e; /* Slightly lighter background on hover */
+            box-shadow: 20px 0 100px #94B9FF40, -20px 0 100px #CDFFD840;
+        }
+        .gradient-container:hover::before {
+            background: linear-gradient(90deg, #94B9FF, #CDFFD8); /* Reverse gradient on hover */
+        }
+    """
+
+    with stylable_container(key=key, css_styles=css_styles):
+        st.markdown(
+            f"""
+            <div class="gradient-container">{content}</div>
+            """,
+            unsafe_allow_html=True
+        )
+
 def dashboard_page():
     with st.container(border=False):
         gradient_text("Welcome, Ben!", "3em")
@@ -444,6 +568,8 @@ def dashboard_page():
 
             # Display the quote
             st.caption(random_quote)
+
+    animated_container("test", "test")
 
 def accounts_page():
     with st.container(border=False):
@@ -816,72 +942,72 @@ def systems_page():
     with st.container(border=False):
         gradient_text("Systems", "2em")
 
-        # Sample data
-        data = {
-            "Position": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            "Name": ["Jonny D", "Mathe W", "Mathe W", "Rami H", "Joseph G", "Jessikan B", "Ajit A", "Hamed T", "Jonny D", "Ali B"],
-            "Account Size": ["$10,000.00", "$200,000.00", "$200,000.00", "$100,000.00", "$200,000.00", "$200,000.00", "$200,000.00", "$200,000.00", "$10,000.00", "$25,000.00"],
-            "Account Gain": ["$433.80", "$10,321.75", "$8,067.62", "$3,240.85", "$5,471.17", "$5,087.50", "$4,977.00", "$4,716.26", "$166.00", "$348.39"],
-            "Gain %": ["5.34%", "5.16%", "4.03%", "3.24%", "2.74%", "2.54%", "2.49%", "2.36%", "1.66%", "1.4%"],
-            "Country": ["United Kingdom", "United Arab Emirates", "United Arab Emirates", "Canada", "--", "Australia", "Belgium", "--", "United Kingdom", "United Kingdom"]
-        }
+    # Sample data
+    data = {
+        "Position": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "Name": ["Jonny D", "Mathe W", "Mathe W", "Rami H", "Joseph G", "Jessikan B", "Ajit A", "Hamed T", "Jonny D", "Ali B"],
+        "Account Size": ["$10,000.00", "$200,000.00", "$200,000.00", "$100,000.00", "$200,000.00", "$200,000.00", "$200,000.00", "$200,000.00", "$10,000.00", "$25,000.00"],
+        "Account Gain": ["$433.80", "$10,321.75", "$8,067.62", "$3,240.85", "$5,471.17", "$5,087.50", "$4,977.00", "$4,716.26", "$166.00", "$348.39"],
+        "Gain %": ["5.34%", "5.16%", "4.03%", "3.24%", "2.74%", "2.54%", "2.49%", "2.36%", "1.66%", "1.4%"],
+        "Country": ["United Kingdom", "United Arab Emirates", "United Arab Emirates", "Canada", "--", "Australia", "Belgium", "--", "United Kingdom", "United Kingdom"]
+    }
 
-        # Create a DataFrame
-        df = pd.DataFrame(data)
+        # Sample data for the DataGrid
+    rows = [
+        {"id": 1, "col1": "Hello", "col2": "World"},
+        {"id": 2, "col1": "Streamlit", "col2": "MUI"},
+        {"id": 3, "col1": "Button", "col2": "Example"},
+    ]
 
-        # Custom styles for leaderboard
-        st.markdown(
-            """
-            <style>
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 1em;
-                }
-                th, td {
-                    border-bottom: 1px solid #ddd;
-                    text-align: left;
-                    padding: 8px;
-                }
-                th {
-                    background-color: #111111;
-                    color: white;
-                }
-                tr:nth-child(even) {
-                    background-color: #111111;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+    columns = [
+        {"field": "col1", "headerName": "Column 1", "width": 150},
+        {"field": "col2", "headerName": "Column 2", "width": 150},
+        {
+            "field": "action",
+            "headerName": "Action",
+            "width": 150,
+            "renderCell": lambda params: mui.Button(
+                "Click Me",
+                variant="contained",
+                color="primary",
+                onClick=lambda: st.write(f"Button clicked for row {params['id']}")
+            )
+        },
+    ]
 
-        # Display the leaderboard
-        st.markdown("### Highest Growth")
-        st.markdown(df.to_html(index=False, escape=False), unsafe_allow_html=True)
-
-        # Sample data
-        data = [
-            {"Name": "Alice", "Value": 10},
-            {"Name": "Bob", "Value": 20},
-            {"Name": "Charlie", "Value": 30},
-        ]
-
-        df = pd.DataFrame(data)
-
-        # Display the table with buttons
-        st.write("### Table with Buttons")
-
-        for index, row in df.iterrows():
-            cols = st.columns(3)  # Create columns
-            cols[0].write(row["Name"])  # First column: Name
-            cols[1].write(row["Value"])  # Second column: Value
-            # Third column: Button
-            if cols[2].button("Action", key=f"btn_{index}"):
-                st.write(f"Button in row {index + 1} clicked!")
-
+    with st.container(border=True):
+        with elements("datagrid"):
+            mui.DataGrid(
+                rows=rows,
+                columns=columns,
+                autoHeight=True,
+                pageSize=5,
+                rowsPerPageOptions=[5, 10],
+                sx={
+                    "backgroundColor": "171717",  # DataGrid itself transparent
+                    "color": "white",  # Text color for contrast
+                    "border": "none",  # Remove borders
+                },
+            )
+        
 def settings_page():
     with st.container(border=False):
         gradient_text("Settings", "2em")
+
+        with stylable_container(
+            key="container",
+            css_styles="""
+            {
+                background-color: #171717;
+                border-radius: 0.5rem;
+                border: 1px solid white;
+                padding: calc(1em - 1px);
+                color: #ffffff;
+            }
+            """
+        ):
+            with st.container():
+                st.write("Test")
 
 def logout_page():
     gradient_text("Logout", "2em")
@@ -898,50 +1024,58 @@ pages = {
     ],
 }
 
-with st.sidebar:
-    with st.container(border=True):
-        st.markdown(
-            """
-            <h3 style="
-                font-size: 1.5em;
-                font-weight: bold;
-                text-align: left;">
-                Upgrade to pro for Life
-            </h3>
-            """,
-            unsafe_allow_html=True
-        )
-
-        gradient_text("Limited lifetime deal ends soon!", "1em")
-
-        st.caption("After this exclusive early access deal, we are switching to monthly/annual pricing.")
-
-        # Button with a link using st.markdown
-        st.markdown(
-            """
-            <div style="text-align: center;">
-                <a href="https://pay.analytiq.trade/b/test_6oE0043QndEzbLi5kk" 
-                    target="_blank" 
-                    style="
-                        display: inline-block; 
-                        padding: 0.5em 1em; 
-                        background-image: linear-gradient(90deg, #CDFFD8, #94B9FF); 
-                        color: #111111; 
-                        text-decoration: none; 
-                        font-size: 0.85em;
-                        border-radius: 0.5rem;
-                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                    ">
-                    ✨ Upgrade Now
-                </a>
+with st.sidebar:   
+    animated_container(
+        key="promo_hover", 
+        content="""
+            <div>
+                <h3 style="
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    text-align: left;
+                    font-family: 'Segoe UI', sans-serif;
+                    margin: 0;
+                    color: #FFFFFF;">
+                    Upgrade to Pro for Life
+                </h3>
+                <p style="
+                    font-size: 1em; 
+                    font-weight: bold; 
+                    font-family: 'Segoe UI', sans-serif;
+                    background: linear-gradient(90deg, #CDFFD8, #94B9FF); 
+                    -webkit-background-clip: text; 
+                    -webkit-text-fill-color: transparent;
+                    margin: 5px 0;">
+                    Limited lifetime deal ends soon!
+                </p>
+                <p style="
+                    font-size: 0.85em; 
+                    font-family: 'Segoe UI', sans-serif;
+                    color: #CCCCCC; 
+                    margin: 10px 0;">
+                    After this exclusive early access deal, we are switching to monthly/annual pricing.
+                </p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="https://pay.analytiq.trade/b/test_6oE0043QndEzbLi5kk" 
+                        target="_blank" 
+                        style="
+                            display: inline-block; 
+                            padding: 0.5em 1em; 
+                            background-image: linear-gradient(90deg, #CDFFD8, #94B9FF); 
+                            color: #111111; 
+                            text-decoration: none; 
+                            font-size: 0.85em;
+                            border-radius: 0.5rem;
+                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                            transition: transform 0.2s ease, box-shadow 0.2s ease;
+                        ">
+                        ✨ Upgrade Now
+                    </a>
+                </div>
             </div>
-            """,
-            unsafe_allow_html=True
+        """
         )
-        
 
-        st.markdown("")
-    
     with bottom():
         social_media_links = [
             "https://x.com/blackboxstats",
