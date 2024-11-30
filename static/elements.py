@@ -104,10 +104,6 @@ def gradient_button(label, key, icon):
                         button:active {{
                             transform: scale(0.98);
                         }}
-
-                        button:hover {{
-                            box-shadow: 10px 0 100px {color_1}80, -10px 0 100px {color_2}80;
-                        }}
                         ''',
     ):
         return st.button(label=label, key=key, icon=icon, use_container_width=True)
