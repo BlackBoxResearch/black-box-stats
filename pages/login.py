@@ -64,7 +64,7 @@ def LoginPage():
             email = st.text_input("Email")
             password = st.text_input("Password", type="password")
 
-            if st.button("Sign In", use_container_width=True, type='secondary'):
+            if st.button(key="sign_in_button", label="Sign In", use_container_width=True, type='secondary'):
                 user_id, email, first_name, last_name, subscription_level = check_login(email, password)
                 if email:
                     # Reset the logged_out state when logging in successfully
