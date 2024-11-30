@@ -1,5 +1,5 @@
 from utils.auth import check_login, register_user
-from static.elements import gradient_button
+from static.elements import gradient_button, gradient_text
 
 import streamlit as st
 
@@ -52,7 +52,7 @@ def open_register_dialog():
 def LoginPage():
     with st.container(border=False):
         #st.image(image="static/bbs_type_logo.png")
-        st.subheader("Sign up today for free!", anchor=False)
+        gradient_text("Sign up today for free!", "1em")
         st.caption("Or sign into your account")
     
 
