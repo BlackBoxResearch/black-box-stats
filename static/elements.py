@@ -121,7 +121,7 @@ def gradient_text(text, font_size):
                     f'''
                     <h3 style="
                         font-size: {font_size};
-                        background: linear-gradient(90deg, {color_1}, {color_2}, {color_1});
+                        background: linear-gradient(90deg, {color_1}, {color_2}, {color_1}, {color_2}, {color_1});
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                         font-weight: bold;
