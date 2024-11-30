@@ -177,7 +177,7 @@ def AccountsPage():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("overview_chart", 385):
+                            with tile("overview_chart", 385, border=True):
                                 st.markdown("**Overview**")
 
                                 line_chart(
@@ -190,11 +190,11 @@ def AccountsPage():
                                 )
 
                         with stats:
-                            metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 40, "secondary", None)
-                            metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 40, "primary", None)
-                            metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 40, "primary", None)
-                            metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 40, "primary", None)
-                            metric_tile("performance_overview_stat_5", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", None)
+                            metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 40, "secondary", tooltip=None, border=False)
+                            metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_5", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", tooltip=None, border=True)
 
                         st.divider()
 
@@ -206,7 +206,7 @@ def AccountsPage():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("trade_efficiency_chart", 385):
+                            with tile("trade_efficiency_chart", 385, border=True):
                                 st.markdown("**Gain vs. Duration**")
 
                                 scatter_chart(
@@ -219,11 +219,11 @@ def AccountsPage():
                                 )
 
                         with stats:
-                            metric_tile("performance_efficiency_stat_1", "Avg Trade Duration", statistics['Avg Trade Duration'], 40, "primary", None)
-                            metric_tile("performance_efficiency_stat_2", "Avg Profit Per Trade", statistics['Avg Profit Per Trade'], 40, "primary", None)
-                            metric_tile("performance_efficiency_stat_3", "Max Profit", statistics['Max Profit'], 40, "primary", None)
-                            metric_tile("performance_efficiency_stat_4", "Min Profit", statistics['Min Profit'], 40, "primary", None)
-                            metric_tile("performance_efficiency_stat_5", "Most Frequent Type", statistics['Most Frequent Type'], 40, "primary", None)
+                            metric_tile("performance_efficiency_stat_1", "Avg Trade Duration", statistics['Avg Trade Duration'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_efficiency_stat_2", "Avg Profit Per Trade", statistics['Avg Profit Per Trade'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_efficiency_stat_3", "Max Profit", statistics['Max Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_efficiency_stat_4", "Min Profit", statistics['Min Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_efficiency_stat_5", "Most Frequent Type", statistics['Most Frequent Type'], 40, "primary", tooltip=None, border=True)
 
                         st.divider()
 
@@ -235,20 +235,20 @@ def AccountsPage():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("risk_analysis_chart_1", 170):
+                            with tile("risk_analysis_chart_1", 170, border=True):
                                 st.markdown("**Chart 1**")
 
-                            with tile("risk_analysis_chart_2", 170):
+                            with tile("risk_analysis_chart_2", 170, border=True):
                                 st.markdown("**Chart 2**")
 
                         with stats:
-                            metric_tile("performance_risk_stat_1", "Max Drawdown", statistics['Max Drawdown'], 40, "primary", None)
-                            metric_tile("performance_risk_stat_2", "Avg Risk Per Trade", statistics['Avg Risk Per Trade'], 40, "primary", None)
-                            metric_tile("performance_risk_stat_3", "Sharpe Ratio", statistics['Sharpe Ratio'], 40, "primary", None)
-                            metric_tile("performance_risk_stat_4", "Risk Reward Ratio", statistics['Risk Reward Ratio'], 40, "primary", None)
-                            metric_tile("performance_risk_stat_5", "Trades at Risk", statistics['Trades at Risk'], 40, "primary", None)
+                            metric_tile("performance_risk_stat_1", "Max Drawdown", statistics['Max Drawdown'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_risk_stat_2", "Avg Risk Per Trade", statistics['Avg Risk Per Trade'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_risk_stat_3", "Sharpe Ratio", statistics['Sharpe Ratio'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_risk_stat_4", "Risk Reward Ratio", statistics['Risk Reward Ratio'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_risk_stat_5", "Trades at Risk", statistics['Trades at Risk'], 40, "primary", tooltip=None, border=True)
 
-                        with tile("risk_analysis_chart_3", 170):
+                        with tile("risk_analysis_chart_3", 170, border=True):
                                 st.markdown("**Chart 3**")
 
                         st.divider()
@@ -261,15 +261,15 @@ def AccountsPage():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("behavioural_patterns_chart", 385):
+                            with tile("behavioural_patterns_chart", 385, border=True):
                                 st.markdown("**Chart**")
 
                         with stats:
-                            metric_tile("performance_behaviour_stat_1", "Favourite Symbol", statistics['Most Frequent Symbol'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_2", "Most Active Time", statistics['Most Active Time'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_3", "Avg Trade Volume", statistics['Avg Trade Volume'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_4", "Largest Trade", statistics['Largest Volume Trade'], 40, "primary", None)
-                            metric_tile("performance_behaviour_stat_5", "Expected Outcome", statistics['Most Frequent Outcome'], 40, "primary", None)
+                            metric_tile("performance_behaviour_stat_1", "Favourite Symbol", statistics['Most Frequent Symbol'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_behaviour_stat_2", "Most Active Time", statistics['Most Active Time'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_behaviour_stat_3", "Avg Trade Volume", statistics['Avg Trade Volume'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_behaviour_stat_4", "Largest Trade", statistics['Largest Volume Trade'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_behaviour_stat_5", "Expected Outcome", statistics['Most Frequent Outcome'], 40, "primary", tooltip=None, border=True)
 
                         st.divider()
 
@@ -281,15 +281,15 @@ def AccountsPage():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("market_condition_chart", 385):
+                            with tile("market_condition_chart", 385, border=True):
                                 st.markdown("**Chart**")
 
                         with stats:
-                            metric_tile("performance_market_stat_1", "Best Symbol Profit", statistics['Best Symbol Profit'], 40, "primary", None)
-                            metric_tile("performance_market_stat_2", "Worst Symbol Profit", statistics['Worst Symbol Profit'], 40, "primary", None)
-                            metric_tile("performance_market_stat_3", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", None)
-                            metric_tile("performance_market_stat_4", "Stat 4", "Value", 40, "primary", None)
-                            metric_tile("performance_market_stat_5", "Stat 5", "Value", 40, "primary", None)
+                            metric_tile("performance_market_stat_1", "Best Symbol Profit", statistics['Best Symbol Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_market_stat_2", "Worst Symbol Profit", statistics['Worst Symbol Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_market_stat_3", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_market_stat_4", "Stat 4", "Value", 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_market_stat_5", "Stat 5", "Value", 40, "primary", tooltip=None, border=True)
 
                         st.divider()
 
@@ -301,15 +301,15 @@ def AccountsPage():
                         chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
                         with chart:
-                            with tile("daily_weekly_summary_chart", 385):
+                            with tile("daily_weekly_summary_chart", 385, border=True):
                                 st.markdown("**Chart**")
 
                         with stats:
-                            metric_tile("performance_summary_stat_1", "Best Day Profit", statistics['Best Day Profit'], 40, "primary", None)
-                            metric_tile("performance_summary_stat_2", "Worst Day Profit", statistics['Worst Day Profit'], 40, "primary", None)
-                            metric_tile("performance_summary_stat_3", "Average Daily Profit", statistics['Average Daily Profit'], 40, "primary", None)
-                            metric_tile("performance_summary_stat_4", "Best Week Profit", statistics['Best Week Profit'], 40, "primary", None)
-                            metric_tile("performance_summary_stat_5", "Worst Week Profit", statistics['Worst Week Profit'], 40, "primary", None)
+                            metric_tile("performance_summary_stat_1", "Best Day Profit", statistics['Best Day Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_summary_stat_2", "Worst Day Profit", statistics['Worst Day Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_summary_stat_3", "Average Daily Profit", statistics['Average Daily Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_summary_stat_4", "Best Week Profit", statistics['Best Week Profit'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_summary_stat_5", "Worst Week Profit", statistics['Worst Week Profit'], 40, "primary", tooltip=None, border=True)
 
                     with tab2: # ------ TRADING JOURNAL ------ #
                         st.subheader("Trading Jorunal", anchor=False)
@@ -430,7 +430,7 @@ def AccountsPage():
 
                         # Display impact on cumulative gain
                         st.subheader("Impact of Filters on Cumulative Gain")
-                        with tile("overview_chart", 385):
+                        with tile("overview_chart", 385, border=True):
                             st.markdown("**Filtered Trading Performance**")
 
                             line_chart(

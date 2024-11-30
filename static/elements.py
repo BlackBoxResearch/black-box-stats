@@ -9,8 +9,9 @@ dark_text_color = '#171717'
 light_text_color = '#E8E8E8'
 color_1 = '#5A85F3' #fc4778 (pink) #fdbb2d (Yellow)
 color_2 = '#CDFFD8' #3952f5 (purple) #22c1c3 (Green)
+border_color = '#3c3c3c'
 
-def metric_tile(key, stat, value, height, type, tooltip):
+def metric_tile(key, stat, value, height, type, border, tooltip):
     """
     Creates a stylable metric tile using a custom container in Streamlit.
 
@@ -20,12 +21,14 @@ def metric_tile(key, stat, value, height, type, tooltip):
         value (str): The value to display for the metric.
         height (int): Height of the container in pixels.
         type (str): primary (#171717 background), secondary (Gradient Background).
+        border (bool): If True, adds a 1px solid border with the specified border color. If False, no border is applied.
+    
     """
 
     if type == "primary":
         text_color = light_text_color
 
-        with tile(key, height):
+        with tile(key, height, border):
             st.markdown(
                 f"""
                     <div style="line-height: 1.4;">
@@ -48,16 +51,35 @@ def metric_tile(key, stat, value, height, type, tooltip):
                         <p style="margin: 0; font-size: 1em; font-weight: bold; color: {text_color};">{value}</p>
                     </div>
                     """,
-                unsafe_allow_html=True
+                unsafe_allow_html=True, help=tooltip
             )
 
-def tile(key, height):
+def tile(key, height, border):
+    """
+    Creates a stylable container in the Streamlit app with a specified height, background color, and optional border.
+
+    Parameters:
+        key (str): A unique key to identify the container in the Streamlit layout.
+        height (int): The height of the container in pixels.
+        border (bool): If True, adds a 1px solid border with the specified border color. If False, no border is applied.
+    
+    Behavior:
+        - The container will have a secondary background color and light text color.
+        - Border is optionally applied based on the `border` parameter.
+        - The height of the container is adjustable via the `height` parameter.
+    
+    Returns:
+        Streamlit container object: The styled container that can be further populated with Streamlit elements.
+    """
+    border_style = f"1px solid {border_color};" if border else "none;"
+    
     with stylable_container(
         key=key,
         css_styles=f'''
         {{
             background-color: {secondary_background};
             border-radius: 0.5rem;
+            border: {border_style};
             padding: calc(1em - 1px);
             color: {light_text_color};
         }}
@@ -148,7 +170,7 @@ def animated_container(key: str, content: str):
             border-radius: 1rem; /* Rounded corners */
             background-color: {secondary_background}; /* Inner container background */
             color: {light_text_color}; /* Text color */
-            z-index: 2;
+            z-index: 1;
             width: 100%;
         }}
 
@@ -166,14 +188,14 @@ def animated_container(key: str, content: str):
             right: 0;
             bottom: 0;
             border-radius: 1rem; /* Match the container's border-radius */
-            padding: 2px; /* Border thickness */
+            padding: 1px; /* Border thickness */
             -webkit-mask: 
                 linear-gradient(#fff 0 0) content-box, 
                 linear-gradient(#fff 0 0);
             -webkit-mask-composite: destination-out;
             mask-composite: exclude;
             background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1}); /* Smooth circular loop */
-            z-index: -2; /* Place behind the content */
+            z-index: -1; /* Place behind the content */
             animation: spin 3s linear infinite;
         }}
 

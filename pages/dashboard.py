@@ -17,7 +17,7 @@ def DashboardPage():
         with col1:
             gradient_text(f"Welcome back, {first_name}!", "2em")
 
-        with tile("quote_tile", 25):
+        with tile("quote_tile", 25, border=True):
             # List of finance-related funny quotes
             quotes = [
                 "*\"Inflation is necessary for my financial goals.\"* - **Fed Chair Powell**",
@@ -38,6 +38,9 @@ def DashboardPage():
             # Display the quote
             st.caption(random_quote)
 
+
+#c8c8c8
+
         col1, col2, col3, col4 = st.columns(4, vertical_alignment="bottom")
 
         with col1:
@@ -46,7 +49,8 @@ def DashboardPage():
                 stat="Plan", 
                 value="Free", 
                 height=40, 
-                type="secondary", 
+                type="secondary",
+                border=False,
                 tooltip=None
                 )
 
@@ -56,7 +60,8 @@ def DashboardPage():
                 stat="Stat 1", 
                 value="Value", 
                 height=40, 
-                type="primary", 
+                type="primary",
+                border=True,
                 tooltip=None
                 )
 
@@ -66,7 +71,8 @@ def DashboardPage():
                 stat="Stat 2", 
                 value="Value", 
                 height=40, 
-                type="primary", 
+                type="primary",
+                border=True,
                 tooltip=None
                 )
 
@@ -76,7 +82,8 @@ def DashboardPage():
                 stat="Stat 3", 
                 value="Value", 
                 height=40, 
-                type="primary", 
+                type="primary",
+                border=True,
                 tooltip=None
                 )
 
