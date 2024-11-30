@@ -52,7 +52,7 @@ def open_register_dialog():
 def LoginPage():
     with st.container(border=False):
         #st.image(image="static/bbs_type_logo.png")
-        gradient_text("Sign up today for free!", "1em")
+        gradient_text("Sign up today for free!", "2em")
         st.caption("Or sign into your account")
     
 
