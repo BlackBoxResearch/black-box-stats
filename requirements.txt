@@ -8,3 +8,5 @@ metaapi_cloud_sdk
 altair
 asyncio
 st_social_media_links
+hashlib
+vega-datasets
