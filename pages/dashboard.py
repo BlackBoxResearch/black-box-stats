@@ -43,7 +43,7 @@ def DashboardPage():
                 key="dashboard_plan_card", 
                 stat="Plan", 
                 value="Free", 
-                height=55, 
+                height=40, 
                 type="secondary", 
                 tooltip=None
                 )
@@ -53,7 +53,7 @@ def DashboardPage():
                 key="dashboard_stat_1", 
                 stat="Stat 1", 
                 value="Value", 
-                height=55, 
+                height=40, 
                 type="primary", 
                 tooltip=None
                 )
@@ -63,7 +63,7 @@ def DashboardPage():
                 key="dashboard_stat_2", 
                 stat="Stat 2", 
                 value="Value", 
-                height=55, 
+                height=40, 
                 type="primary", 
                 tooltip=None
                 )
@@ -73,7 +73,7 @@ def DashboardPage():
                 key="dashboard_stat_3", 
                 stat="Stat 3", 
                 value="Value", 
-                height=55, 
+                height=40, 
                 type="primary", 
                 tooltip=None
                 )
