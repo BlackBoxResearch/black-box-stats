@@ -89,15 +89,13 @@ def main():
                                     display: inline-block; 
                                     padding: 0.5em 1em; 
                                     background-image: linear-gradient(90deg, {color_1}, {color_2}); 
-                                    color: {light_text_color}; 
+                                    color: {dark_text_color}; 
                                     text-decoration: none; 
                                     font-size: 0.85em;
                                     border-radius: 0.5rem;
                                     box-shadow: 20px 0 100px {color_1}40;
                                     transition: transform 0.2s ease, box-shadow 0.2s ease;
                                 "
-                                onmouseover="this.style.boxShadow='20px 0 100px {color_1}40, -20px 0 100px {color_2}40';"
-                                onmouseout="this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.2)';">
                                 ✨ Upgrade Now
                             </a>
                         </div>
