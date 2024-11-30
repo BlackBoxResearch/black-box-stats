@@ -13,7 +13,9 @@ def DashboardPage():
     with st.container(border=False):
         first_name = st.session_state.get("first_name", "User")
         
-        gradient_text(f"Welcome back, {first_name}!", "2em")
+        col1, col2 = st.columns(2)
+        with col1:
+            gradient_text(f"Welcome back, {first_name}!", "2em")
 
         with tile("quote_tile", 25):
             # List of finance-related funny quotes

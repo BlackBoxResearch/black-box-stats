@@ -78,7 +78,9 @@ def get_account_trades(api_account_id):
 
 def AccountsPage():
     with st.container(border=False):
-        gradient_text("My Accounts", "2em")
+        col1, col2 = st.columns(2)
+        with col1:
+            gradient_text("My Accounts", "2em")
 
         user_id = st.session_state.get("user_id", "User")
 
