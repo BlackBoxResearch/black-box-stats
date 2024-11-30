@@ -52,35 +52,40 @@ def open_register_dialog():
 def LoginPage():
     with st.container(border=False):
         #st.image(image="static/bbs_type_logo.png")
-        gradient_text("Sign up today for free!", "2em")
+        gradient_text("Sign up today for free!", "1.5em")
+
+        if gradient_button("Register", "register_button", ":material/app_registration:"):
+            open_register_dialog()
+
+
         st.caption("Or sign into your account")
     
+        with st.expander("Sign In", icon=":material/login:"):
+            email = st.text_input("Email")
+            password = st.text_input("Password", type="password")
 
-        email = st.text_input("Email")
-        password = st.text_input("Password", type="password")
+            if st.button("Sign In", use_container_width=True, type='secondary'):
+                user_id, email, first_name, last_name, subscription_level = check_login(email, password)
+                if email:
+                    # Reset the logged_out state when logging in successfully
+                    st.session_state["logged_out"] = False
+                    st.session_state["logged_in"] = True
+                    st.session_state["user_id"] = user_id
+                    st.session_state["first_name"] = first_name
+                    st.session_state["last_name"] = last_name
+                    st.session_state["email"] = email
+                    st.session_state["subscription_level"] = subscription_level
 
-        if gradient_button("Sign In", "sign_in_button", ":material/login:"):
-            user_id, email, first_name, last_name, subscription_level = check_login(email, password)
-            if email:
-                # Reset the logged_out state when logging in successfully
-                st.session_state["logged_out"] = False
-                st.session_state["logged_in"] = True
-                st.session_state["user_id"] = user_id
-                st.session_state["first_name"] = first_name
-                st.session_state["last_name"] = last_name
-                st.session_state["email"] = email
-                st.session_state["subscription_level"] = subscription_level
+                    st.success(f"Logged in successfully as {first_name}!")
+                    st.session_state["current_page"] = "Dashboard"
 
-                st.success(f"Logged in successfully as {first_name}!")
-                st.session_state["current_page"] = "Dashboard"
+                    st.rerun()
+                else:
+                    st.error("Incorrect email or password. Please try again.")  
 
-                st.rerun()
-            else:
-                st.error("Incorrect email or password. Please try again.")  
-
-        # Register button to open the registration dialog
-        if st.button("Register", use_container_width=True, type='secondary'):
-            open_register_dialog()
+            # Register button to open the registration dialog
+            if st.button("Sign In", use_container_width=True, type='secondary'):
+                open_register_dialog()
 
 if __name__ == "__main__":
     LoginPage()
