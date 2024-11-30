@@ -96,6 +96,7 @@ def main():
                                     box-shadow: 20px 0 100px {color_1}40;
                                     transition: transform 0.2s ease, box-shadow 0.2s ease;
                                 "
+                                >
                                 ✨ Upgrade Now
                             </a>
                         </div>
