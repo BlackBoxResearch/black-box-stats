@@ -8,7 +8,7 @@ secondary_background = '#171717'
 dark_text_color = '#171717'
 light_text_color = '#ffffff'
 color_1 = '#5A85F3' #fc4778 (pink) #fdbb2d (Yellow)
-color_2 = '#59D2BA' #3952f5 (purple) #22c1c3 (Green)
+color_2 = '#CDFFD8' #3952f5 (purple) #22c1c3 (Green)
 
 def metric_tile(key, stat, value, height, type, tooltip):
     """
