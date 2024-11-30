@@ -61,11 +61,11 @@ def LoginPage():
         st.caption("Or sign into your account")
     
         with st.expander("Sign In", icon=":material/login:"):
-            email = st.text_input("Email")
-            password = st.text_input("Password", type="password")
+            email_input = st.text_input("Email")
+            password_input = st.text_input("Password", type="password")
 
             if st.button(key="sign_in_button", label="Sign In", use_container_width=True, type='secondary'):
-                user_id, email, first_name, last_name, subscription_level = check_login(email, password)
+                user_id, email, first_name, last_name, subscription_level = check_login(email_input, password_input)
                 if email:
                     # Reset the logged_out state when logging in successfully
                     st.session_state["logged_out"] = False
@@ -82,10 +82,6 @@ def LoginPage():
                     st.rerun()
                 else:
                     st.error("Incorrect email or password. Please try again.")  
-
-            # Register button to open the registration dialog
-            if st.button("Sign In", use_container_width=True, type='secondary'):
-                open_register_dialog()
 
 if __name__ == "__main__":
     LoginPage()
