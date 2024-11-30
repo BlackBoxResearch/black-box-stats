@@ -13,7 +13,9 @@ def DashboardPage():
     with st.container(border=False):
         first_name = st.session_state.get("first_name", "User")
         
-        gradient_text(f"Welcome back, {first_name}!", "3em")
+        gradient_text(f"Welcome back, {first_name}!", "2em")
+
+        st.divider()
 
         with tile("quote_tile", 25):
             # List of finance-related funny quotes
@@ -79,50 +81,6 @@ def DashboardPage():
                 )
 
         st.divider()
-
-        col1, col2 = st.columns([2.5,1], vertical_alignment="bottom")
-
-        with col1:
-            with tile("session_map", 460):
-                st.markdown("**Trading Session**")
-
-                # Source of land data
-                source = alt.topo_feature(data.world_110m.url, 'countries')
-
-                # Base map with adjusted projection to crop empty areas
-                map_chart = alt.Chart(source).mark_geoshape(
-                    fill='#adadad', stroke='#171717'
-                ).transform_filter(
-                    "datum.id != '010'"  # Exclude Antarctica
-                ).project(
-                    'naturalEarth1',  # Projection
-                    scale=150,  # Adjust scale to zoom in and crop
-                    translate=[300, 200]  # Center map horizontally and vertically
-                )
-
-                # Vertical line for current time (hour + minutes)
-                time_line = alt.Chart(pd.DataFrame({'current_time': [current_time]})).mark_rule(
-                    color='#94B9FF', strokeWidth=2
-                ).encode(
-                    x=alt.X('current_time:Q', title="Current Time (UTC)", scale=alt.Scale(domain=(23, 0))),
-                    tooltip=[alt.Tooltip('current_time:Q', title='Current Time', format='.2f')]
-                )
-
-                # Combine map and vertical line
-                chart = alt.layer(map_chart, time_line).properties(
-                    height=400, width=800, background='#171717',
-                    padding={"top": 0, "bottom": 0, "left": 10, "right": 10}
-                ).configure_view(
-                    stroke=None
-
-                )
-
-                # Display chart
-                st.altair_chart(chart, use_container_width=True)
-
-        with col2:
-            with tile("clock", 460):
-                st.markdown("Clock")
 
 if __name__ == "__main__":
     DashboardPage()
