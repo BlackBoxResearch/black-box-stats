@@ -54,9 +54,26 @@ def LoginPage():
         #st.image(image="static/bbs_type_logo.png")
         gradient_text("Sign up today for free!", "1.5em")
 
-        if gradient_button("Register", "register_button", ":material/app_registration:"):
-            open_register_dialog()
+        with st.expander("Register", icon=":material/app_registration:"):
+            with st.form("register_form", border=False):
+                col1, col2 = st.columns(2)
+                first_name = col1.text_input("First name")
+                last_name = col2.text_input("Last name")
+                email = col1.text_input("Email")
+                country = col2.selectbox("Country", countries)
+                password = col1.text_input("Password", type="password")
+                repeat_password = col2.text_input("Repeat password", type="password")
+                password_hint = st.text_input("Password hint")
+                marketing_preferences = st.checkbox("Opt out of communications")
+                terms_and_conditions = st.checkbox("I agree to the Terms of Use")
 
+                if st.form_submit_button("Register", use_container_width=True, type='secondary'):
+                    if password != repeat_password:
+                        st.error("Passwords do not match.")
+                    elif not first_name or not last_name or not email or not password:
+                        st.error("All fields are required.")
+                    else:
+                        register_user(first_name, last_name, email, country, password, password_hint)
 
         st.caption("Or sign into your account")
     
