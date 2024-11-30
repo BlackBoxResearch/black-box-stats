@@ -15,8 +15,6 @@ def DashboardPage():
         
         gradient_text(f"Welcome back, {first_name}!", "2em")
 
-        st.divider()
-
         with tile("quote_tile", 25):
             # List of finance-related funny quotes
             quotes = [
