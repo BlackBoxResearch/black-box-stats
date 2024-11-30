@@ -7,7 +7,7 @@ from pages import login, profile, dashboard, logout, systems, settings, support,
 primary_background = '#111111'
 secondary_background = '#171717'
 dark_text_color = '#171717'
-light_text_color = '#ffffff'
+light_text_color = '#E8E8E8'
 color_1 = '#5A85F3' #fc4778 (pink) #fdbb2d (Yellow)
 color_2 = '#CDFFD8' #3952f5 (purple) #22c1c3 (Green)
 
