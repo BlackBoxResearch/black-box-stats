@@ -43,7 +43,7 @@ def metric_tile(key, stat, value, height, type, border, tooltip):
     elif type == "secondary":
         text_color = dark_text_color
 
-        with gradient_tile(key, height):
+        with gradient_tile(key=key, height=height, fill=False):
             st.markdown(
                 f"""
                     <div style="line-height: 1.4;">
@@ -87,10 +87,26 @@ def tile(key, height, border):
     ):
         return st.container(border=False, height=height)
     
-def gradient_tile(key, height):
-    with stylable_container(
-        key="key",
-        css_styles=f'''
+def gradient_tile(key, height, fill):
+    """
+    Creates a stylable container in the Streamlit app with a specified height and optional background color.
+
+    Parameters:
+        key (str): A unique key to identify the container in the Streamlit layout.
+        height (int): The height of the container in pixels.
+        fill (bool): If True, fills with gradient fill, if False, animated gradient 1px border.
+    
+    Behavior:
+        - The container will have a secondary background color and light text color.
+        - The height of the container is adjustable via the `height` parameter.
+        - Fill is optionally applied based on the `fill` parameter.
+    
+    Returns:
+        Streamlit container object: The styled container that can be further populated with Streamlit elements.
+    """
+
+    if fill == True:
+        css_style = f'''
         {{
             background: linear-gradient(135deg, {color_1}, {color_2});
             border-radius: 0.5rem;
@@ -101,6 +117,58 @@ def gradient_tile(key, height):
             justify-content: flex-start;
         }}
         '''
+    
+    elif fill == False:
+        css_style = f'''
+        .animated-container {{
+            position: relative;
+            padding: 20px; /* Adjust padding as needed */
+            margin-bottom: 20px; /* Add vertical spacing between containers */
+            border-radius: 1rem; /* Rounded corners */
+            background-color: {secondary_background}; /* Inner container background */
+            color: {light_text_color}; /* Text color */
+            z-index: 1;
+            width: 100%;
+        }}
+
+        @property --angle {{
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }}
+
+        .animated-container::after, .animated-container::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1rem; /* Match the container's border-radius */
+            padding: 1px; /* Border thickness */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1}); /* Smooth circular loop */
+            z-index: -1; /* Place behind the content */
+            animation: spin 3s linear infinite;
+        }}
+
+        @keyframes spin {{
+            from {{
+                --angle: 0deg;
+            }}
+            to {{
+                --angle: 360deg;
+            }}
+        }}
+    '''
+
+    with stylable_container(
+        key=key,
+        css_styles=css_style
     ):
         return st.container(border=False, height=height)
 
@@ -210,12 +278,13 @@ def animated_container(key: str, content: str):
     '''
 
     with stylable_container(key=key, css_styles=css_styles):
-        st.markdown(
-            f"""
-            <div class="animated-container">{content}</div>
-            """,
-            unsafe_allow_html=True
-        )
+        with st.container():
+            st.markdown(
+                f"""
+                <div class="animated-container">{content}</div>
+                """,
+                unsafe_allow_html=True
+            )
 
 # def hover_container(key: str, content: str, url=None):
 #     """

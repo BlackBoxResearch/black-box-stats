@@ -190,11 +190,11 @@ def AccountsPage():
                                 )
 
                         with stats:
-                            metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 40, "secondary", tooltip=None, border=False)
-                            metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_overview_stat_5", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 39, "secondary", tooltip=None, border=False)
+                            metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 39, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 39, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 39, "primary", tooltip=None, border=True)
+                            metric_tile("performance_overview_stat_5", "Most Traded Symbol", statistics['Most Traded Symbol'], 39, "primary", tooltip=None, border=True)
 
                         st.divider()
 
