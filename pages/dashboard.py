@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from static.elements import tile, metric_tile, promo_container, animated_container, hover_container, promo_container
+from static.elements import tile, test_tile, metric_tile, promo_container, animated_container, hover_container, promo_container
 import random
 from vega_datasets import data
 import pandas as pd
@@ -43,9 +43,9 @@ def DashboardPage():
 
         with col1:
             promo_container(
-                key="Test", 
+                key="dashboard_plan_card", 
                 content=f"""
-                    <div style="line-height: 1.45;">
+                    <div style="line-height: 1.4;">
                         <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Plan</p>
                         <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">Free</p>
                     </div>
@@ -53,38 +53,42 @@ def DashboardPage():
                 )
 
         with col2:
-            metric_tile(
+            test_tile(
                 key="dashboard_stat_1", 
-                stat="Stat 1", 
-                value="Value", 
-                height=40, 
-                type="primary",
                 border=True,
-                tooltip=None
+                content=f"""
+                    <div style="line-height: 1.4;">
+                        <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Accounts</p>
+                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">3 of 3</p>
+                    </div>
+                    """
                 )
 
+
         with col3:
-            metric_tile(
+            test_tile(
                 key="dashboard_stat_2", 
-                stat="Stat 2", 
-                value="Value", 
-                height=40, 
-                type="primary",
                 border=True,
-                tooltip=None
+                content=f"""
+                    <div style="line-height: 1.4;">
+                        <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Member Since</p>
+                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">1st Jan 2024</p>
+                    </div>
+                    """
                 )
 
         with col4:
-            metric_tile(
+            test_tile(
                 key="dashboard_stat_3", 
-                stat="Stat 3", 
-                value="Value", 
-                height=40, 
-                type="primary",
                 border=True,
-                tooltip=None
+                content=f"""
+                    <div style="line-height: 1.4;">
+                        <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Rank</p>
+                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">#1340</p>
+                    </div>
+                    """
                 )
-        
+            
         # hover_container(
         #     key="hover_test",
         #     content=f"""

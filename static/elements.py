@@ -86,6 +86,45 @@ def tile(key, height, border):
     ):
         return st.container(border=False, height=height)
     
+def test_tile(key, border, content):
+    """
+    Creates a stylable container in the Streamlit app with a specified height, background color, and optional border.
+
+    Parameters:
+        key (str): A unique key to identify the container in the Streamlit layout.
+        height (int): The height of the container in pixels.
+        border (bool): If True, adds a 1px solid border with the specified border color. If False, no border is applied.
+    
+    Behavior:
+        - The container will have a secondary background color and light text color.
+        - Border is optionally applied based on the `border` parameter.
+        - The height of the container is adjustable via the `height` parameter.
+    
+    Returns:
+        Streamlit container object: The styled container that can be further populated with Streamlit elements.
+    """
+    border_style = f"1px solid {border_color};" if border else "none;"
+    
+    css_styles=f'''
+    .test-tile{{
+        background-color: {secondary_background};
+        border: {border_style};
+        padding: 15px; /* Adjust padding as needed */
+        margin-bottom: 17px; /* Add vertical spacing between containers */
+        border-radius: 8px; /* Rounded corners */
+        color: {light_text_color};
+    }}
+    '''
+    
+    with stylable_container(key=key, css_styles=css_styles):
+        with st.container():
+            st.markdown(
+                f"""
+                <div class="test-tile">{content}</div>
+                """,
+                unsafe_allow_html=True
+            )
+
 def gradient_tile(key, height):
     """
     Creates a stylable container in the Streamlit app with a specified height and optional background color.
