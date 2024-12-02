@@ -7,8 +7,8 @@ primary_background = '#111111'
 secondary_background = '#171717'
 dark_text_color = '#171717'
 light_text_color = '#E8E8E8'
-color_1 = '#5A85F3' #fc4778 (pink) #fdbb2d (Yellow)
-color_2 = '#CDFFD8' #3952f5 (purple) #22c1c3 (Green)
+color_1 = '#5A85F3' #Blue
+color_2 = '#CDFFD8' #Green
 border_color = '#3c3c3c'
 
 def metric_tile(key, stat, value, height, type, border, tooltip):
@@ -38,12 +38,11 @@ def metric_tile(key, stat, value, height, type, border, tooltip):
                     """,
                 unsafe_allow_html=True, help=tooltip
             )
-
         
     elif type == "secondary":
         text_color = dark_text_color
 
-        with gradient_tile(key=key, height=height, fill=False):
+        with gradient_tile(key=key, height=height):
             st.markdown(
                 f"""
                     <div style="line-height: 1.4;">
@@ -87,7 +86,7 @@ def tile(key, height, border):
     ):
         return st.container(border=False, height=height)
     
-def gradient_tile(key, height, fill):
+def gradient_tile(key, height):
     """
     Creates a stylable container in the Streamlit app with a specified height and optional background color.
 
@@ -105,65 +104,16 @@ def gradient_tile(key, height, fill):
         Streamlit container object: The styled container that can be further populated with Streamlit elements.
     """
 
-    if fill == True:
-        css_style = f'''
-        {{
-            background: linear-gradient(135deg, {color_1}, {color_2});
-            border-radius: 0.5rem;
-            padding: 1em;
-            color: {dark_text_color};
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
-        }}
-        '''
-    
-    elif fill == False:
-        css_style = f'''
-        .animated-container {{
-            position: relative;
-            padding: 20px; /* Adjust padding as needed */
-            margin-bottom: 20px; /* Add vertical spacing between containers */
-            border-radius: 1rem; /* Rounded corners */
-            background-color: {secondary_background}; /* Inner container background */
-            color: {light_text_color}; /* Text color */
-            z-index: 1;
-            width: 100%;
-        }}
-
-        @property --angle {{
-            syntax: "<angle>";
-            initial-value: 0deg;
-            inherits: false;
-        }}
-
-        .animated-container::after, .animated-container::before {{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 1rem; /* Match the container's border-radius */
-            padding: 1px; /* Border thickness */
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1}); /* Smooth circular loop */
-            z-index: -1; /* Place behind the content */
-            animation: spin 3s linear infinite;
-        }}
-
-        @keyframes spin {{
-            from {{
-                --angle: 0deg;
-            }}
-            to {{
-                --angle: 360deg;
-            }}
-        }}
+    css_style = f'''
+    {{
+        background: linear-gradient(135deg, {color_1}, {color_2});
+        border-radius: 0.5rem;
+        padding: 1em;
+        color: {dark_text_color};
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }}
     '''
 
     with stylable_container(
@@ -233,9 +183,9 @@ def animated_container(key: str, content: str):
     css_styles = f'''
         .animated-container {{
             position: relative;
-            padding: 20px; /* Adjust padding as needed */
-            margin-bottom: 20px; /* Add vertical spacing between containers */
-            border-radius: 1rem; /* Rounded corners */
+            padding: 15px; /* Adjust padding as needed */
+            margin-bottom: 17px; /* Add vertical spacing between containers */
+            border-radius: 8px; /* Rounded corners */
             background-color: {secondary_background}; /* Inner container background */
             color: {light_text_color}; /* Text color */
             z-index: 1;
@@ -255,7 +205,7 @@ def animated_container(key: str, content: str):
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 1rem; /* Match the container's border-radius */
+            border-radius: 8px; /* Match the container's border-radius */
             padding: 1px; /* Border thickness */
             -webkit-mask: 
                 linear-gradient(#fff 0 0) content-box, 
@@ -286,149 +236,57 @@ def animated_container(key: str, content: str):
                 unsafe_allow_html=True
             )
 
-# def hover_container(key: str, content: str, url=None):
-#     """
-#     A function to create a hoverable container with custom content.
+def hover_container(key: str, content: str):
+    """
+    A function to create a hoverable container with custom content.
 
-#     Args:
-#         key (str): The container's unique key.
-#         content (str): The HTML content to display inside the container.
-#     """
-#     css_styles = f'''
-#         .gradient-container {{
-#             position: relative;
-#             padding: 20px; /* Adjust padding as needed */
-#             margin-bottom: 20px; /* Add vertical spacing between containers */
-#             border-radius: 1rem; /* Rounded corners */
-#             background-color: {secondary_background}; /* Inner container background */
-#             color: {light_text_color}; /* Text color */
-#             transition: all 0.3s ease; /* Smooth transition for hover effects */
-#             z-index: 1;
-#             width: 100%;
-#         }}
-#         .gradient-container::before {{
-#             content: "";
-#             position: absolute;
-#             top: 0;
-#             left: 0;
-#             right: 0;
-#             bottom: 0;
-#             border-radius: 1rem; /* Match the container's border-radius */
-#             padding: 2px; /* Border thickness */
-#             background: linear-gradient(to bottom right, {color_1}, {color_2}); /* Gradient border */
-#             -webkit-mask: 
-#                 linear-gradient(#fff 0 0) content-box, 
-#                 linear-gradient(#fff 0 0);
-#             -webkit-mask-composite: destination-out;
-#             mask-composite: exclude;
-#             z-index: -1; /* Place behind the content */
-#             transition: all 0.3s ease; /* Smooth transition for hover effects */
-#         }}
-#         .gradient-container:hover {{
-#             background-color: #1e1e1e; /* Slightly lighter background on hover */
-#             box-shadow: 20px 0 100px {color_1}40, -20px 0 100px {color_2}40;
-#         }}
- 
+    Args:
+        key (str): The container's unique key.
+        content (str): The HTML content to display inside the container.
+    """
+    css_styles = f'''
+        .gradient-container {{
+            position: relative;
+            padding: 15px; /* Adjust padding as needed */
+            margin-bottom: 17px; /* Add vertical spacing between containers */
+            border-radius: 8px; /* Rounded corners */
+            background-color: {secondary_background}; /* Inner container background */
+            color: {light_text_color}; /* Text color */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            z-index: 1;
+            width: 100%;
+        }}
+        .gradient-container::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px; /* Match the container's border-radius */
+            padding: 1px; /* Border thickness */
+            background: linear-gradient(to bottom right, {color_1}, {color_2}); /* Gradient border */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            z-index: -1; /* Place behind the content */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+        }}
+        .gradient-container:hover {{
+            background-color: #1e1e1e; /* Slightly lighter background on hover */
+            box-shadow: 20px 0 100px {color_1}40, -20px 0 100px {color_2}40;
+        }}
+    '''
 
-#     '''
-#     if url:
-#         with stylable_container(key=key, css_styles=css_styles):
-#             st.markdown(
-#                 f"""
-#                 <a href=url style="text-decoration: none; color: inherit;">
-#                     <div class="gradient-container">
-#                         {content}
-#                     </div>
-#                 </a>
-#                 """,
-#                 unsafe_allow_html=True
-#             )
-#     else:
-#         with stylable_container(key=key, css_styles=css_styles):
-#             st.markdown(
-#                 f"""
-#                 <div class="gradient-container">{content}</div>
-#                 """,
-#                 unsafe_allow_html=True
-#             )
-
-# def markdown_container(key: str, content: str):
-#     """
-#     Create an animated container with a glowing effect.
-
-#     Args:
-#         key (str): A unique key for the container.
-#         content (str): The HTML content to display inside the container.
-#     """
-#     css_styles = f'''
-#         <style>
-#             /* General container styling */
-#             .animated-container-{key} {{
-#                 position: relative;
-#                 padding: 20px;
-#                 margin-bottom: 20px;
-#                 border-radius: 1rem;
-#                 background-color: {secondary_background};
-#                 color: {light_text_color};
-#                 z-index: 2;
-#                 width: 100%;
-#             }}
-
-#             /* Define custom property for animation */
-#             @property --angle {{
-#                 syntax: "<angle>";
-#                 initial-value: 0deg;
-#                 inherits: false;
-#             }}
-
-#             /* Glowing border styling */
-#             .animated-container-{key}::before,
-#             .animated-container-{key}::after {{
-#                 content: "";
-#                 position: absolute;
-#                 top: 0;
-#                 left: 0;
-#                 right: 0;
-#                 bottom: 0;
-#                 border-radius: 1rem;
-#                 padding: 2px;
-#                 -webkit-mask: 
-#                     linear-gradient(#fff 0 0) content-box, 
-#                     linear-gradient(#fff 0 0);
-#                 mask-composite: exclude;
-#                 background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1});
-#                 z-index: -1; /* Place behind the content */
-#                 animation: spin 3s linear infinite;
-#             }}
-
-#             /* Add blur and opacity effect for glowing */
-#             .animated-container-{key}::after {{
-#                 filter: blur(40px);
-#                 opacity: 0.5;
-#             }}
-
-#             /* Keyframe animation */
-#             @keyframes spin {{
-#                 from {{
-#                     --angle: 0deg;
-#                 }}
-#                 to {{
-#                     --angle: 360deg;
-#                 }}
-#             }}
-#         </style>
-#     '''
-
-#     # Inject CSS and create container
-#     st.markdown(css_styles, unsafe_allow_html=True)
-#     st.markdown(
-#         f"""
-#         <div class="animated-container-{key}">
-#             {content}
-#         </div>
-#         """,
-#         unsafe_allow_html=True,
-#     )
+    with stylable_container(key=key, css_styles=css_styles):
+        st.markdown(
+            f"""
+            <div class="gradient-container">{content}</div>
+            """,
+            unsafe_allow_html=True
+        )
 
 # CHARTS
 

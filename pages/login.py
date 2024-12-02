@@ -52,7 +52,7 @@ def open_register_dialog():
 def LoginPage():
     with st.container(border=False):
         #st.image(image="static/bbs_type_logo.png")
-        gradient_text("Sign up today for free!", "1.5em")
+        st.subheader("Sign up today for free!", anchor=False)
 
         with st.expander("Register", icon=":material/app_registration:"):
             with st.form("register_form", border=False):
@@ -67,7 +67,7 @@ def LoginPage():
                 marketing_preferences = st.checkbox("Opt out of communications")
                 terms_and_conditions = st.checkbox("I agree to the Terms of Use")
 
-                if st.form_submit_button("Register", use_container_width=True, type='secondary'):
+                if st.form_submit_button("Register", use_container_width=True, type='secondary', icon=":material/app_registration:"):
                     if password != repeat_password:
                         st.error("Passwords do not match.")
                     elif not first_name or not last_name or not email or not password:
@@ -81,7 +81,7 @@ def LoginPage():
             email_input = st.text_input("Email")
             password_input = st.text_input("Password", type="password")
 
-            if st.button(key="sign_in_button", label="Sign In", use_container_width=True, type='secondary'):
+            if st.button(key="sign_in_button", label="Sign In", use_container_width=True, type='secondary', icon=":material/login:"):
                 user_id, email, first_name, last_name, subscription_level = check_login(email_input, password_input)
                 if email:
                     # Reset the logged_out state when logging in successfully

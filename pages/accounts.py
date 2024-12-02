@@ -1,7 +1,7 @@
 from static.elements import gradient_text
 import streamlit as st
 from utils.db import execute_query
-from static.elements import gradient_button, gradient_tile, tile, line_chart, scatter_chart, metric_tile
+from static.elements import gradient_button, animated_container, tile, line_chart, scatter_chart, metric_tile
 import time
 import pandas as pd
 from utils.stats import calculate_trade_statistics
@@ -78,9 +78,7 @@ def get_account_trades(api_account_id):
 
 def AccountsPage():
     with st.container(border=False):
-        col1, col2 = st.columns(2)
-        with col1:
-            gradient_text("My Accounts", "2em")
+        st.subheader("My Accounts", anchor=False)
 
         user_id = st.session_state.get("user_id", "User")
 
@@ -190,7 +188,16 @@ def AccountsPage():
                                 )
 
                         with stats:
-                            metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 39, "secondary", tooltip=None, border=False)
+                            animated_container(
+                                key="performance_overview_stat_1", 
+                                content=f"""
+                                    <div style="line-height: 1.45;">
+                                        <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Total Gain</p>
+                                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">{statistics['Total Gain']}</p>
+                                    </div>
+                                    """
+                                )
+                            #metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 39, "secondary", tooltip=None, border=False)
                             metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 39, "primary", tooltip=None, border=True)
                             metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 39, "primary", tooltip=None, border=True)
                             metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 39, "primary", tooltip=None, border=True)

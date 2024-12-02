@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from static.elements import tile, metric_tile, gradient_text
+from static.elements import tile, metric_tile, gradient_text, animated_container
 import random
 from vega_datasets import data
 import pandas as pd
@@ -13,9 +13,7 @@ def DashboardPage():
     with st.container(border=False):
         first_name = st.session_state.get("first_name", "User")
         
-        col1, col2 = st.columns(2)
-        with col1:
-            gradient_text(f"Welcome back, {first_name}!", "2em")
+        st.subheader(f"Welcome back, {first_name}!", anchor=False)
 
         with tile("quote_tile", 25, border=True):
             # List of finance-related funny quotes
@@ -44,15 +42,26 @@ def DashboardPage():
         col1, col2, col3, col4 = st.columns(4, vertical_alignment="bottom")
 
         with col1:
-            metric_tile(
-                key="dashboard_plan_card", 
-                stat="Plan", 
-                value="Free", 
-                height=40, 
-                type="secondary",
-                border=False,
-                tooltip=None
+            animated_container(
+                key="Test", 
+                content=f"""
+                    <div style="line-height: 1.45;">
+                        <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Plan</p>
+                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">Free</p>
+                    </div>
+                    """
+                
                 )
+
+            # metric_tile(
+            #     key="dashboard_plan_card", 
+            #     stat="Plan", 
+            #     value="Free", 
+            #     height=40,
+            #     type="secondary",
+            #     border=False,
+            #     tooltip=None
+            #     )
 
         with col2:
             metric_tile(
@@ -86,8 +95,20 @@ def DashboardPage():
                 border=True,
                 tooltip=None
                 )
-
+        
         st.divider()
+
+        animated_container(
+            key="Test",
+            content=f"""
+                <div style="line-height: 1.8;">
+                    <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Free</p>
+                </div>
+                """
+            )
+        
+        with st.container(border=True):
+            st.markdown("Plan")
 
 if __name__ == "__main__":
     DashboardPage()

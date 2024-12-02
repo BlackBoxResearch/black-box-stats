@@ -3,9 +3,7 @@ import streamlit as st
 
 def ProfilePage():
     with st.container(border=False):
-        col1, col2 = st.columns(2)
-        with col1:
-            gradient_text("My Profile", "2em")
+        st.subheader("My Profile", anchor=False)
 
 if __name__ == "__main__":
     ProfilePage()
