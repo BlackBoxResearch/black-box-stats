@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from static.elements import tile, metric_tile, gradient_text, animated_container, hover_container
+from static.elements import tile, metric_tile, promo_container, animated_container, hover_container, promo_container
 import random
 from vega_datasets import data
 import pandas as pd
@@ -15,7 +15,7 @@ def DashboardPage():
         
         st.subheader(f"Welcome back, {first_name}!", anchor=False)
 
-        with tile("quote_tile", 25, border=True):
+        with tile(key="quote_tile", height=60, border=True):
             # List of finance-related funny quotes
             quotes = [
                 "*\"Inflation is necessary for my financial goals.\"* - **Fed Chair Powell**",
@@ -42,7 +42,7 @@ def DashboardPage():
         col1, col2, col3, col4 = st.columns(4, vertical_alignment="bottom")
 
         with col1:
-            animated_container(
+            promo_container(
                 key="Test", 
                 content=f"""
                     <div style="line-height: 1.45;">
@@ -50,18 +50,7 @@ def DashboardPage():
                         <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">Free</p>
                     </div>
                     """
-                
                 )
-
-            # metric_tile(
-            #     key="dashboard_plan_card", 
-            #     stat="Plan", 
-            #     value="Free", 
-            #     height=40,
-            #     type="secondary",
-            #     border=False,
-            #     tooltip=None
-            #     )
 
         with col2:
             metric_tile(
@@ -96,27 +85,14 @@ def DashboardPage():
                 tooltip=None
                 )
         
-        st.divider()
-
-        hover_container(
-            key="hover_test",
-            content=f"""
-                <div style="line-height: 1.8;">
-                    <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Hover Container</p>
-                </div>
-                """
-            )
-        animated_container(
-            key="animated_test",
-            content=f"""
-                <div style="line-height: 1.8;">
-                    <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Animated Container</p>
-                </div>
-                """
-            )
-        
-        with st.container(border=True):
-            st.markdown("Normal Container")
+        # hover_container(
+        #     key="hover_test",
+        #     content=f"""
+        #         <div style="line-height: 1.8;">
+        #             <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Hover Container</p>
+        #         </div>
+        #         """
+        #     )
 
 if __name__ == "__main__":
     DashboardPage()

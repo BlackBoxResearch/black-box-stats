@@ -236,59 +236,7 @@ def animated_container(key: str, content: str):
                 unsafe_allow_html=True
             )
 
-def hover_container(key: str, content: str):
-    """
-    A function to create a hoverable container with custom content.
-
-    Args:
-        key (str): The container's unique key.
-        content (str): The HTML content to display inside the container.
-    """
-    css_styles = f'''
-        .gradient-container {{
-            position: relative;
-            padding: 15px; /* Adjust padding as needed */
-            margin-bottom: 17px; /* Add vertical spacing between containers */
-            border-radius: 8px; /* Rounded corners */
-            background-color: {secondary_background}; /* Inner container background */
-            color: {light_text_color}; /* Text color */
-            transition: all 0.3s ease; /* Smooth transition for hover effects */
-            z-index: 1;
-            width: 100%;
-        }}
-        .gradient-container::before {{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 8px; /* Match the container's border-radius */
-            padding: 1px; /* Border thickness */
-            background: linear-gradient(to bottom right, {color_1}, {color_2}); /* Gradient border */
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            z-index: -1; /* Place behind the content */
-            transition: all 0.3s ease; /* Smooth transition for hover effects */
-        }}
-        .gradient-container:hover {{
-            background-color: #1e1e1e; /* Slightly lighter background on hover */
-            box-shadow: 20px 0 100px {color_1}40, -20px 0 100px {color_2}40;
-        }}
-    '''
-
-    with stylable_container(key=key, css_styles=css_styles):
-        st.markdown(
-            f"""
-            <div class="gradient-container">{content}</div>
-            """,
-            unsafe_allow_html=True
-        )
-
-def gradient_container(key: str, content: str):
+def promo_container(key: str, content: str):
     """
     A function to create an animated container with custom content.
 
@@ -297,7 +245,7 @@ def gradient_container(key: str, content: str):
         content (str): The HTML content to display inside the container.
     """
     css_styles = f'''
-        .animated-container {{
+        .promo-container {{
             position: relative;
             padding: 15px; /* Adjust padding as needed */
             margin-bottom: 17px; /* Add vertical spacing between containers */
@@ -306,6 +254,7 @@ def gradient_container(key: str, content: str):
             color: {light_text_color}; /* Text color */
             z-index: 1;
             width: 100%;
+            box-shadow: 20px 0 100px {color_1}40, -20px 0 100px {color_2}40;
         }}
 
         @property --angle {{
@@ -314,7 +263,7 @@ def gradient_container(key: str, content: str):
             inherits: false;
         }}
 
-        .animated-container::after, .animated-container::before {{
+        .promo-container::after, .promo-container::before {{
             content: "";
             position: absolute;
             top: 0;
@@ -347,7 +296,123 @@ def gradient_container(key: str, content: str):
         with st.container():
             st.markdown(
                 f"""
-                <div class="animated-container">{content}</div>
+                <div class="promo-container">{content}</div>
+                """,
+                unsafe_allow_html=True
+            )
+
+def hover_container(key: str, content: str):
+    """
+    A function to create a hoverable container with custom content.
+
+    Args:
+        key (str): The container's unique key.
+        content (str): The HTML content to display inside the container.
+    """
+    css_styles = f'''
+        .hover-container {{
+            position: relative;
+            padding: 15px; /* Adjust padding as needed */
+            margin-bottom: 17px; /* Add vertical spacing between containers */
+            border-radius: 8px; /* Rounded corners */
+            background-color: {secondary_background}; /* Inner container background */
+            color: {light_text_color}; /* Text color */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            z-index: 1;
+            width: 100%;
+        }}
+        .hover-container::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px; /* Match the container's border-radius */
+            padding: 1px; /* Border thickness */
+            background: linear-gradient(to bottom right, {color_1}, {color_2}); /* Gradient border */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            z-index: -1; /* Place behind the content */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+        }}
+        .hover-container:hover {{
+            background-color: #1e1e1e; /* Slightly lighter background on hover */
+            box-shadow: 20px 0 100px {color_1}40, -20px 0 100px {color_2}40;
+        }}
+    '''
+
+    with stylable_container(key=key, css_styles=css_styles):
+        st.markdown(
+            f"""
+            <div class="hover-container">{content}</div>
+            """,
+            unsafe_allow_html=True
+        )
+
+def gradient_container(key: str, content: str):
+    """
+    A function to create an animated container with custom content.
+
+    Args:
+        key (str): The container's unique key.
+        content (str): The HTML content to display inside the container.
+    """
+    css_styles = f'''
+        .gradient-container {{
+            position: relative;
+            padding: 15px; /* Adjust padding as needed */
+            margin-bottom: 17px; /* Add vertical spacing between containers */
+            border-radius: 8px; /* Rounded corners */
+            background-color: {secondary_background}; /* Inner container background */
+            color: {light_text_color}; /* Text color */
+            z-index: 1;
+            width: 100%;
+        }}
+
+        @property --angle {{
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }}
+
+        .gradient-container::after, .gradient-container::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px; /* Match the container's border-radius */
+            padding: 1px; /* Border thickness */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1}); /* Smooth circular loop */
+            z-index: -1; /* Place behind the content */
+            animation: spin 3s linear infinite;
+        }}
+
+        @keyframes spin {{
+            from {{
+                --angle: 0deg;
+            }}
+            to {{
+                --angle: 360deg;
+            }}
+        }}
+    '''
+
+    with stylable_container(key=key, css_styles=css_styles):
+        with st.container():
+            st.markdown(
+                f"""
+                <div class="gradient-container">{content}</div>
                 """,
                 unsafe_allow_html=True
             )

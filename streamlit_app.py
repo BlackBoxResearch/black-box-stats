@@ -1,5 +1,5 @@
 import streamlit as st
-from static.elements import animated_container
+from static.elements import animated_container, promo_container
 from streamlit_extras.bottom_container import bottom
 from st_social_media_links import SocialMediaIcons
 from pages import login, profile, dashboard, logout, systems, settings, support, accounts
@@ -52,8 +52,8 @@ def main():
         st.logo(image="static/bbs_type_logo.png", size="large")
 
         with st.sidebar:   
-            animated_container(
-                key="promo_hover", 
+            promo_container(
+                key="pro-lifetime_promo", 
                 content=f'''
                     <div>
                         <h3 style="
