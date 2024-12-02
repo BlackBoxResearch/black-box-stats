@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from static.elements import tile, metric_tile, gradient_text, animated_container
+from static.elements import tile, metric_tile, gradient_text, animated_container, hover_container
 import random
 from vega_datasets import data
 import pandas as pd
@@ -98,17 +98,25 @@ def DashboardPage():
         
         st.divider()
 
-        animated_container(
-            key="Test",
+        hover_container(
+            key="hover_test",
             content=f"""
                 <div style="line-height: 1.8;">
-                    <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Free</p>
+                    <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Hover Container</p>
+                </div>
+                """
+            )
+        animated_container(
+            key="animated_test",
+            content=f"""
+                <div style="line-height: 1.8;">
+                    <p style="margin: 0; font-size: 1em; color: #E8E8E8; ">Animated Container</p>
                 </div>
                 """
             )
         
         with st.container(border=True):
-            st.markdown("Plan")
+            st.markdown("Normal Container")
 
 if __name__ == "__main__":
     DashboardPage()
