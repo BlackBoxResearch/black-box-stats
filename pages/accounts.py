@@ -4,77 +4,7 @@ from utils.db import execute_query
 from static.elements import gradient_button, animated_container, tile, line_chart, scatter_chart, metric_tile
 import time
 import pandas as pd
-from utils.stats import calculate_trade_statistics
-
-def get_user_accounts(user_id):
-    """
-    Retrieves a list of account numbers for a given user ID where the connection status is 'connected'.
-    Args:
-        user_id (int): The ID of the user.
-    Returns:
-        list: A list of account numbers associated with the user.
-    """
-    # Query to get the account numbers for the user
-    query = '''
-        SELECT account_number
-        FROM accounts
-        WHERE user_id = :user_id
-        AND connection_status IS 'connected'
-    '''
-
-    # Execute the query using the helper function
-    result = execute_query(query, {'user_id': user_id})
-
-    # Extract and return the account_number values
-    account_numbers = [row[0] for row in result]
-    return account_numbers
-
-def get_account_info(user_id, account_number):
-    """
-    Fetch account information based on user_id and account_number.
-    
-    Args:
-        user_id (int): The ID of the user.
-        account_number (str): The account number.
-        
-    Returns:
-        tuple: (api_account_id, account_id) if found, else None.
-    """
-    query = '''
-        SELECT api_account_id, account_id
-        FROM accounts
-        WHERE user_id = :user_id AND account_number = :account_number
-    '''
-    
-    result = execute_query(query, {'user_id': user_id, 'account_number': account_number})
-
-    if result:  # Check if result contains any rows
-        return result[0]  # Return the first row as a tuple
-    else:
-        return None  # Return None if no data found
-
-def get_account_trades(api_account_id):
-    """
-    Fetch trades for a specific API account ID.
-    
-    Args:
-        api_account_id (int): The API account ID for which to fetch trades.
-        
-    Returns:
-        list: A list of tuples containing trade details, or an empty list if no trades found.
-    """
-    query = '''
-        SELECT *
-        FROM trades
-        WHERE api_account_id = :api_account_id
-    '''
-    
-    result = execute_query(query, {'api_account_id': api_account_id})
-    
-    if result:  # Check if there are any trades
-        return result  # Return the raw result (list of tuples)
-    else:
-        return []  # Return an empty list if no trades are found
+from utils.stats import calculate_trade_statistics, get_account_trades, get_user_accounts, get_account_info
 
 def AccountsPage():
     with st.container(border=False):
@@ -451,7 +381,6 @@ def AccountsPage():
                         
         else:
             st.info("No Account Selected")
-
 
 if __name__ == "__main__":
     AccountsPage()

@@ -10,6 +10,7 @@ light_text_color = '#E8E8E8'
 color_1 = '#5A85F3' #Blue
 color_2 = '#CDFFD8' #Green
 border_color = '#3c3c3c'
+caption_color = '#878884'
 
 def metric_tile(key, stat, value, height, type, border, tooltip):
     """
@@ -32,7 +33,7 @@ def metric_tile(key, stat, value, height, type, border, tooltip):
             st.markdown(
                 f"""
                     <div style="line-height: 1.4;">
-                        <p style="margin: 0; font-size: 0.75em; color: {text_color};">{stat}</p>
+                        <p style="margin: 0; font-size: 0.75em; color: {caption_color};">{stat}</p>
                         <p style="margin: 0; font-size: 1em; font-weight: bold; color: {text_color};">{value}</p>
                     </div>
                     """,
@@ -223,7 +224,7 @@ def animated_container(key: str, content: str):
         .animated-container {{
             position: relative;
             padding: 15px; /* Adjust padding as needed */
-            margin-bottom: 17px; /* Add vertical spacing between containers */
+            margin-bottom: 16px; /* Add vertical spacing between containers */
             border-radius: 8px; /* Rounded corners */
             background-color: {secondary_background}; /* Inner container background */
             color: {light_text_color}; /* Text color */
@@ -287,7 +288,7 @@ def promo_container(key: str, content: str):
         .promo-container {{
             position: relative;
             padding: 15px; /* Adjust padding as needed */
-            margin-bottom: 17px; /* Add vertical spacing between containers */
+            margin-bottom: 16px; /* Add vertical spacing between containers */
             border-radius: 8px; /* Rounded corners */
             background-color: {secondary_background}; /* Inner container background */
             color: {light_text_color}; /* Text color */
@@ -352,7 +353,7 @@ def hover_container(key: str, content: str):
         .hover-container {{
             position: relative;
             padding: 15px; /* Adjust padding as needed */
-            margin-bottom: 17px; /* Add vertical spacing between containers */
+            margin-bottom: 16px; /* Add vertical spacing between containers */
             border-radius: 8px; /* Rounded corners */
             background-color: {secondary_background}; /* Inner container background */
             color: {light_text_color}; /* Text color */

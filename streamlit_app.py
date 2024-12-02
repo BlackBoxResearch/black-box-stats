@@ -59,7 +59,7 @@ def main():
         st.logo(image="static/bbs_type_logo.png", size="large")
 
         with st.sidebar:   
-            promo_container(
+            animated_container(
                 key="pro-lifetime_promo", 
                 content=f'''
                     <div>
