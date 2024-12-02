@@ -12,6 +12,7 @@ color_1 = '#5A85F3'
 color_2 = '#CDFFD8'
 
 st.set_page_config(layout="centered")
+st.set_page_config(initial_sidebar_state="collapsed")
 
 # Define pages with icons
 login_page = st.Page(page=login.LoginPage, title="Login", icon=":material/login:")
