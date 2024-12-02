@@ -11,8 +11,14 @@ light_text_color = '#E8E8E8'
 color_1 = '#5A85F3'
 color_2 = '#CDFFD8'
 
-st.set_page_config(layout="centered")
-st.set_page_config(initial_sidebar_state="collapsed")
+st.set_page_config(
+    layout="centered",
+    initial_sidebar_state="collapsed",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    })
 
 # Define pages with icons
 login_page = st.Page(page=login.LoginPage, title="Login", icon=":material/login:")
