@@ -288,6 +288,70 @@ def hover_container(key: str, content: str):
             unsafe_allow_html=True
         )
 
+def gradient_container(key: str, content: str):
+    """
+    A function to create an animated container with custom content.
+
+    Args:
+        key (str): The container's unique key.
+        content (str): The HTML content to display inside the container.
+    """
+    css_styles = f'''
+        .animated-container {{
+            position: relative;
+            padding: 15px; /* Adjust padding as needed */
+            margin-bottom: 17px; /* Add vertical spacing between containers */
+            border-radius: 8px; /* Rounded corners */
+            background-color: {secondary_background}; /* Inner container background */
+            color: {light_text_color}; /* Text color */
+            z-index: 1;
+            width: 100%;
+        }}
+
+        @property --angle {{
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }}
+
+        .animated-container::after, .animated-container::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px; /* Match the container's border-radius */
+            padding: 1px; /* Border thickness */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1}); /* Smooth circular loop */
+            z-index: -1; /* Place behind the content */
+            animation: spin 3s linear infinite;
+        }}
+
+        @keyframes spin {{
+            from {{
+                --angle: 0deg;
+            }}
+            to {{
+                --angle: 360deg;
+            }}
+        }}
+    '''
+
+    with stylable_container(key=key, css_styles=css_styles):
+        with st.container():
+            st.markdown(
+                f"""
+                <div class="animated-container">{content}</div>
+                """,
+                unsafe_allow_html=True
+            )
+
 # CHARTS
 
 def line_chart(data, x, y, x_label, y_label, height=280):
