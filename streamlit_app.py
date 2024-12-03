@@ -28,7 +28,7 @@ support_page = st.Page(page=support.SupportPage, title="Support", icon=":materia
 profile_page = st.Page(page=profile.ProfilePage, title="My Profile", icon=":material/account_circle:")
 settings_page = st.Page(page=settings.SettingsPage, title="Settings", icon=":material/settings:")
 logout_page = st.Page(page=logout.LogoutPage, title="Logout", icon=":material/logout:")
-accounts_page = st.Page(page=accounts.AccountsPage, title="My Accounts", icon=":material/group:")
+accounts_page = st.Page(page=accounts.AccountsPage, title="Accounts", icon=":material/group:")
 
 # Group pages for logged-out users
 logged_out_pages = [login_page]
