@@ -68,9 +68,135 @@ def DashboardPage():
                 tooltip=None
                 )
         
-        tab1, tab2, tab3 = st.tabs(["Overview", "News Feed", "Trading Tools"])
+        tab1, tab2, tab3 = st.tabs(["Overview", "Systems", "Trading Tools"])
 
         with tab1:
+            
+            with tile(
+                "systems-accounts-performance-chart",
+                300,
+                True
+            ):
+                    st.markdown("**Accounts performance**")
+                    
+                    # Sample data for subscriber count over time
+                    subscriber_data = pd.DataFrame({
+                        "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
+                        "Gain (%)": [0, 2, 5, 3, 10, 12, 8, 9, 15, 25, 50, 45]
+                    })
+
+                    # Generate the chart
+                    line_chart(
+                        data=subscriber_data, 
+                        x="Date", 
+                        y="Gain (%)", 
+                        x_label="Date", 
+                        y_label="Gain (%)",
+                        height=250,
+                        show_labels=False
+                        )
+                
+            calendar, feed = st.columns([1, 2], vertical_alignment="bottom")
+
+            with calendar:
+                with tile(
+                    key="economic-calendar",
+                    height=300,
+                    border=True
+                ):
+                    st.markdown("**Economic Calendar**")
+                    st.caption("""
+                                00:01 UK BRC Retail Sales YoY -3.4% 0.6% 0.3%
+                               
+                                00:30 Australian Current Account Balance-14.1B--10.7B
+                               
+                                07:00 Turkish CPI YoY -46.6%48.58%
+                               
+                                07:00 Turkish CPI MoM -1.92%2.88%
+                               
+                                07:30 Swiss Core CPI YoY -0.9%0.8%
+                               
+                                07:30 Swiss CPI YoY -0.7%0.6%
+                               
+                                07:30 Swiss CPI MoM --0.1%-0.1%
+
+                                """)
+
+            with feed:
+                with tile(
+                    key="news-feed",
+                    height=300,
+                    border=True
+                ):
+                    st.markdown("**News Feed**")
+                    st.caption("""
+                                ICBC Financial Services avoids SEC fine for cybersecurity breach
+
+                                23:23 Dec 02
+                                    
+                                Gold drops on strong US Dollar boosted by ISM improvement
+
+                                23:15 Dec 02FXStreet
+                                    
+                                Williams: No Signs of Recession Detected
+
+                                23:09 Dec 02
+                                    
+                                Williams: Expect More Data Before December Meeting
+
+                                23:09 Dec 02
+                                    
+                                Williams: Avoiding Excessive Restrictions to Allow for Economic Growth
+
+                                23:09 Dec 02
+                                    
+                                Fed's Williams Addresses Reporters Following Event in Queens, NY
+
+                                23:09 Dec 02
+                                    
+                                Williams thinks monetary policy is still restrictive
+
+                                23:09 Dec 02
+                                    
+                                John Williams, NY Fed President: Direction is Towards Lower Rates Over Time
+
+                                23:09 Dec 02
+                                    
+                                Williams of the Federal Reserve: Key to return inflation to 2%
+
+                                23:09 Dec 02
+                                    
+                                Fed's Williams says policy should remain somewhat restrictive due to inflation
+
+                                23:09 Dec 02
+                                    
+                                Fed's Williams Sees No Signs of a US Recession
+
+                                23:09 Dec 02
+                                    
+                                As Trump fumes over unlikely ‘Brics currency’, China should talk to US more about money
+
+                                23:01 Dec 02South China Morning Post
+                                    
+                                Iraqi fighters head to Syria to battle rebels but Lebanon’s Hezbollah stays out: sources
+
+                                23:01 Dec 02South China Morning Post
+                                    
+                                GBP/USD turns bearish, ends three-day winstreak
+
+                                23:00 Dec 02FXStreet
+                                    
+                                South Korea Consumer Price Index Growth (MoM) below forecasts (-0.1%) in November: Actual (-0.3%)
+
+                                23:00 Dec 02FXStreet
+                                    
+                                South Korea Consumer Price Index Growth (YoY) below expectations (1.7%) in November: Actual (1.5%)
+
+
+                    
+                                """)
+
+        with tab2:
 
             col1, col2 = st.columns(2, vertical_alignment="bottom")
 
@@ -193,108 +319,6 @@ def DashboardPage():
 
                 hide_index=True, use_container_width=True
             )
-
-
-        with tab2:
-
-            calendar, feed = st.columns([1, 2], vertical_alignment="bottom")
-
-            with calendar:
-                with tile(
-                    key="economic-calendar",
-                    height=800,
-                    border=True
-                ):
-                    st.caption("Economic Calendar")
-                    st.markdown("""
-                                00:01UK BRC Retail Sales YoY -3.4% 0.6% 0.3%
-                                00:30Australian Current Account Balance-14.1B--10.7B
-                                07:00Turkish CPI YoY
-                                -46.6%48.58%
-                                07:00Turkish CPI MoM
-                                -1.92%2.88%
-                                07:30Swiss Core CPI YoY
-                                -0.9%0.8%
-                                07:30Swiss CPI YoY
-                                -0.7%0.6%
-                                07:30Swiss CPI MoM
-                                --0.1%-0.1%
-
-                                """)
-
-            with feed:
-                with tile(
-                    key="news-feed",
-                    height=800,
-                    border=True
-                ):
-                    st.caption("News Feed")
-                    st.markdown("""
-                                ICBC Financial Services avoids SEC fine for cybersecurity breach
-
-                                23:23 Dec 02
-                                    
-                                Gold drops on strong US Dollar boosted by ISM improvement
-
-                                23:15 Dec 02FXStreet
-                                    
-                                Williams: No Signs of Recession Detected
-
-                                23:09 Dec 02
-                                    
-                                Williams: Expect More Data Before December Meeting
-
-                                23:09 Dec 02
-                                    
-                                Williams: Avoiding Excessive Restrictions to Allow for Economic Growth
-
-                                23:09 Dec 02
-                                    
-                                Fed's Williams Addresses Reporters Following Event in Queens, NY
-
-                                23:09 Dec 02
-                                    
-                                Williams thinks monetary policy is still restrictive
-
-                                23:09 Dec 02
-                                    
-                                John Williams, NY Fed President: Direction is Towards Lower Rates Over Time
-
-                                23:09 Dec 02
-                                    
-                                Williams of the Federal Reserve: Key to return inflation to 2%
-
-                                23:09 Dec 02
-                                    
-                                Fed's Williams says policy should remain somewhat restrictive due to inflation
-
-                                23:09 Dec 02
-                                    
-                                Fed's Williams Sees No Signs of a US Recession
-
-                                23:09 Dec 02
-                                    
-                                As Trump fumes over unlikely ‘Brics currency’, China should talk to US more about money
-
-                                23:01 Dec 02South China Morning Post
-                                    
-                                Iraqi fighters head to Syria to battle rebels but Lebanon’s Hezbollah stays out: sources
-
-                                23:01 Dec 02South China Morning Post
-                                    
-                                GBP/USD turns bearish, ends three-day winstreak
-
-                                23:00 Dec 02FXStreet
-                                    
-                                South Korea Consumer Price Index Growth (MoM) below forecasts (-0.1%) in November: Actual (-0.3%)
-
-                                23:00 Dec 02FXStreet
-                                    
-                                South Korea Consumer Price Index Growth (YoY) below expectations (1.7%) in November: Actual (1.5%)
-
-
-                    
-                                """)
 
         with tab3:
 
