@@ -56,7 +56,7 @@ def main():
 
     # Display pages based on login state
     if st.session_state["logged_in"]:
-        st.logo(image="static/bbs_type_logo.png", size="large")
+        st.logo(image="static/bbs_type_logo.png", size="large", icon_image="static/bbs-icon.png")
 
         # with st.sidebar:   
         #     animated_container(
