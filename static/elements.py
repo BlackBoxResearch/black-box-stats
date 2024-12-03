@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
 import altair as alt
 import pandas as pd
+from vega_datasets import data as map_data
 
 primary_background = '#111111'
 secondary_background = '#171717'

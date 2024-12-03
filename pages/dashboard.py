@@ -6,15 +6,6 @@ import datetime as dt
 import numpy as np
 from utils.stats import get_account_trades, get_user_accounts, get_account_info
 
-primary_background = '#111111'
-secondary_background = '#171717'
-dark_text_color = '#171717'
-light_text_color = '#E8E8E8'
-color_1 = '#5A85F3' #Blue
-color_2 = '#CDFFD8' #Green
-border_color = '#3c3c3c'
-caption_color = '#878884'
-
 now = dt.datetime.now(dt.timezone.utc)  # Get current time in UTC
 current_time = now.hour + now.minute / 60  # Convert to hour with decimal minutes
 
@@ -27,9 +18,8 @@ def DashboardPage():
         account_numbers = get_user_accounts(user_id)
         
         st.subheader(f"Welcome back, {first_name}!", anchor=False)
-        st.caption("Some message.")
+        st.caption("Explore comprehensive data on your trading activity, subscriber base, and earnings.")
     
-        st.markdown("")
         st.markdown("")
 
         col1, col2, col3, col4 = st.columns(4, vertical_alignment="bottom")
@@ -78,129 +68,132 @@ def DashboardPage():
                 tooltip=None
                 )
         
-        col1, col2 = st.columns(2, vertical_alignment="bottom")
+        tab1, tab2, tab3 = st.tabs(["Overview", "News Feed", "Trading Tools"])
 
-        with col1:
-            with tile(
-                key="system_subscriber_chart",
-                height=300,
-                border=True
-            ):
-                st.markdown("**Total Subscriber Count**")
-                
-                # Sample data for subscriber count over time
-                subscriber_data = pd.DataFrame({
-                    "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
-                    "Subscribers": [0, 2, 5, 3, 10, 12, 8, 9, 15, 25, 50, 45]
-                })
+        with tab1:
 
-                # Generate the chart
-                line_chart(
-                    data=subscriber_data, 
-                    x="Date", 
-                    y="Subscribers", 
-                    x_label="Date", 
-                    y_label="Number of Subscribers",
-                    height=250,
-                    show_labels=False
-                    )
+            col1, col2 = st.columns(2, vertical_alignment="bottom")
 
-        with col2:
-            with tile(
-                key="system_revenue_chart",
-                height=300,
-                border=True
-            ):
-                st.markdown("**Subscrition Revenue**")
-                
-                # Sample data for subscriber revenue over time
-                revenue_data = pd.DataFrame({
-                    "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
-                    "Revenue": [0, 100, 250, 150, 500, 600, 400, 450, 750, 950, 1000, 850]
-                })
+            with col1:
+                with tile(
+                    key="system_subscriber_chart",
+                    height=300,
+                    border=True
+                ):
+                    st.markdown("**Total Subscriber Count**")
+                    
+                    # Sample data for subscriber count over time
+                    subscriber_data = pd.DataFrame({
+                        "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
+                        "Subscribers": [0, 2, 5, 3, 10, 12, 8, 9, 15, 25, 50, 45]
+                    })
 
-                # Generate the chart
-                column_chart(
-                    data=revenue_data, 
-                    x="Date", 
-                    y="Revenue", 
-                    x_label="Date", 
-                    y_label="Revenue",
-                    height=250,
-                    show_labels=False
-                    )
+                    # Generate the chart
+                    line_chart(
+                        data=subscriber_data, 
+                        x="Date", 
+                        y="Subscribers", 
+                        x_label="Date", 
+                        y_label="Number of Subscribers",
+                        height=250,
+                        show_labels=False
+                        )
 
-        # Sample data for systems
-        systems_data = [
-            {
-                "System Name": "System A",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),  # Random net gain percentage
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),  # Score out of 100
-                "Subscribers": round(np.random.uniform(0, 50), 0),
-                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
-            },
-            {
-                "System Name": "System B",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),
-                "Subscribers": round(np.random.uniform(0, 50), 0),
-                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
-            },
-            {
-                "System Name": "System C",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),
-                "Subscribers": round(np.random.uniform(0, 50), 0),
-                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
-            },
-            {
-                "System Name": "System D",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),
-                "Subscribers": round(np.random.uniform(0, 50), 0),
-                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
-            },
-        ]
+            with col2:
+                with tile(
+                    key="system_revenue_chart",
+                    height=300,
+                    border=True
+                ):
+                    st.markdown("**Subscrition Revenue**")
+                    
+                    # Sample data for subscriber revenue over time
+                    revenue_data = pd.DataFrame({
+                        "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
+                        "Revenue": [0, 100, 250, 150, 500, 600, 400, 450, 750, 950, 1000, 850]
+                    })
 
-        # Convert data into a pandas DataFrame
-        systems_df = pd.DataFrame(systems_data)
+                    # Generate the chart
+                    column_chart(
+                        data=revenue_data, 
+                        x="Date", 
+                        y="Revenue", 
+                        x_label="Date", 
+                        y_label="Revenue",
+                        height=250,
+                        show_labels=False
+                        )
 
-        # Displaying the table for Systems
-        st.dataframe(
-            systems_df,
-            column_config={
-                "System Name": "Portfolio System",
-                "Net Gain (%)": st.column_config.NumberColumn(
-                    "Net Gain (%)", 
-                    format="%.2f%%"
-                ),
-                "Performance": st.column_config.AreaChartColumn(
-                    "Performance Sparkline",
-                    y_min=systems_df["Performance"].apply(lambda x: min(x)).min(),
-                    y_max=systems_df["Performance"].apply(lambda x: max(x)).max(),
-                ),
-                "Black Box Score": st.column_config.ProgressColumn(
-                    "Black Box Score",
-                    format="%d",
-                    help="The Black Box Score rates the portfolio based on historical performance and risk metrics.",
-                ),
-                "Subscribers": st.column_config.NumberColumn(
-                "Subscribers"
-                ),
-                "Revenue ($)": st.column_config.NumberColumn(
-                    "Revenue ($)", 
-                    format="$%.2f"
-                ),
-            },
+            # Sample data for systems
+            systems_data = [
+                {
+                    "System Name": "System A",
+                    "Net Gain (%)": round(np.random.uniform(-10, 50), 2),  # Random net gain percentage
+                    "Performance": np.random.randn(30).cumsum(),
+                    "Black Box Score": np.random.randint(60, 100),  # Score out of 100
+                    "Subscribers": round(np.random.uniform(0, 50), 0),
+                    "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+                },
+                {
+                    "System Name": "System B",
+                    "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                    "Performance": np.random.randn(30).cumsum(),
+                    "Black Box Score": np.random.randint(60, 100),
+                    "Subscribers": round(np.random.uniform(0, 50), 0),
+                    "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+                },
+                {
+                    "System Name": "System C",
+                    "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                    "Performance": np.random.randn(30).cumsum(),
+                    "Black Box Score": np.random.randint(60, 100),
+                    "Subscribers": round(np.random.uniform(0, 50), 0),
+                    "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+                },
+                {
+                    "System Name": "System D",
+                    "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                    "Performance": np.random.randn(30).cumsum(),
+                    "Black Box Score": np.random.randint(60, 100),
+                    "Subscribers": round(np.random.uniform(0, 50), 0),
+                    "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+                },
+            ]
 
-            hide_index=True, use_container_width=True
-        )
+            # Convert data into a pandas DataFrame
+            systems_df = pd.DataFrame(systems_data)
 
+            # Displaying the table for Systems
+            st.dataframe(
+                systems_df,
+                column_config={
+                    "System Name": "Portfolio System",
+                    "Net Gain (%)": st.column_config.NumberColumn(
+                        "Net Gain (%)", 
+                        format="%.2f%%"
+                    ),
+                    "Performance": st.column_config.AreaChartColumn(
+                        "Performance Sparkline",
+                        y_min=systems_df["Performance"].apply(lambda x: min(x)).min(),
+                        y_max=systems_df["Performance"].apply(lambda x: max(x)).max(),
+                    ),
+                    "Black Box Score": st.column_config.ProgressColumn(
+                        "Black Box Score",
+                        format="%d",
+                        help="The Black Box Score rates the portfolio based on historical performance and risk metrics.",
+                    ),
+                    "Subscribers": st.column_config.NumberColumn(
+                    "Subscribers"
+                    ),
+                    "Revenue ($)": st.column_config.NumberColumn(
+                        "Revenue ($)", 
+                        format="$%.2f"
+                    ),
+                },
 
+                hide_index=True, use_container_width=True
+            )
+            
 
 if __name__ == "__main__":
     DashboardPage()
