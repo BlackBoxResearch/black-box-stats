@@ -459,7 +459,7 @@ def gradient_container(key: str, content: str):
 
 # CHARTS
 
-def line_chart(data, x, y, x_label, y_label, height=280):
+def line_chart(data, x, y, x_label, y_label, height=280, show_labels=True):
     """
     Generate a line chart with a gradient fill.
     
@@ -470,6 +470,7 @@ def line_chart(data, x, y, x_label, y_label, height=280):
         x_label (str): The label for the x-axis.
         y_label (str): The label for the y-axis.
         height (int): The height of the chart. Default is 280.
+        show_labels (bool): Show labels or not.
     
     Returns:
         alt.Chart: The Altair chart object.
@@ -477,6 +478,10 @@ def line_chart(data, x, y, x_label, y_label, height=280):
     # Ensure the x-axis column is interpreted as datetime
     data[x] = pd.to_datetime(data[x])
     
+    # Configure axis labels based on show_labels parameter
+    x_axis = alt.X(f'{x}:T', title=x_label if show_labels else None)
+    y_axis = alt.Y(f'{y}:Q', title=y_label if show_labels else None)
+
     # Create the main line chart with a gradient fill
     chart = alt.Chart(data).mark_area(
         line={'color': color_1},  # Line color
@@ -490,8 +495,8 @@ def line_chart(data, x, y, x_label, y_label, height=280):
         ),
         interpolate='monotone'  # Smooth the line
     ).encode(
-        x=alt.X(f'{x}:T', title=x_label),  # Specify temporal data type
-        y=alt.Y(f'{y}:Q', title=y_label)  # Specify quantitative data type
+        x=x_axis,  # Configure x-axis
+        y=y_axis   # Configure y-axis
     ).properties(
         height=height,  # Set the height of the chart
         background=secondary_background,  # Background color
@@ -530,6 +535,51 @@ def scatter_chart(data, x, y, x_label, y_label, height=280):
     ).encode(
         x=alt.X(f'{x}:Q', title=x_label),  # Specify quantitative data type
         y=alt.Y(f'{y}:Q', title=y_label)  # Specify quantitative data type
+    ).properties(
+        height=height,  # Set the height of the chart
+        background=secondary_background,  # Background color
+        padding={"top": 10, "bottom": 10, "left": 10, "right": 10}
+    ).configure_axis(
+        grid=False  # Remove grid lines
+    ).configure_view(
+        strokeWidth=0  # Remove borders around the chart
+    )
+    
+    return st.altair_chart(chart, use_container_width=True)
+
+def column_chart(data, x, y, x_label, y_label, height=280, show_labels=True):
+    """
+    Generate a column chart with gradient fill for bars.
+
+    Parameters:
+        data (pd.DataFrame): The DataFrame containing the data to plot.
+        x (str): The column name for the x-axis.
+        y (str): The column name for the y-axis.
+        x_label (str): The label for the x-axis.
+        y_label (str): The label for the y-axis.
+        height (int): The height of the chart. Default is 280.
+        show_labels (bool): Show labels or not.
+
+    Returns:
+        alt.Chart: The Altair chart object.
+    """
+
+    # Ensure the x-axis column is interpreted as datetime
+    data[x] = pd.to_datetime(data[x])
+    
+    # Configure axis labels based on show_labels parameter
+    x_axis = alt.X(f'{x}:T', title=x_label if show_labels else None)
+    y_axis = alt.Y(f'{y}:Q', title=y_label if show_labels else None)
+
+    # Create the main line chart with a gradient fill
+    # Create the column chart
+    chart = alt.Chart(data).mark_bar(
+        cornerRadiusTopLeft=5,  # Add rounded corners at the top
+        cornerRadiusTopRight=5,
+        color=color_1
+    ).encode(
+        x=x_axis,  # Configure x-axis
+        y=y_axis   # Configure y-axis
     ).properties(
         height=height,  # Set the height of the chart
         background=secondary_background,  # Background color

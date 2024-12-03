@@ -1,10 +1,19 @@
 import streamlit as st
 import altair as alt
-from static.elements import tile, metric_tile, promo_container, animated_container, hover_container, promo_container
+from static.elements import tile, metric_tile, promo_container, promo_container, line_chart, column_chart
 import pandas as pd
 import datetime as dt
 import numpy as np
 from utils.stats import get_account_trades, get_user_accounts, get_account_info
+
+primary_background = '#111111'
+secondary_background = '#171717'
+dark_text_color = '#171717'
+light_text_color = '#E8E8E8'
+color_1 = '#5A85F3' #Blue
+color_2 = '#CDFFD8' #Green
+border_color = '#3c3c3c'
+caption_color = '#878884'
 
 now = dt.datetime.now(dt.timezone.utc)  # Get current time in UTC
 current_time = now.hour + now.minute / 60  # Convert to hour with decimal minutes
@@ -22,46 +31,6 @@ def DashboardPage():
     
         st.markdown("")
         st.markdown("")
-
-        # Sample data for trading accounts
-        accounts_data = [
-            {"Account Name": "Account 1", "Balance": 1500, "Performance": np.random.randn(30).cumsum()},
-            {"Account Name": "Account 2", "Balance": 2500, "Performance": np.random.randn(30).cumsum()},
-            {"Account Name": "Account 3", "Balance": 1200, "Performance": np.random.randn(30).cumsum()},
-            {"Account Name": "Account 4", "Balance": 3100, "Performance": np.random.randn(30).cumsum()},
-        ]
-
-        # Sample data for systems
-        systems_data = [
-            {
-                "System Name": "System A",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),  # Random net gain percentage
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),  # Score out of 100
-                "Published": np.random.choice(["Yes", "No"]),  # Published status
-            },
-            {
-                "System Name": "System B",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),
-                "Published": np.random.choice(["Yes", "No"]),
-            },
-            {
-                "System Name": "System C",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),
-                "Published": np.random.choice(["Yes", "No"]),
-            },
-            {
-                "System Name": "System D",
-                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
-                "Performance": np.random.randn(30).cumsum(),
-                "Black Box Score": np.random.randint(60, 100),
-                "Published": np.random.choice(["Yes", "No"]),
-            },
-        ]
 
         col1, col2, col3, col4 = st.columns(4, vertical_alignment="bottom")
 
@@ -109,33 +78,96 @@ def DashboardPage():
                 tooltip=None
                 )
         
-        st.divider()
-        st.markdown("**My Accounts**")
+        col1, col2 = st.columns(2, vertical_alignment="bottom")
+
+        with col1:
+            with tile(
+                key="system_subscriber_chart",
+                height=300,
+                border=True
+            ):
+                st.markdown("**Total Subscriber Count**")
+                
+                # Sample data for subscriber count over time
+                subscriber_data = pd.DataFrame({
+                    "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
+                    "Subscribers": [0, 2, 5, 3, 10, 12, 8, 9, 15, 25, 50, 45]
+                })
+
+                # Generate the chart
+                line_chart(
+                    data=subscriber_data, 
+                    x="Date", 
+                    y="Subscribers", 
+                    x_label="Date", 
+                    y_label="Number of Subscribers",
+                    height=250,
+                    show_labels=False
+                    )
+
+        with col2:
+            with tile(
+                key="system_revenue_chart",
+                height=300,
+                border=True
+            ):
+                st.markdown("**Subscrition Revenue**")
+                
+                # Sample data for subscriber revenue over time
+                revenue_data = pd.DataFrame({
+                    "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
+                    "Revenue": [0, 100, 250, 150, 500, 600, 400, 450, 750, 950, 1000, 850]
+                })
+
+                # Generate the chart
+                column_chart(
+                    data=revenue_data, 
+                    x="Date", 
+                    y="Revenue", 
+                    x_label="Date", 
+                    y_label="Revenue",
+                    height=250,
+                    show_labels=False
+                    )
+
+        # Sample data for systems
+        systems_data = [
+            {
+                "System Name": "System A",
+                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),  # Random net gain percentage
+                "Performance": np.random.randn(30).cumsum(),
+                "Black Box Score": np.random.randint(60, 100),  # Score out of 100
+                "Subscribers": round(np.random.uniform(0, 50), 0),
+                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+            },
+            {
+                "System Name": "System B",
+                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                "Performance": np.random.randn(30).cumsum(),
+                "Black Box Score": np.random.randint(60, 100),
+                "Subscribers": round(np.random.uniform(0, 50), 0),
+                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+            },
+            {
+                "System Name": "System C",
+                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                "Performance": np.random.randn(30).cumsum(),
+                "Black Box Score": np.random.randint(60, 100),
+                "Subscribers": round(np.random.uniform(0, 50), 0),
+                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+            },
+            {
+                "System Name": "System D",
+                "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                "Performance": np.random.randn(30).cumsum(),
+                "Black Box Score": np.random.randint(60, 100),
+                "Subscribers": round(np.random.uniform(0, 50), 0),
+                "Revenue ($)": round(np.random.uniform(0, 15000), 2),
+            },
+        ]
 
         # Convert data into a pandas DataFrame
-        df = pd.DataFrame(accounts_data)
         systems_df = pd.DataFrame(systems_data)
-
-        # Displaying the table with sparklines
-        st.dataframe(
-            df,
-            column_config={
-                "Account Name": "Trading Account",
-                "Balance": st.column_config.NumberColumn(
-                    "Balance ($)", 
-                    format="$%d"
-                ),
-                "Performance": st.column_config.AreaChartColumn(
-                    "Performance Sparkline",
-                    y_min=df["Performance"].apply(lambda x: min(x)).min(),
-                    y_max=df["Performance"].apply(lambda x: max(x)).max(),
-                ),
-            },
-            hide_index=True, use_container_width=True
-        )
-
-        st.divider()
-        st.markdown("**My Systems**")
 
         # Displaying the table for Systems
         st.dataframe(
@@ -156,89 +188,19 @@ def DashboardPage():
                     format="%d",
                     help="The Black Box Score rates the portfolio based on historical performance and risk metrics.",
                 ),
-                "Published": st.column_config.TextColumn(
-                    "Published",
-                    help="Indicates whether the system is publicly available to subscribe to."
+                "Subscribers": st.column_config.NumberColumn(
+                "Subscribers"
+                ),
+                "Revenue ($)": st.column_config.NumberColumn(
+                    "Revenue ($)", 
+                    format="$%.2f"
                 ),
             },
+
             hide_index=True, use_container_width=True
         )
 
 
-        # Define the HTML and JavaScript for the Chart.js chart
-        chart_code = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        </head>
-        <body>
-        <canvas id="myChart" width="400" height="150"></canvas>
-        <script>
-            let width, height, gradient;
-            function getGradient(ctx, chartArea) {
-                const chartWidth = chartArea.right - chartArea.left;
-                const chartHeight = chartArea.bottom - chartArea.top;
-                if (!gradient || width !== chartWidth || height !== chartHeight) {
-                    width = chartWidth;
-                    height = chartHeight;
-                    gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-                    gradient.addColorStop(0, '#5A85F3');
-                    gradient.addColorStop(1, '#CDFFD8');
-                }
-                return gradient;
-            }
-
-            const ctx = document.getElementById('myChart').getContext('2d');
-
-            const chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [{
-                        label: 'Dataset',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        fill: false,
-                        borderColor: function(context) {
-                            const { chart } = context;
-                            const { ctx, chartArea } = chart;
-                            if (!chartArea) {
-                                return null;
-                            }
-                            return getGradient(ctx, chartArea);
-                        },
-                        tension: 0.4,
-                        pointRadius: 0, // Remove data points
-                        borderWidth: 1 // Set line width to 1px
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false // Remove legend
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true
-                        },
-                        y: {
-                            display: true
-                        }
-                    }
-                },
-                plugins: ['glow'] // Activate the glow plugin
-            });
-        </script>
-        </body>
-        </html>
-        """
-
-        # Embed the HTML in Streamlit
-        with tile("performance_chart", height=300, border=True):
-            st.markdown("**Performance Chart**")
-            st.components.v1.html(chart_code, height=280)
 
 if __name__ == "__main__":
     DashboardPage()
