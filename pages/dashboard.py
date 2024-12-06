@@ -1,6 +1,6 @@
 import streamlit as st
 import altair as alt
-from static.elements import tile, metric_tile, promo_container, promo_container, line_chart, column_chart
+from static.elements import tile, metric_tile, promo_container, animated_container, line_chart, column_chart
 import pandas as pd
 import datetime as dt
 import numpy as np
@@ -26,7 +26,7 @@ def DashboardPage():
         col1, col2, col3, col4 = st.columns(4, vertical_alignment="bottom")
 
         with col1:
-            promo_container(
+            animated_container(
                 key="dashboard_plan_card", 
                 content=f"""
                     <div style="line-height: 1.44;">
