@@ -5,6 +5,7 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 from utils.stats import get_account_trades, get_user_accounts, get_account_info
+from streamlit_extras.stylable_container import stylable_container
 
 now = dt.datetime.now(dt.timezone.utc)  # Get current time in UTC
 current_time = now.hour + now.minute / 60  # Convert to hour with decimal minutes
@@ -71,7 +72,6 @@ def DashboardPage():
         tab1, tab2, tab3 = st.tabs(["Overview", "Systems", "Trading Tools"])
 
         with tab1:
-            
             with tile(
                 "systems-accounts-performance-chart",
                 300,
@@ -96,47 +96,15 @@ def DashboardPage():
                         show_labels=False
                         )
                 
-            calendar, feed = st.columns(2, vertical_alignment="bottom")
+            with tile(
+                "tab-test",
+                300,
+                True
+            ):
+                subtab1, subtab2 = st.tabs(["Tab 1", "Tab 2"])
 
-            with calendar:
-                with tile(
-                    key="economic-calendar",
-                    height=300,
-                    border=True
-                ):
-                    st.markdown("**Economic Calendar**")
-                    st.caption("""
-                                **00:01** UK BRC Retail Sales YoY -3.4% 0.6% 0.3%
-                               
-                                **00:30** Australian Current Account Balance-14.1B--10.7B
-                               
-                                **07:30** Swiss Core CPI YoY -0.9%0.8%
-                               
-                                **07:30** Swiss CPI YoY -0.7%0.6%
-                               
-                                **07:30** Swiss CPI MoM --0.1%-0.1%
-
-                                """)
-
-            with feed:
-                with tile(
-                    key="news-feed",
-                    height=300,
-                    border=True
-                ):
-                    st.markdown("**News Feed**")
-                    st.caption("""
-                                **23:23** ICBC Financial Services avoids SEC fine for cybersecurity breach
-                                    
-                                **23:15** Gold drops on strong US Dollar boosted by ISM improvement
-
-                                **23:09** Williams: No Signs of Recession Detected
-
-                                **23:09** Williams: Expect More Data Before December Meeting
-
-                                **23:09** Williams: Avoiding Excessive Restrictions to Allow for Economic Growth
-                    
-                                """)
+                with subtab1:
+                    st.caption("Test")
 
         with tab2:
 
@@ -261,110 +229,6 @@ def DashboardPage():
 
                 hide_index=True, use_container_width=True
             )
-
-        with tab3:
-
-            tool1, tool2 = st.columns(2, vertical_alignment="bottom")
-
-            with tool1:
-                with tile(
-                    key="tool-1",
-                    height=200,
-                    border=True
-                ):
-                    st.caption("Trading Tool 1")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.button("Explore1")
-
-            with tool2:
-                with tile(
-                    key="tool-2",
-                    height=200,
-                    border=True
-                ):
-                    st.caption("Trading Tool 2")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.button("Explore2")
-
-            tool3, tool4 = st.columns(2, vertical_alignment="bottom")
-
-            with tool3:
-                with tile(
-                    key="tool-3",
-                    height=200,
-                    border=True
-                ):
-                    st.caption("Trading Tool 3")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.button("Explore3")
-
-            with tool4:
-                with tile(
-                    key="tool-4",
-                    height=200,
-                    border=True
-                ):
-                    st.caption("Trading Tool 4")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.button("Explore4")
-
-            tool5, tool6 = st.columns(2, vertical_alignment="bottom")
-
-            with tool5:
-                with tile(
-                    key="tool-5",
-                    height=200,
-                    border=True
-                ):
-                    st.caption("Trading Tool 5")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.button("Explore5")
-
-            with tool6:
-                with tile(
-                    key="tool-6",
-                    height=200,
-                    border=True
-                ):
-                    st.caption("Trading Tool 6")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.markdown("")
-                    st.button("Explore6")
 
 if __name__ == "__main__":
     DashboardPage()
