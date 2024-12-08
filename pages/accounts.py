@@ -93,162 +93,343 @@ def AccountsPage():
                         'Open Price', 'Close Time', 'Close Price', 'Profit', 'Gain']
                     ]
 
-                    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Performance", "Trade Journal", "Advanced Analytics", "AI Insights", "Settings"])
+                    performance, trade_journal, advanced_analytics, ai_insights, account_settings = st.tabs(["Performance", 
+                                                                                                            "Trade Journal", 
+                                                                                                            "Advanced Analytics", 
+                                                                                                            "AI Insights", 
+                                                                                                            "Settings"
+                                                                                                            ])
 
-                    with tab1: # ------ PERFORMANCE STATS ------ #
+                    with performance: # ------ PERFORMANCE STATS ------ #
+                        st.subheader("Performance", anchor=False)
                         
+                        performance_overview, risk_drawdown_analysis, trading_efficiency, symbol_breakdown, time_analysis, profitability, advanced_statistics = st.tabs(["Performance Overview",
+                                                                                                                                                                         "Risk & Drawdown Analysis",
+                                                                                                                                                                         "Trading Activity & Efficiency",
+                                                                                                                                                                         "Instrument & Symbol Breakdown",
+                                                                                                                                                                         "Time-Based Analysis",
+                                                                                                                                                                         "Profitability & Risk Ratios",
+                                                                                                                                                                         "Advanced Statistics"
+                                                                                                                                                                         ])
+
+                        with performance_overview:
+                            st.subheader("Performance Overview", anchor=False)
+                            st.caption('''A high-level summary of the account’s overall performance, profitability, and key return metrics.''')
+
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **Balance (Line Chart)**: Show evolution of account balance over time.
+                                            - **Daily & Cumulative Net P/L (Bar and Line Chart)**: Bar for daily P/L, line for cumulative P/L over same timeline.
+                                            - **Net Daily P/L Bar**: Daily profits/losses as a bar chart.
+
+                                            **KPIs (Tiles/Tables):**
+
+                                            - Total P/L
+                                            - Gross Profit
+                                            - Gross Loss
+                                            - Dividends
+                                            - Swaps
+                                            - Commissions (Total Commissions, Total Fees)
+                                            - Annualised Return
+                                            - Average Daily P&L
+                                            - Monthly Gain (Table: month-by-month P/L)
+                                            - Best Month & Lowest Month + related figures (e.g. $13,582.24 in Aug 2024)
+                                            - Average per Month
+                                            - Account Balance & P/L (Overall summaries)
+                                            - ATH quote, Days since ATH, Return since ATH
+                                            - Top 5 Symbol Net Profit (Tile or small table)
+                                        ''')
+
+                        with risk_drawdown_analysis:
+                            st.subheader("Risk & Drawdown Analysis", anchor=False)
+                            st.caption('''Focus on how risk is managed, the extent of drawdowns, variability in returns, and volatility measures.''')
+
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **Balance vs Drawdown Line Chart**
+                                            - **Drawdown Chart & Distribution**: A line chart showing drawdown over time plus a histogram of drawdown depths.
+                                            - **Risk Management (VaR) Chart**: Plot minimum, maximum, and monthly VaR.
+                                            - **Max. positive/negative excursion per position** (Bar Chart)
+                                            - **Duration vs Profit distribution matrix** (Heatmap/Scatter)
+                                            - **Return Distribution (Daily/Weekly histogram)**
+
+                                            **KPIs (Tiles):**
+
+                                            - Max Drawdown (Absolute & %)
+                                            - Average Drawdown (Absolute & %)
+                                            - Max VaR, Min VaR
+                                            - Annualised Volatility
+                                            - Daily STDV
+                                            - Skewness, Kurtosis
+                                            - Sortino ratio, Sharpe ratio
+                                        ''')
+                            
+                        with trading_efficiency:
+                            st.subheader("Trading Activity & Efficiency", anchor=False)
+                            st.caption('''Drill down into the execution metrics such as the number of trades, their success rate, and trade-by-trade profitability/duration patterns.''')
+
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **P/L per Day of the Week (Bar Chart)**
+                                            - **Long/Short Count with Net Line overlay**
+                                            - **Donut Chart showing Long vs Short Split**
+                                            - **Bar Chart for Long Sum & Short Sum Each Day of Week**
+
+                                            **KPIs (Tiles/Tables):**
+
+                                            - Total Number of Trades
+                                            - Number of Winning Trades, Losing Trades, Break Even Trades
+                                            - Win % (Trade Win %)
+                                            - Average Winning Trade (in cash/%)
+                                            - Average Losing Trade (in cash/%)
+                                            - Payoff Ratio (Average Win / Average Loss)
+                                            - Trade Expectancy
+                                            - Average Hold Time (All, Winning, Losing, Scratch)
+                                            - Max Consecutive Wins, Max Consecutive Losses
+                                            - Open Trades (current)
+                                            - Daily trade frequency
+                                            - pct Long Exposure
+                                        ''')
+
+                        with symbol_breakdown:
+                            st.subheader("Instrument & Symbol Breakdown", anchor=False)
+                            st.caption('''Performance by instrument, helping identify which symbols or assets contribute most to P/L.''')
+                                       
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **Donut Symbol Breakdown (P/L or Volume)**
+                                            - **Profit Factor for each symbol (Bar Chart)**
+                                            - **Net profit for each symbol (Bar Chart)**
+
+                                            **KPIs (Tiles/Tables):**
+
+                                            - Fees for each symbol
+                                            - Asset allocation (donut chart with breakdown, tiles for number of trades, win %, return per symbol)
+                                            - Top 5 Symbol Net Profit (Gain and Cash)
+                                        ''')
+                            
+                        with time_analysis:
+                            st.subheader("Time-Based Analysis", anchor=False)
+                            st.caption('''Evaluate how performance differs by time segments (day of week, month, session''')
+
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **Calendar Chart (Monthly view of daily P/L)**
+                                            - **Balance vs. Deposit Load Line Chart**
+                                            - **Return Distribution for day of week (Line chart with cumulative returns for each day)**
+                                            - **Trade Time Performance Scatter** (e.g. plot trades over time of day)
+                                            - **Trading time distribution (bar chart or donut) by session (Europe/America/Asia)**
+
+                                            **KPIs (Tiles/Tables):**
+
+                                            - Trades per Week
+                                            - Current Winning day streak
+                                            - Max Consecutive Winning Days, Max Consecutive Losing Days
+                                            - Winning Days, Losing Days, Breakeven Days
+                                            - Total Trading Days
+                                            - Logged Days
+                                        ''')
+                        
+                        with profitability:
+                            st.subheader("Profitability & Risk Ratios", anchor=False)
+                            st.caption('''Focus on the ratios and metrics that describe risk-adjusted returns and efficiency.''')
+
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **P/L Chart with Profit/Loss columns and Net Line Overlay**
+                                            - **MFE/MAE over time as stacked chart** (Max Favourable/Adverse excursion)
+                                            - **Balance vs. Deposit Load** (line chart)
+                                            - **Best vs. Worst Trade (bar)**
+
+                                            **KPIs (Tiles/Tables):**
+
+                                            - Profit Factor (overall and by symbol)
+                                            - Recovery Factor
+                                            - Sortino ratio, Sharpe ratio
+                                            - Return since ATH
+                                            - Average Planned R-Multiple, Average Realized R-Multiple
+                                            - Black Box Score (if applicable)
+                                        ''')
+
+                        with advanced_statistics:
+                            st.subheader("Advanced Statistics & Distributions", anchor=False)
+                            st.caption('''More sophisticated statistical analyses and return distributions.''')
+
+                            st.markdown('''
+                                            **Charts & Visuals:**
+
+                                            - **Trade Duration Performance Scatter** (plot duration vs. P/L)
+                                            - **Return distribution histograms (Daily/Weekly)**
+                                            - **Drawdown distribution histogram**
+
+                                            **KPIs (Tiles/Tables):**
+
+                                            - Skewness, Kurtosis
+                                            - Annualised return & volatility
+                                            - Distribution metrics (how many days/weeks are positive/negative within certain return bands)
+                                        ''')
+
+
+
+
                         # ------ OVERVIEW ------ #
 
-                        st.subheader("Overview", anchor=False)
-                        st.caption(f"General performance overview for account {account_selection}.")
+                        # st.subheader("Overview", anchor=False)
+                        # st.caption(f"General performance overview for account {account_selection}.")
 
-                        chart, stats = st.columns([3, 1], vertical_alignment="bottom")
+                        # chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
-                        with chart:
-                            with tile("overview_chart", 385, border=True):
-                                st.markdown("**Overview**")
+                        # with chart:
+                        #     with tile("overview_chart", 385, border=True):
+                        #         st.markdown("**Overview**")
 
-                                line_chart(
-                                    data=trades_df, 
-                                    x='close_time', 
-                                    y='cum_gain', 
-                                    x_label='Time', 
-                                    y_label='Cumulative Gain (%)', 
-                                    height=335
-                                )
+                        #         line_chart(
+                        #             data=trades_df, 
+                        #             x='close_time', 
+                        #             y='cum_gain', 
+                        #             x_label='Time', 
+                        #             y_label='Cumulative Gain (%)', 
+                        #             height=335
+                        #         )
 
-                        with stats:
-                            animated_container(
-                                key="performance_overview_stat_1", 
-                                content=f"""
-                                    <div style="line-height: 1.45;">
-                                        <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Total Gain</p>
-                                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">{statistics['Total Gain']}</p>
-                                    </div>
-                                    """
-                                )
-                            #metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 39, "secondary", tooltip=None, border=False)
-                            metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 39, "primary", tooltip="Percentage of winning trades.", border=True)
-                            metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 39, "primary", tooltip=None, border=True)
-                            metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 39, "primary", tooltip=None, border=True)
-                            metric_tile("performance_overview_stat_5", "Most Traded Symbol", statistics['Most Traded Symbol'], 39, "primary", tooltip=None, border=True)
+                        # with stats:
+                        #     animated_container(
+                        #         key="performance_overview_stat_1", 
+                        #         content=f"""
+                        #             <div style="line-height: 1.45;">
+                        #                 <p style="margin: 0; font-size: 0.75em; color: #E8E8E8;">Total Gain</p>
+                        #                 <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">{statistics['Total Gain']}</p>
+                        #             </div>
+                        #             """
+                        #         )
+                        #     #metric_tile("performance_overview_stat_1", "Total Gain", statistics['Total Gain'], 39, "secondary", tooltip=None, border=False)
+                        #     metric_tile("performance_overview_stat_2", "Win Rate", statistics['Win Rate'], 39, "primary", tooltip="Percentage of winning trades.", border=True)
+                        #     metric_tile("performance_overview_stat_3", "Profit Factor", statistics['Profit Factor'], 39, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_overview_stat_4", "Account Age", statistics['Account Age'], 39, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_overview_stat_5", "Most Traded Symbol", statistics['Most Traded Symbol'], 39, "primary", tooltip=None, border=True)
 
-                        st.divider()
+                        # st.divider()
 
-                        # ------ TRADE EFFICIENCY ------ #
+                        # # ------ TRADE EFFICIENCY ------ #
                     
-                        st.subheader("Trade Efficiency", anchor=False)
-                        st.caption("Evaluate the effectiveness and precision of recent trades based on set metrics.")
+                        # st.subheader("Trade Efficiency", anchor=False)
+                        # st.caption("Evaluate the effectiveness and precision of recent trades based on set metrics.")
 
-                        chart, stats = st.columns([3, 1], vertical_alignment="bottom")
+                        # chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
-                        with chart:
-                            with tile("trade_efficiency_chart", 385, border=True):
-                                st.markdown("**Gain vs. Duration**")
+                        # with chart:
+                        #     with tile("trade_efficiency_chart", 385, border=True):
+                        #         st.markdown("**Gain vs. Duration**")
 
-                                scatter_chart(
-                                    data=trades_df, 
-                                    x='duration_mins', 
-                                    y='gain', 
-                                    x_label='Duration (Mins)', 
-                                    y_label='Gain (%)', 
-                                    height=335
-                                )
+                        #         scatter_chart(
+                        #             data=trades_df, 
+                        #             x='duration_mins', 
+                        #             y='gain', 
+                        #             x_label='Duration (Mins)', 
+                        #             y_label='Gain (%)', 
+                        #             height=335
+                        #         )
 
-                        with stats:
-                            metric_tile("performance_efficiency_stat_1", "Avg Trade Duration", statistics['Avg Trade Duration'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_efficiency_stat_2", "Avg Profit Per Trade", statistics['Avg Profit Per Trade'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_efficiency_stat_3", "Max Profit", statistics['Max Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_efficiency_stat_4", "Min Profit", statistics['Min Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_efficiency_stat_5", "Most Frequent Type", statistics['Most Frequent Type'], 40, "primary", tooltip=None, border=True)
+                        # with stats:
+                        #     metric_tile("performance_efficiency_stat_1", "Avg Trade Duration", statistics['Avg Trade Duration'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_efficiency_stat_2", "Avg Profit Per Trade", statistics['Avg Profit Per Trade'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_efficiency_stat_3", "Max Profit", statistics['Max Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_efficiency_stat_4", "Min Profit", statistics['Min Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_efficiency_stat_5", "Most Frequent Type", statistics['Most Frequent Type'], 40, "primary", tooltip=None, border=True)
 
-                        st.divider()
+                        # st.divider()
 
-                        # ------ RISK ANALYSIS ------ #
+                        # # ------ RISK ANALYSIS ------ #
                     
-                        st.subheader("Risk Analysis", anchor=False)
-                        st.caption("Assess trading risks and operational efficiency to optimize risk management strategies.")
+                        # st.subheader("Risk Analysis", anchor=False)
+                        # st.caption("Assess trading risks and operational efficiency to optimize risk management strategies.")
 
-                        chart, stats = st.columns([3, 1], vertical_alignment="bottom")
+                        # chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
-                        with chart:
-                            with tile("risk_analysis_chart_1", 170, border=True):
-                                st.markdown("**Chart 1**")
+                        # with chart:
+                        #     with tile("risk_analysis_chart_1", 170, border=True):
+                        #         st.markdown("**Chart 1**")
 
-                            with tile("risk_analysis_chart_2", 170, border=True):
-                                st.markdown("**Chart 2**")
+                        #     with tile("risk_analysis_chart_2", 170, border=True):
+                        #         st.markdown("**Chart 2**")
 
-                        with stats:
-                            metric_tile("performance_risk_stat_1", "Max Drawdown", statistics['Max Drawdown'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_risk_stat_2", "Avg Risk Per Trade", statistics['Avg Risk Per Trade'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_risk_stat_3", "Sharpe Ratio", statistics['Sharpe Ratio'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_risk_stat_4", "Risk Reward Ratio", statistics['Risk Reward Ratio'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_risk_stat_5", "Trades at Risk", statistics['Trades at Risk'], 40, "primary", tooltip=None, border=True)
+                        # with stats:
+                        #     metric_tile("performance_risk_stat_1", "Max Drawdown", statistics['Max Drawdown'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_risk_stat_2", "Avg Risk Per Trade", statistics['Avg Risk Per Trade'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_risk_stat_3", "Sharpe Ratio", statistics['Sharpe Ratio'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_risk_stat_4", "Risk Reward Ratio", statistics['Risk Reward Ratio'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_risk_stat_5", "Trades at Risk", statistics['Trades at Risk'], 40, "primary", tooltip=None, border=True)
 
-                        with tile("risk_analysis_chart_3", 170, border=True):
-                                st.markdown("**Chart 3**")
+                        # with tile("risk_analysis_chart_3", 170, border=True):
+                        #         st.markdown("**Chart 3**")
 
-                        st.divider()
+                        # st.divider()
 
-                        # ------ BEHAVIOURAL PATTERNS ------ #
+                        # # ------ BEHAVIOURAL PATTERNS ------ #
                     
-                        st.subheader("Behavioural Patterns", anchor=False)
-                        st.caption("Identify trends in trading behavior that impact performance outcomes.")
+                        # st.subheader("Behavioural Patterns", anchor=False)
+                        # st.caption("Identify trends in trading behavior that impact performance outcomes.")
 
-                        chart, stats = st.columns([3, 1], vertical_alignment="bottom")
+                        # chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
-                        with chart:
-                            with tile("behavioural_patterns_chart", 385, border=True):
-                                st.markdown("**Chart**")
+                        # with chart:
+                        #     with tile("behavioural_patterns_chart", 385, border=True):
+                        #         st.markdown("**Chart**")
 
-                        with stats:
-                            metric_tile("performance_behaviour_stat_1", "Favourite Symbol", statistics['Most Frequent Symbol'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_behaviour_stat_2", "Most Active Time", statistics['Most Active Time'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_behaviour_stat_3", "Avg Trade Volume", statistics['Avg Trade Volume'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_behaviour_stat_4", "Largest Trade", statistics['Largest Volume Trade'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_behaviour_stat_5", "Expected Outcome", statistics['Most Frequent Outcome'], 40, "primary", tooltip=None, border=True)
+                        # with stats:
+                        #     metric_tile("performance_behaviour_stat_1", "Favourite Symbol", statistics['Most Frequent Symbol'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_behaviour_stat_2", "Most Active Time", statistics['Most Active Time'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_behaviour_stat_3", "Avg Trade Volume", statistics['Avg Trade Volume'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_behaviour_stat_4", "Largest Trade", statistics['Largest Volume Trade'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_behaviour_stat_5", "Expected Outcome", statistics['Most Frequent Outcome'], 40, "primary", tooltip=None, border=True)
 
-                        st.divider()
+                        # st.divider()
 
-                        # ------ MARKET CONDITION ANALYSIS ------ #
+                        # # ------ MARKET CONDITION ANALYSIS ------ #
                     
-                        st.subheader("Market Condition Analysis", anchor=False)
-                        st.caption("Analyse how different market conditions influence trade decisions and results.")
+                        # st.subheader("Market Condition Analysis", anchor=False)
+                        # st.caption("Analyse how different market conditions influence trade decisions and results.")
 
-                        chart, stats = st.columns([3, 1], vertical_alignment="bottom")
+                        # chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
-                        with chart:
-                            with tile("market_condition_chart", 385, border=True):
-                                st.markdown("**Chart**")
+                        # with chart:
+                        #     with tile("market_condition_chart", 385, border=True):
+                        #         st.markdown("**Chart**")
 
-                        with stats:
-                            metric_tile("performance_market_stat_1", "Best Symbol Profit", statistics['Best Symbol Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_market_stat_2", "Worst Symbol Profit", statistics['Worst Symbol Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_market_stat_3", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_market_stat_4", "Stat 4", "Value", 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_market_stat_5", "Stat 5", "Value", 40, "primary", tooltip=None, border=True)
+                        # with stats:
+                        #     metric_tile("performance_market_stat_1", "Best Symbol Profit", statistics['Best Symbol Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_market_stat_2", "Worst Symbol Profit", statistics['Worst Symbol Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_market_stat_3", "Most Traded Symbol", statistics['Most Traded Symbol'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_market_stat_4", "Stat 4", "Value", 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_market_stat_5", "Stat 5", "Value", 40, "primary", tooltip=None, border=True)
 
-                        st.divider()
+                        # st.divider()
 
-                        # ------ DAILY/WEEKLY PERFORMANCE SUMMARY ------ #
+                        # # ------ DAILY/WEEKLY PERFORMANCE SUMMARY ------ #
                     
-                        st.subheader("Daily/Weekly Performance Summary", anchor=False)
-                        st.caption("Summary of performance metrics over daily and weekly intervals for tracking progress and trends.")
+                        # st.subheader("Daily/Weekly Performance Summary", anchor=False)
+                        # st.caption("Summary of performance metrics over daily and weekly intervals for tracking progress and trends.")
 
-                        chart, stats = st.columns([3, 1], vertical_alignment="bottom")
+                        # chart, stats = st.columns([3, 1], vertical_alignment="bottom")
 
-                        with chart:
-                            with tile("daily_weekly_summary_chart", 385, border=True):
-                                st.markdown("**Chart**")
+                        # with chart:
+                        #     with tile("daily_weekly_summary_chart", 385, border=True):
+                        #         st.markdown("**Chart**")
 
-                        with stats:
-                            metric_tile("performance_summary_stat_1", "Best Day Profit", statistics['Best Day Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_summary_stat_2", "Worst Day Profit", statistics['Worst Day Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_summary_stat_3", "Average Daily Profit", statistics['Average Daily Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_summary_stat_4", "Best Week Profit", statistics['Best Week Profit'], 40, "primary", tooltip=None, border=True)
-                            metric_tile("performance_summary_stat_5", "Worst Week Profit", statistics['Worst Week Profit'], 40, "primary", tooltip=None, border=True)
+                        # with stats:
+                        #     metric_tile("performance_summary_stat_1", "Best Day Profit", statistics['Best Day Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_summary_stat_2", "Worst Day Profit", statistics['Worst Day Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_summary_stat_3", "Average Daily Profit", statistics['Average Daily Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_summary_stat_4", "Best Week Profit", statistics['Best Week Profit'], 40, "primary", tooltip=None, border=True)
+                        #     metric_tile("performance_summary_stat_5", "Worst Week Profit", statistics['Worst Week Profit'], 40, "primary", tooltip=None, border=True)
 
-                    with tab2: # ------ TRADING JOURNAL ------ #
+                    with trade_journal: # ------ TRADING JOURNAL ------ #
                         st.subheader("Trading Jorunal", anchor=False)
                         st.caption(f"Journal of all trades for account {account_selection}.")
 
@@ -282,7 +463,7 @@ def AccountsPage():
                             use_container_width=True
                         )
 
-                    with tab3: # ------ Advanced Analytics ------ #
+                    with advanced_analytics: # ------ Advanced Analytics ------ #
                         st.subheader("Advanced Analytics", anchor=False)
                         st.caption(f"Avanced analytical tools to delve further into your trading performance for account {account_selection}.")
 
