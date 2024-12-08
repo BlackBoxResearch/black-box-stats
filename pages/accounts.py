@@ -113,7 +113,7 @@ def AccountsPage():
                                                                                                                                                                          ])
 
                         with performance_overview:
-                            st.subheader("Performance Overview", anchor=False)
+                            st.subheader("Overview", anchor=False)
                             st.caption('''A high-level summary of the account’s overall performance, profitability, and key return metrics.''')
 
                             st.markdown('''
@@ -142,7 +142,7 @@ def AccountsPage():
                                         ''')
 
                         with risk_drawdown_analysis:
-                            st.subheader("Risk & Drawdown Analysis", anchor=False)
+                            st.subheader("Risk Analysis", anchor=False)
                             st.caption('''Focus on how risk is managed, the extent of drawdowns, variability in returns, and volatility measures.''')
 
                             st.markdown('''
@@ -167,7 +167,7 @@ def AccountsPage():
                                         ''')
                             
                         with trading_efficiency:
-                            st.subheader("Trading Activity & Efficiency", anchor=False)
+                            st.subheader("Efficiency", anchor=False)
                             st.caption('''Drill down into the execution metrics such as the number of trades, their success rate, and trade-by-trade profitability/duration patterns.''')
 
                             st.markdown('''
@@ -195,7 +195,7 @@ def AccountsPage():
                                         ''')
 
                         with symbol_breakdown:
-                            st.subheader("Instrument & Symbol Breakdown", anchor=False)
+                            st.subheader("Symbol Breakdown", anchor=False)
                             st.caption('''Performance by instrument, helping identify which symbols or assets contribute most to P/L.''')
                                        
                             st.markdown('''
@@ -213,7 +213,7 @@ def AccountsPage():
                                         ''')
                             
                         with time_analysis:
-                            st.subheader("Time-Based Analysis", anchor=False)
+                            st.subheader("Time Analysis", anchor=False)
                             st.caption('''Evaluate how performance differs by time segments (day of week, month, session''')
 
                             st.markdown('''
@@ -236,7 +236,7 @@ def AccountsPage():
                                         ''')
                         
                         with profitability:
-                            st.subheader("Profitability & Risk Ratios", anchor=False)
+                            st.subheader("Profitability", anchor=False)
                             st.caption('''Focus on the ratios and metrics that describe risk-adjusted returns and efficiency.''')
 
                             st.markdown('''
@@ -258,7 +258,7 @@ def AccountsPage():
                                         ''')
 
                         with advanced_statistics:
-                            st.subheader("Advanced Statistics & Distributions", anchor=False)
+                            st.subheader("Advanced Statistics", anchor=False)
                             st.caption('''More sophisticated statistical analyses and return distributions.''')
 
                             st.markdown('''
