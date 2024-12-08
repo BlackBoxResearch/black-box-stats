@@ -142,7 +142,7 @@ def AccountsPage():
                                         ''')
 
                         with risk_drawdown_analysis:
-                            st.subheader("Risk Analysis", anchor=False)
+                            st.subheader("Risk Analysis", anchor=False)  
                             st.caption('''Focus on how risk is managed, the extent of drawdowns, variability in returns, and volatility measures.''')
 
                             st.markdown('''
