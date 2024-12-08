@@ -103,12 +103,12 @@ def AccountsPage():
                     with performance: # ------ PERFORMANCE STATS ------ #
                         st.subheader("Performance", anchor=False)
                         
-                        performance_overview, risk_drawdown_analysis, trading_efficiency, symbol_breakdown, time_analysis, profitability, advanced_statistics = st.tabs(["Performance Overview",
-                                                                                                                                                                         "Risk & Drawdown Analysis",
-                                                                                                                                                                         "Trading Activity & Efficiency",
-                                                                                                                                                                         "Instrument & Symbol Breakdown",
-                                                                                                                                                                         "Time-Based Analysis",
-                                                                                                                                                                         "Profitability & Risk Ratios",
+                        performance_overview, risk_drawdown_analysis, trading_efficiency, symbol_breakdown, time_analysis, profitability, advanced_statistics = st.tabs(["Overview",
+                                                                                                                                                                         "Risk Analysis",
+                                                                                                                                                                         "Efficiency",
+                                                                                                                                                                         "Symbol Breakdown",
+                                                                                                                                                                         "Time Analysis",
+                                                                                                                                                                         "Profitability",
                                                                                                                                                                          "Advanced Statistics"
                                                                                                                                                                          ])
 
