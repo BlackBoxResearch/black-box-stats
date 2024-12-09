@@ -457,7 +457,6 @@ def AccountsPage():
 
                         st.subheader("Open Positions", anchor=False)
 
-                        # Editable table with disabled columns for read-only data
                         open_positions_display = st.data_editor(
                             trades_display,
                             column_config={
@@ -480,12 +479,12 @@ def AccountsPage():
                             disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
                                     "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
                             hide_index=True,
-                            use_container_width=True
+                            use_container_width=True,
+                            key="open_positions_editor"  # Unique key for this data_editor
                         )
 
                         st.subheader("Closed Positions", anchor=False)
-                        
-                        # Editable table with disabled columns for read-only data
+
                         closed_positions_display = st.data_editor(
                             trades_display,
                             column_config={
@@ -508,8 +507,10 @@ def AccountsPage():
                             disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
                                     "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
                             hide_index=True,
-                            use_container_width=True
+                            use_container_width=True,
+                            key="closed_positions_editor"  # Unique key for this data_editor
                         )
+
                     
                     with advanced_analytics: # ------ Advanced Analytics ------ #
                         st.subheader("Advanced Analytics", anchor=False)
