@@ -12,31 +12,22 @@ def LeaderboardPage():
         leaderboard_help_string = '''Test String'''
 
         test='''
-
-                    **1. Public Visibility:**
-
-                    Choose which of your connected accounts or custom-built systems you’d like to make public. Public entries become eligible for our leaderboards and competitions.
+                Choose which of your connected accounts or custom-built systems you’d like to make public. Public entries become eligible for our leaderboards and competitions.
                     
-                    **2. Black Box Score:**
-
-                    Each eligible account and system is assigned a proprietary Black Box Stats (BBS) Score, reflecting factors like profitability, consistency, and risk-adjusted returns.
-                    
-                    Higher BBS Scores indicate more stable, skillful trading performance.
+                Each eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
                                     
-                    **3. Compete for Prizes:**
-
-                    The top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
+                The top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
                     
-                    Participation is optional—if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
+                Participation is optional—if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
                     
-                    **Ready to participate?**
+                Ready to participate?
 
-                    Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
+                Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
                    
-                   '''
+                '''
 
 
-        st.markdown("**How It Works:**", help=leaderboard_help_string)
+        st.markdown("**How It Works:**", help=test)
 
         accounts_tab, systems_tab = st.tabs(['Accounts Leaderboard', 'Systems Leaderboard'])
 
