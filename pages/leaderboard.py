@@ -10,11 +10,11 @@ def LeaderboardPage():
                     ''')
         
         leaderboard_help_string='''Choose which of your connected accounts or custom-built systems you’d like to make public. Public entries become eligible for our leaderboards and competitions.
-        Each eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
-        The top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
-        Participation is optional—if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
-        Ready to participate?
-        Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
+        \n\nEach eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
+        \n\nThe top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
+        \n\nParticipation is optional—if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
+        \n\nReady to participate?
+        \n\nHead to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
         '''
 
         st.markdown("**How It Works:**", help=leaderboard_help_string)
