@@ -7,8 +7,9 @@ def LeaderboardPage():
                     **Welcome to the Black Box Stats Leaderboards!**
 
                     Here, you can see how your trading performance stacks up against other members of the community. By making your accounts and systems publicly visible, you can earn a spot on our leaderboards and compete for weekly or monthly prizes.
-                    
-                    **How It Works:**
+                    ''')
+        
+        st.markdown("**How It Works:**", help='''
 
                     **1. Public Visibility:**
 
