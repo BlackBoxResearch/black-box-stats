@@ -7,7 +7,7 @@ def LeaderboardPage():
         st.caption("Here, you can see how your trading performance stacks up against other members of the community. By making your accounts and systems publicly visible, you can earn a spot on our leaderboards and compete for weekly or monthly prizes.")
         
         leaderboard_help_string='''
-        # Leaderboards
+        **Leaderboards**
         \n\nChoose which of your connected accounts or custom-built systems you’d like to make public.
         \n\nEach eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
         \n\nThe top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
