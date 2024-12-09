@@ -11,7 +11,7 @@ def LeaderboardPage():
         
         leaderboard_help_string = '''Test String'''
 
-'''
+        test='''
 
                     **1. Public Visibility:**
 
