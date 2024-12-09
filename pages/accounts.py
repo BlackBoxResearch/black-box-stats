@@ -440,15 +440,25 @@ def AccountsPage():
                         #     metric_tile("performance_summary_stat_5", "Worst Week Profit", statistics['Worst Week Profit'], 40, "primary", tooltip=None, border=True)
 
                     with trade_journal: # ------ TRADING JOURNAL ------ #
-                        st.subheader("Trading Jorunal", anchor=False)
-                        st.caption(f"Journal of all trades for account {account_selection}.")
+                        st.subheader("Trading Journal", anchor=False)
+                        
+                        st.caption('''
+                                   Welcome to your Trading Journal. 
+                                   
+                                   This is where you can document your thoughts, strategies, and observations for every trade you make. By reviewing your entries, attaching notes and screenshots, and reflecting on past decisions, you’ll gain deeper insights into your trading habits. Over time, your journal will serve as a personal roadmap—highlighting what works, what needs improvement, and how your approach evolves. 
+                                   
+                                   Use this space to refine your methodology, boost accountability, and ultimately become a more confident, informed trader.''')
+
+                        st.divider()
 
                         # Add an empty Notes column if not present
                         if "Notes" not in trades_display.columns:
                             trades_display['Notes'] = ""
 
+                        st.subheader("Open Positions", anchor=False)
+
                         # Editable table with disabled columns for read-only data
-                        edited_trades_display = st.data_editor(
+                        open_positions_display = st.data_editor(
                             trades_display,
                             column_config={
                                 "Ticket": "Ticket",
@@ -473,9 +483,48 @@ def AccountsPage():
                             use_container_width=True
                         )
 
+                        st.subheader("Closed Positions", anchor=False)
+                        
+                        # Editable table with disabled columns for read-only data
+                        closed_positions_display = st.data_editor(
+                            trades_display,
+                            column_config={
+                                "Ticket": "Ticket",
+                                "Symbol": "Symbol",
+                                "Type": "Trade Type",
+                                "Volume": "Volume",
+                                "Open Time": "Open Time",
+                                "Open Price": "Open Price",
+                                "Close Time": "Close Time",
+                                "Close Price": "Close Price",
+                                "Profit": "Profit",
+                                "Gain": "Gain",
+                                "Notes": st.column_config.TextColumn(
+                                    "Notes",
+                                    help="Add notes for each trade",
+                                    max_chars=500,
+                                ),
+                            },
+                            disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
+                                    "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
+                            hide_index=True,
+                            use_container_width=True
+                        )
+                    
                     with advanced_analytics: # ------ Advanced Analytics ------ #
                         st.subheader("Advanced Analytics", anchor=False)
-                        st.caption(f"Avanced analytical tools to delve further into your trading performance for account {account_selection}.")
+                        st.caption('''
+                                    Welcome to Advanced Analytics. Here, you’ll find a suite of powerful forecasting and optimization tools designed to elevate your trading strategy. 
+                                   
+                                   Dive into “what-if” scenarios, run Monte Carlo simulations to understand potential outcomes, and explore other analytical models to help manage risk and identify new opportunities. 
+                                   
+                                   These tools go beyond standard metrics, allowing you to test hypotheses, gauge the impact of strategic changes, and push the boundaries of your trading approach. Leverage Advanced Analytics to make data-driven decisions and continuously refine your market edge.
+
+                                    ''')
+                        
+                        st.divider()
+
+                        st.subheader("What-If Analysis", anchor=False)
 
                         # Parse dates and extract day of the week
                         trades_display['Open Time'] = pd.to_datetime(trades_display['Open Time'])
@@ -569,7 +618,20 @@ def AccountsPage():
                                 'Cumulative Gain (%)',
                                 height=335
                                 )
+
+                    with ai_insights: # ------ TRADING JOURNAL ------ #
+                        st.subheader("AI Insights", anchor=False)
                         
+                        st.caption('''
+                                    Welcome to AI Insights—your personal AI-powered performance coach. 
+                                   
+                                   By analyzing your trading history, patterns, and key metrics, our intelligent assistant can offer tailored feedback, highlight blind spots, and suggest improvements in real-time. 
+                                   
+                                   Engage in interactive conversations to discover new perspectives, validate your strategies, and uncover opportunities you may have overlooked. With AI Insights, you’re not just trading; you’re learning and evolving with a mentor that adapts to your unique trading journey.
+                                ''')
+                        st.divider()
+
+
         else:
             st.info("No Account Selected")
 
