@@ -189,6 +189,74 @@ def gradient_button(label, key, icon):
     ):
         return st.button(label=label, key=key, icon=icon, use_container_width=True)
 
+def gradient_button_2(label, key, icon):
+    """
+    Creates a stylable button using a custom container in Streamlit.
+
+    Args:
+        label (str): Button text.
+        key (str): Unique key for the tile.
+        icon (str): Button material icon, e.g. ":material/check:".
+    """
+
+    css_styles = f'''
+        button {{
+            position: relative;
+            padding: 15px; /* Adjust padding as needed */
+            margin-bottom: 16px; /* Add vertical spacing between button */
+            border-radius: 8px; /* Rounded corners */
+            background-color: {secondary_background}; /* Inner button background */
+            color: {light_text_color}; /* Text color */
+            z-index: 1;
+            width: 100%;
+        }}
+
+        @property --angle {{
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }}
+
+        button::after, button::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px; /* Match the button's border-radius */
+            padding: 1px; /* Border thickness */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            background-image: conic-gradient(from var(--angle), {color_1}, {color_2}, {color_1}); /* Smooth circular loop */
+            z-index: -1; /* Place behind the content */
+            animation: spin 3s linear infinite;
+        }}
+
+        @keyframes spin {{
+            from {{
+                --angle: 0deg;
+            }}
+            to {{
+                --angle: 360deg;
+            }}
+        }}
+    '''
+
+
+    with stylable_container(
+            # border: 1px solid #434343;
+            key="confirm_add_account_button",
+            css_styles=css_styles,
+    ):
+        return st.button(label=label, key=key, icon=icon, use_container_width=True)
+
+
+
+
 def gradient_text(text, font_size):
     """
     Creates text with a gradient colour in Streamlit.

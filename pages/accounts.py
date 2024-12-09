@@ -1,7 +1,7 @@
 from static.elements import gradient_text
 import streamlit as st
 from utils.db import execute_query
-from static.elements import gradient_button, animated_container, tile, line_chart, scatter_chart, metric_tile
+from static.elements import gradient_button, gradient_button_2, animated_container, tile, line_chart, scatter_chart, metric_tile
 import time
 import pandas as pd
 from utils.stats import calculate_trade_statistics, get_account_trades, get_user_accounts, get_account_info
@@ -103,6 +103,16 @@ def AccountsPage():
                     with performance: # ------ PERFORMANCE STATS ------ #
                         st.subheader("Performance", anchor=False)
                         
+                        st.caption('''
+                                   Welcome to the Performance section of your trading account. Here, you’ll find a comprehensive suite of metrics, charts, and analyses designed to help you understand the effectiveness of your trading strategies. 
+                                   
+                                   We’ve organized this data into clearly defined categories to make navigation intuitive and insights more accessible. Whether you’re looking to evaluate your profit and loss trends, analyze drawdowns, measure risk-adjusted returns, or break down results by instrument or time frame, our interactive visualizations and key performance indicators will provide a clear view of your trading journey. 
+                                   
+                                   Use the categories below to drill deeper into each aspect of performance and uncover actionable insights to refine your trading approach.
+                                   ''')
+
+                        st.divider()
+
                         performance_overview, risk_drawdown_analysis, trading_efficiency, symbol_breakdown, time_analysis, profitability, advanced_statistics = st.tabs(["Overview",
                                                                                                                                                                          "Risk Analysis",
                                                                                                                                                                          "Efficiency",
