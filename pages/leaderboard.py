@@ -9,25 +9,15 @@ def LeaderboardPage():
                     Here, you can see how your trading performance stacks up against other members of the community. By making your accounts and systems publicly visible, you can earn a spot on our leaderboards and compete for weekly or monthly prizes.
                     ''')
         
-        leaderboard_help_string = '''Test String'''
+        leaderboard_help_string='''Choose which of your connected accounts or custom-built systems you’d like to make public. Public entries become eligible for our leaderboards and competitions.
+        Each eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
+        The top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
+        Participation is optional—if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
+        Ready to participate?
+        Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
+        '''
 
-        test='''
-                Choose which of your connected accounts or custom-built systems you’d like to make public. Public entries become eligible for our leaderboards and competitions.
-                    
-                Each eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
-                                    
-                The top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
-                    
-                Participation is optional—if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
-                    
-                Ready to participate?
-
-                Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
-                   
-                '''
-
-
-        st.markdown("**How It Works:**", help=test)
+        st.markdown("**How It Works:**", help=leaderboard_help_string)
 
         accounts_tab, systems_tab = st.tabs(['Accounts Leaderboard', 'Systems Leaderboard'])
 
