@@ -9,7 +9,9 @@ def LeaderboardPage():
                     Here, you can see how your trading performance stacks up against other members of the community. By making your accounts and systems publicly visible, you can earn a spot on our leaderboards and compete for weekly or monthly prizes.
                     ''')
         
-        st.markdown("**How It Works:**", help='''
+        leaderboard_help_string = '''Test String'''
+
+'''
 
                     **1. Public Visibility:**
 
@@ -31,7 +33,10 @@ def LeaderboardPage():
 
                     Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!
                    
-                   ''')
+                   '''
+
+
+        st.markdown("**How It Works:**", help=leaderboard_help_string)
 
         accounts_tab, systems_tab = st.tabs(['Accounts Leaderboard', 'Systems Leaderboard'])
 
