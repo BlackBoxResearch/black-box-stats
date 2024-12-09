@@ -2,7 +2,7 @@ import streamlit as st
 from static.elements import animated_container, promo_container
 from streamlit_extras.bottom_container import bottom
 from st_social_media_links import SocialMediaIcons
-from pages import login, profile, dashboard, logout, systems, settings, support, accounts
+from pages import login, profile, dashboard, logout, systems, settings, support, accounts, leaderboard
 
 primary_background = '#111111'
 secondary_background = '#171717'
@@ -29,13 +29,14 @@ profile_page = st.Page(page=profile.ProfilePage, title="My Profile", icon=":mate
 settings_page = st.Page(page=settings.SettingsPage, title="Settings", icon=":material/settings:")
 logout_page = st.Page(page=logout.LogoutPage, title="Logout", icon=":material/logout:")
 accounts_page = st.Page(page=accounts.AccountsPage, title="Accounts", icon=":material/group:")
+leaderboard_page = st.Page(page=leaderboard.LeaderboardPage, title="Leaderboard", icon=":material/social_leaderboard:")
 
 # Group pages for logged-out users
 logged_out_pages = [login_page]
 
 # Group pages for logged-in users
 logged_in_pages = {
-    "Home": [dashboard_page, accounts_page, systems_page],
+    "Home": [dashboard_page, accounts_page, systems_page, leaderboard_page],
     "Settings": [profile_page, settings_page, logout_page]  # Logout page added here
 }
 
