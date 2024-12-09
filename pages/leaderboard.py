@@ -10,7 +10,7 @@ def LeaderboardPage():
         \n\nEach eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
         \n\nThe top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
         \n\nParticipation is optional — if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.
-        \n\n**Ready to participate?** Head to your My Profile or Accounts/Systems settings to toggle visibility and start climbing the ranks!'''
+        \n\n**Ready to participate?** Head to your Accounts/Systems settings to toggle visibility and start climbing the ranks!'''
 
         st.markdown("**How It Works:**", help=leaderboard_help_string)
 
@@ -25,7 +25,7 @@ def LeaderboardPage():
         with systems_tab:
             st.subheader("Systems Leaderboard", anchor=False)
             st.caption('''
-            This tab ranks user-created “systems”—portfolios composed of one or more accounts—based on their aggregated performance and Black Box Score. Systems let you demonstrate your skill in constructing balanced, diversified strategies, not just picking single accounts.
+            This tab ranks user-created systems — portfolios composed of one or more accounts—based on their aggregated performance and Black Box Score. Systems let you demonstrate your skill in constructing balanced, diversified strategies, not just picking single accounts.
         ''')
 
 if __name__ == "__main__":
