@@ -14,23 +14,24 @@ caption_color = '#878884'
 def SystemsPage():
     with st.container(border=False):    
         st.subheader("Systems", anchor=False)
-    
-        css = f"""
-        background: linear-gradient(to right, #141e30, #243b55); 
-        /* background-image: url('static/container_background.png'); /*
-        background-size: cover;
-        background-position: center;
-        border: 1px solid {border_color};
-        border-radius: 0.5rem;
-        padding: calc(1em - 1px);
-        color: {light_text_color};
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        """
 
-        with stylable_container(key="image_container", css_styles=css):
-            with st.container(border=False, height=50):
+        with stylable_container(
+            key="image_container", 
+            css_styles=f"""
+                background-image: linear-gradient(to right, #141e30, #243b55); 
+                /* background-image: url('static/container_background.png'); /*
+                background-size: cover;
+                background-position: center;
+                border: 1px solid {border_color};
+                border-radius: 0.5rem;
+                padding: calc(1em - 1px);
+                color: {light_text_color};
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                """
+            ):
+            with st.container(border=False, height=100):
                 st.markdown("### Save with cryptocurrency")
                 st.markdown("**Permanently discounted prices**")
 
