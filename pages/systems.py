@@ -19,7 +19,6 @@ def SystemsPage():
             key="image_container", 
             css_styles=f"""
                 background-image: linear-gradient(to right, #141e30, #243b55); 
-                /* background-image: url('static/container_background.png'); /*
                 background-size: cover;
                 background-position: center;
                 border: 1px solid {border_color};
@@ -37,3 +36,5 @@ def SystemsPage():
 
 if __name__ == "__main__":
     SystemsPage()
+
+        #                /* background-image: url('static/container_background.png'); /*
