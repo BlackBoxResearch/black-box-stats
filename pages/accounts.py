@@ -101,17 +101,19 @@ def AccountsPage():
                                                                                                             ])
 
                     with performance: # ------ PERFORMANCE STATS ------ #
-                        st.subheader("Performance", anchor=False)
+                        #st.subheader("Performance", anchor=False)
                         
-                        st.caption('''
-                                   Welcome to the Performance section of your trading account. Here, you’ll find a comprehensive suite of metrics, charts, and analyses designed to help you understand the effectiveness of your trading strategies. 
+                        st.info('''
+                        Explore a comprehensive suite of metrics, charts, and analyses to evaluate your trading strategies.
                                    
-                                   We’ve organized this data into clearly defined categories to make navigation intuitive and insights more accessible. Whether you’re looking to evaluate your profit and loss trends, analyze drawdowns, measure risk-adjusted returns, or break down results by instrument or time frame, our interactive visualizations and key performance indicators will provide a clear view of your trading journey. 
-                                   
-                                   Use the categories below to drill deeper into each aspect of performance and uncover actionable insights to refine your trading approach.
-                                   ''')
-
-                        st.divider()
+                        📊 **Organised Insights:** Navigate profit/loss trends, drawdowns, risk-adjusted returns, and performance by instrument or timeframe.
+                        
+                        🔍 **Interactive Tools:** Use visualisations and KPIs for a clear view of your trading journey.
+                        
+                        🎯 **Actionable Insights:** Drill into each category to refine your strategies and improve results.
+                        
+                        Start exploring to uncover opportunities for growth!
+                        ''')
 
                         performance_overview, risk_drawdown_analysis, trading_efficiency, symbol_breakdown, time_analysis, profitability, advanced_statistics = st.tabs(["Overview",
                                                                                                                                                                          "Risk Analysis",
@@ -440,198 +442,212 @@ def AccountsPage():
                         #     metric_tile("performance_summary_stat_5", "Worst Week Profit", statistics['Worst Week Profit'], 40, "primary", tooltip=None, border=True)
 
                     with trade_journal: # ------ TRADING JOURNAL ------ #
-                        st.subheader("Trading Journal", anchor=False)
+                        st.info('''
+                                    Document your thoughts, strategies, and observations for every trade.
+
+                                    📝 **Track Your Journey:** Attach notes, screenshots, and reflections to analyze past decisions.
                         
-                        st.caption('''
-                                   Welcome to your Trading Journal. 
-                                   
-                                   This is where you can document your thoughts, strategies, and observations for every trade you make. By reviewing your entries, attaching notes and screenshots, and reflecting on past decisions, you’ll gain deeper insights into your trading habits. Over time, your journal will serve as a personal roadmap—highlighting what works, what needs improvement, and how your approach evolves. 
-                                   
-                                   Use this space to refine your methodology, boost accountability, and ultimately become a more confident, informed trader.''')
-
-                        st.divider()
-
+                                    📈 **Gain Insights:** Identify patterns, refine your methods, and boost accountability.
+                        
+                                    🚀 **Evolve Your Strategy:** Use your journal as a personal roadmap to improve and grow as a trader.
+                                    
+                                    Start journaling to trade smarter and with confidence!
+                                ''')
                         # Add an empty Notes column if not present
                         if "Notes" not in trades_display.columns:
                             trades_display['Notes'] = ""
 
-                        st.subheader("Open Positions", anchor=False)
+                        open_positions_tab, closed_positions_tab = st.tabs(["Open Positions", "Closed Positions"])
 
-                        open_positions_display = st.data_editor(
-                            trades_display,
-                            column_config={
-                                "Ticket": "Ticket",
-                                "Symbol": "Symbol",
-                                "Type": "Trade Type",
-                                "Volume": "Volume",
-                                "Open Time": "Open Time",
-                                "Open Price": "Open Price",
-                                "Close Time": "Close Time",
-                                "Close Price": "Close Price",
-                                "Profit": "Profit",
-                                "Gain": "Gain",
-                                "Notes": st.column_config.TextColumn(
-                                    "Notes",
-                                    help="Add notes for each trade",
-                                    max_chars=500,
-                                ),
-                            },
-                            disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
-                                    "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
-                            hide_index=True,
-                            use_container_width=True,
-                            key="open_positions_editor"  # Unique key for this data_editor
-                        )
+                        with open_positions_tab:
 
-                        st.subheader("Closed Positions", anchor=False)
+                            st.subheader("Open Positions", anchor=False)
 
-                        closed_positions_display = st.data_editor(
-                            trades_display,
-                            column_config={
-                                "Ticket": "Ticket",
-                                "Symbol": "Symbol",
-                                "Type": "Trade Type",
-                                "Volume": "Volume",
-                                "Open Time": "Open Time",
-                                "Open Price": "Open Price",
-                                "Close Time": "Close Time",
-                                "Close Price": "Close Price",
-                                "Profit": "Profit",
-                                "Gain": "Gain",
-                                "Notes": st.column_config.TextColumn(
-                                    "Notes",
-                                    help="Add notes for each trade",
-                                    max_chars=500,
-                                ),
-                            },
-                            disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
-                                    "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
-                            hide_index=True,
-                            use_container_width=True,
-                            key="closed_positions_editor"  # Unique key for this data_editor
-                        )
-
-                    
-                    with advanced_analytics: # ------ Advanced Analytics ------ #
-                        st.subheader("Advanced Analytics", anchor=False)
-                        st.caption('''
-                                    Welcome to Advanced Analytics. Here, you’ll find a suite of powerful forecasting and optimization tools designed to elevate your trading strategy. 
-                                   
-                                   Dive into “what-if” scenarios, run Monte Carlo simulations to understand potential outcomes, and explore other analytical models to help manage risk and identify new opportunities. 
-                                   
-                                   These tools go beyond standard metrics, allowing you to test hypotheses, gauge the impact of strategic changes, and push the boundaries of your trading approach. Leverage Advanced Analytics to make data-driven decisions and continuously refine your market edge.
-
-                                    ''')
+                            open_positions_display = st.data_editor(
+                                trades_display,
+                                column_config={
+                                    "Ticket": "Ticket",
+                                    "Symbol": "Symbol",
+                                    "Type": "Trade Type",
+                                    "Volume": "Volume",
+                                    "Open Time": "Open Time",
+                                    "Open Price": "Open Price",
+                                    "Close Time": "Close Time",
+                                    "Close Price": "Close Price",
+                                    "Profit": "Profit",
+                                    "Gain": "Gain",
+                                    "Notes": st.column_config.TextColumn(
+                                        "Notes",
+                                        help="Add notes for each trade",
+                                        max_chars=500,
+                                    ),
+                                },
+                                disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
+                                        "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
+                                hide_index=True,
+                                use_container_width=True,
+                                key="open_positions_editor"  # Unique key for this data_editor
+                            )
                         
-                        st.divider()
+                        
+                        with closed_positions_tab:
 
-                        st.subheader("What-If Analysis", anchor=False)
+                            st.subheader("Closed Positions", anchor=False)
 
-                        # Parse dates and extract day of the week
-                        trades_display['Open Time'] = pd.to_datetime(trades_display['Open Time'])
-                        trades_display['Day of Week'] = trades_display['Open Time'].dt.day_name()
+                            closed_positions_display = st.data_editor(
+                                trades_display,
+                                column_config={
+                                    "Ticket": "Ticket",
+                                    "Symbol": "Symbol",
+                                    "Type": "Trade Type",
+                                    "Volume": "Volume",
+                                    "Open Time": "Open Time",
+                                    "Open Price": "Open Price",
+                                    "Close Time": "Close Time",
+                                    "Close Price": "Close Price",
+                                    "Profit": "Profit",
+                                    "Gain": "Gain",
+                                    "Notes": st.column_config.TextColumn(
+                                        "Notes",
+                                        help="Add notes for each trade",
+                                        max_chars=500,
+                                    ),
+                                },
+                                disabled=["Ticket", "Symbol", "Type", "Volume", "Open Time", 
+                                        "Open Price", "Close Time", "Close Price", "Profit", "Gain"],
+                                hide_index=True,
+                                use_container_width=True,
+                                key="closed_positions_editor"  # Unique key for this data_editor
+                            )
 
-                        filter, run = st.columns(2, vertical_alignment="top")
+                    with advanced_analytics: # ------ Advanced Analytics ------ #
+                        st.info('''
+                                Unlock powerful tools to elevate your trading strategy:
 
-                        with run:
-                            with st.popover("Filters", icon=":material/filter_alt:", use_container_width=True):
+                                🔍 **Explore Scenarios:** Dive into "what-if" analyses and test hypotheses.
+
+                                🎲 **Simulate Outcomes:** Run Monte Carlo simulations to assess potential risks and rewards.
+
+                                📊 **Refine Strategies:** Use advanced models to manage risk, uncover opportunities, and optimise performance.
+
+                                Leverage these insights to make data-driven decisions and sharpen your market edge!
+                                ''')
+
+                        monte_carlo_tab, what_if_tab = st.tabs(["Monte Carlo Forecast", "What-If Simulator"])
+
+                        with monte_carlo_tab:
+                            st.subheader("Monte Carlo Forecast", anchor=False)
+
+                        with what_if_tab:
+
+                            st.subheader("What-If Simulator", anchor=False)
+
+                            # Parse dates and extract day of the week
+                            trades_display['Open Time'] = pd.to_datetime(trades_display['Open Time'])
+                            trades_display['Day of Week'] = trades_display['Open Time'].dt.day_name()
+
+                            filter, run = st.columns(2, vertical_alignment="top")
+
+                            with run:
+                                with st.popover("Filters", icon=":material/filter_alt:", use_container_width=True):
+                                    
+                                    st.subheader("What-If Analysis Filters", anchor=False)
+                                    st.caption("Apply filters to your original trading history, to identify areas of potential improvement to your strategy.")
+                                    
+                                    with st.expander("Weekday", icon=":material/date_range:"):
+
+                                        # 1. Checkbox for trading days
+                                        all_days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                                        existing_days = trades_display['Day of Week'].unique()
+
+                                        # Display checkboxes for each day, with existing days checked by default
+                                        selected_days = []
+                                        st.markdown("**Trading Days**")
+                                        for day in all_days_of_week:
+                                            # If the day exists in the data, make the checkbox enabled and checked by default
+                                            if day in existing_days:
+                                                if st.checkbox(day, value=True):
+                                                    selected_days.append(day)
+                                            # If the day doesn't exist in the data, display the checkbox but disable it
+                                            else:
+                                                st.checkbox(day, value=False, disabled=True)
+
                                 
-                                st.subheader("What-If Analysis Filters", anchor=False)
-                                st.caption("Apply filters to your original trading history, to identify areas of potential improvement to your strategy.")
+                                    with st.expander("Types", icon=":material/swap_vert:"):
+                                        # Get unique trade directions present in the data
+                                        all_directions = ['Buy', 'Sell']
+                                        existing_directions = trades_display['Type'].unique()
+
+                                        # Sidebar for "What-If" analysis
+                                        st.markdown("**Trade Direction**")
+
+                                        # Display checkboxes for each trade direction, with existing directions checked by default
+                                        selected_directions = []
+                                        for direction in all_directions:
+                                            # If the direction exists in the data, make the checkbox enabled and checked by default
+                                            if direction in existing_directions:
+                                                if st.checkbox(direction, value=True):
+                                                    selected_directions.append(direction)
+                                            # If the direction doesn't exist in the data, display the checkbox but disable it
+                                            else:
+                                                st.checkbox(direction, value=False, disabled=True)
+
                                 
-                                with st.expander("Weekday", icon=":material/date_range:"):
+                                    with st.expander("Symbols", icon=":material/paid:"):
 
-                                    # 1. Checkbox for trading days
-                                    all_days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                                    existing_days = trades_display['Day of Week'].unique()
+                                        # 3. Checkbox for symbols
+                                        symbols = trades_display['Symbol'].unique()
+                                        selected_symbols = st.multiselect(
+                                            "Select Symbols", options=symbols, default=symbols
+                                        )
 
-                                    # Display checkboxes for each day, with existing days checked by default
-                                    selected_days = []
-                                    st.markdown("**Trading Days**")
-                                    for day in all_days_of_week:
-                                        # If the day exists in the data, make the checkbox enabled and checked by default
-                                        if day in existing_days:
-                                            if st.checkbox(day, value=True):
-                                                selected_days.append(day)
-                                        # If the day doesn't exist in the data, display the checkbox but disable it
-                                        else:
-                                            st.checkbox(day, value=False, disabled=True)
+                            # Filter the dataframe based on selected options
+                            filtered_df = trades_display[
+                                (trades_display['Day of Week'].isin(selected_days)) &
+                                (trades_display['Symbol'].isin(selected_symbols)) &
+                                (trades_display['Type'].isin(selected_directions))
+                            ]
 
-                            
-                                with st.expander("Types", icon=":material/swap_vert:"):
-                                    # Get unique trade directions present in the data
-                                    all_directions = ['Buy', 'Sell']
-                                    existing_directions = trades_display['Type'].unique()
+                            # Calculate new cumulative gain on the filtered dataframe
+                            filtered_df['Total Gain'] = filtered_df['Gain'].cumsum()
 
-                                    # Sidebar for "What-If" analysis
-                                    st.markdown("**Trade Direction**")
 
-                                    # Display checkboxes for each trade direction, with existing directions checked by default
-                                    selected_directions = []
-                                    for direction in all_directions:
-                                        # If the direction exists in the data, make the checkbox enabled and checked by default
-                                        if direction in existing_directions:
-                                            if st.checkbox(direction, value=True):
-                                                selected_directions.append(direction)
-                                        # If the direction doesn't exist in the data, display the checkbox but disable it
-                                        else:
-                                            st.checkbox(direction, value=False, disabled=True)
+                            filtered_df = filtered_df.drop(columns=['Notes', 'Day of Week'])
 
-                            
-                                with st.expander("Symbols", icon=":material/paid:"):
+                            # Display filtered results
+                            with filter:
+                                st.subheader("Filtered Trades", anchor=False)
 
-                                    # 3. Checkbox for symbols
-                                    symbols = trades_display['Symbol'].unique()
-                                    selected_symbols = st.multiselect(
-                                        "Select Symbols", options=symbols, default=symbols
+                            st.caption("See below your trading history, with the filters applied.")
+                            st.dataframe(filtered_df, hide_index=True)
+
+                            # Display impact on cumulative gain
+                            st.subheader("Impact of Filters on Cumulative Gain")
+                            with tile("overview_chart", 385, border=True):
+                                st.markdown("**Filtered Trading Performance**")
+
+                                line_chart(
+                                    filtered_df, 
+                                    'Open Time', 
+                                    'Total Gain', 
+                                    'Open Time', 
+                                    'Cumulative Gain (%)',
+                                    height=335
                                     )
 
-                        # Filter the dataframe based on selected options
-                        filtered_df = trades_display[
-                            (trades_display['Day of Week'].isin(selected_days)) &
-                            (trades_display['Symbol'].isin(selected_symbols)) &
-                            (trades_display['Type'].isin(selected_directions))
-                        ]
-
-                        # Calculate new cumulative gain on the filtered dataframe
-                        filtered_df['Total Gain'] = filtered_df['Gain'].cumsum()
-
-
-                        filtered_df = filtered_df.drop(columns=['Notes', 'Day of Week'])
-
-                        # Display filtered results
-                        with filter:
-                            st.subheader("Filtered Trades", anchor=False)
-
-                        st.caption("See below your trading history, with the filters applied.")
-                        st.dataframe(filtered_df, hide_index=True)
-
-                        # Display impact on cumulative gain
-                        st.subheader("Impact of Filters on Cumulative Gain")
-                        with tile("overview_chart", 385, border=True):
-                            st.markdown("**Filtered Trading Performance**")
-
-                            line_chart(
-                                filtered_df, 
-                                'Open Time', 
-                                'Total Gain', 
-                                'Open Time', 
-                                'Cumulative Gain (%)',
-                                height=335
-                                )
-
                     with ai_insights: # ------ TRADING JOURNAL ------ #
-                        st.subheader("AI Insights", anchor=False)
-                        
-                        st.caption('''
-                                    Welcome to AI Insights—your personal AI-powered performance coach. 
-                                   
-                                   By analyzing your trading history, patterns, and key metrics, our intelligent assistant can offer tailored feedback, highlight blind spots, and suggest improvements in real-time. 
-                                   
-                                   Engage in interactive conversations to discover new perspectives, validate your strategies, and uncover opportunities you may have overlooked. With AI Insights, you’re not just trading; you’re learning and evolving with a mentor that adapts to your unique trading journey.
-                                ''')
-                        st.divider()
+                        st.info('''
+                                    Your AI-powered performance coach is here to transform your trading:
 
+                                   🤖 **Personalised Feedback:** Get tailored insights by analysing your trading history and metrics.
+
+                                   🔍 **Spot Opportunities:** Identify blind spots, validate strategies, and uncover overlooked potential.
+
+                                   💬 **Interactive Guidance:** Engage with your AI mentor for real-time advice and growth.
+
+                                   With AI Insights, you’re not just trading—you’re evolving with a coach that adapts to your unique journey.
+                                   
+                                   ''')
 
         else:
             st.info("No Account Selected")

@@ -4,14 +4,16 @@ def LeaderboardPage():
     with st.container(border=False):
         st.subheader("Leaderboard", anchor=False)
         st.markdown("**Welcome to the Black Box Stats Leaderboards!**")
-        st.caption("Here, you can see how your trading performance stacks up against other members of the community. By making your accounts and systems publicly visible, you can earn a spot on our leaderboards and compete for weekly or monthly prizes.")
+        st.caption("Compare your trading performance with the community, compete on leaderboards, and win prizes by showcasing your accounts and systems.")
         
         leaderboard_help_string='''
         **Leaderboards**
-        \n\nChoose which of your connected accounts or custom-built systems you’d like to make public.
-        \n\nEach eligible account and system is assigned a proprietary Black Box Score, reflecting factors like profitability, consistency, and risk-adjusted returns. Higher scores indicate more stable, skillful trading performance.
-        \n\nThe top-ranked accounts and systems on our leaderboards at the end of each week and month may earn recognition, free Premium subscription credits, or other community prizes.
-        \n\n**Ready to participate?** Head to your Accounts/Systems settings to toggle visibility and start climbing the ranks, or if you prefer to remain private, simply keep your accounts or systems set to “Private” in your settings.'''
+        \n\n🌟 **Showcase Your Best:** Select which connected accounts or systems to make public in your settings.
+        \n\n📊 **Black Box Score:** Your score reflects profitability, consistency, and risk-adjusted returns—higher scores mean stronger, more stable trading.
+        \n\n🏆 **Compete for Rewards:** Top-ranked traders earn recognition, free Premium credits, or community prizes weekly and monthly.
+        \n\n🔒 **Privacy Options:** Prefer to stay private? Keep accounts and systems set to “Private” in your settings.
+        \n\n**Ready to climb the ranks?** Update your visibility settings and join the competition!
+        '''
 
         st.markdown("**How It Works:**", help=leaderboard_help_string)
 
@@ -20,14 +22,14 @@ def LeaderboardPage():
         with accounts_tab:
             st.subheader("Accounts Leaderboard", anchor=False)
             st.caption('''
-            This tab showcases individual trading accounts from our users who’ve chosen to make their performance public. Each account’s Black Box Score, return rates, drawdown metrics, and consistency indicators are used to rank them against one another.
+            This tab showcases public trading accounts, ranked by their Black Box Score—a measure of profitability, risk management, and consistency.
             ''')
 
         with systems_tab:
             st.subheader("Systems Leaderboard", anchor=False)
             st.caption('''
-            This tab ranks user-created systems — portfolios composed of one or more accounts—based on their aggregated performance and Black Box Score. Systems let you demonstrate your skill in constructing balanced, diversified strategies, not just picking single accounts.
-        ''')
+            This tab ranks user-created systems—portfolios combining multiple accounts—by their aggregated performance and Black Box Score, highlighting your ability to build balanced, diversified strategies.
+            ''')
 
 if __name__ == "__main__":
     LeaderboardPage()
