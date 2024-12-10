@@ -16,7 +16,7 @@ def SystemsPage():
         st.subheader("Systems", anchor=False)
     
         css = f"""
-        background-image: "static/container_background.png";
+        background-image: url('static/container_background.png');
         background-size: cover;
         background-position: center;
         border: 1px solid {border_color};
