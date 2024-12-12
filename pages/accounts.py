@@ -1,7 +1,7 @@
 from static.elements import gradient_text
 import streamlit as st
 from utils.db import execute_query
-from static.elements import gradient_button, gradient_button_2, animated_container, tile, line_chart, scatter_chart, metric_tile
+from static.elements import tile, line_chart, scatter_chart, metric_tile
 import time
 import pandas as pd
 from utils.stats import calculate_trade_statistics, get_account_trades, get_user_accounts, get_account_info
@@ -35,7 +35,7 @@ def AccountsPage():
                 server = st.text_input("Server", placeholder="Server")
                 platform = st.selectbox("Platform", ("mt4", "mt5"), placeholder="Platform")
 
-                confirm_add_account_button = gradient_button("Add Account", key="confirm_add_account_button", icon=":material/check:")
+                confirm_add_account_button = st.button("Add Account", key="confirm_add_account_button", icon=":material/check:", type="primary", use_container_width=True)
 
                 if confirm_add_account_button:
                     with st.spinner("Adding your account..."):
@@ -44,7 +44,7 @@ def AccountsPage():
                     time.sleep(2)
                     st.rerun()
 
-            open_add_account_dialog = gradient_button(label="Add Account", key="open_add_account_dialog", icon=":material/add_circle:")
+            open_add_account_dialog = st.button(label="Add Account", key="open_add_account_dialog", icon=":material/add_circle:", type="primary", use_container_width=True)
 
             if open_add_account_dialog: add_account_dialog()
 
@@ -127,6 +127,24 @@ def AccountsPage():
                         with performance_overview:
                             st.subheader("Overview", anchor=False)
                             st.caption('''A high-level summary of the account’s overall performance, profitability, and key return metrics.''')
+
+                            with tile(
+                                key="balance-line-chart",
+                                height=385,
+                                border=True):
+
+                                st.caption("Cumulative Gain (%)")
+                                st.header("30.21%", anchor=False)
+                                st.markdown(":green[↓ 25%]")
+
+                                line_chart(
+                                    data=trades_df, 
+                                    x='ticket', 
+                                    y='cum_gain', 
+                                    x_label='', 
+                                    y_label='', 
+                                    height=250
+                                )
 
                             st.markdown('''
                                             **Charts & Visuals:**
@@ -445,7 +463,7 @@ def AccountsPage():
                         st.info('''
                                     Document your thoughts, strategies, and observations for every trade.
 
-                                    📝 **Track Your Journey:** Attach notes, screenshots, and reflections to analyze past decisions.
+                                    📝 **Track Your Journey:** Attach notes, screenshots, and reflections to analyse past decisions.
                         
                                     📈 **Gain Insights:** Identify patterns, refine your methods, and boost accountability.
                         
