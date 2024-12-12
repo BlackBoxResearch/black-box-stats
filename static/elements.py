@@ -33,9 +33,9 @@ def metric_tile(key, stat, value, height, type, border, tooltip):
         with tile(key, height, border):
             st.markdown(
                 f"""
-                    <div style="line-height: 1.4;">
-                        <p style="margin: 0; font-size: 0.75em; color: {caption_color};">{stat}</p>
-                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: {text_color};">{value}</p>
+                    <div style="line-height: 1.3;">
+                        <p style="margin: 0; font-size: 0.8em; color: {caption_color};">{stat}</p>
+                        <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {text_color};">{value}</p>
                     </div>
                     """,
                 unsafe_allow_html=True, help=tooltip
@@ -253,9 +253,6 @@ def gradient_button_2(label, key, icon):
             css_styles=css_styles,
     ):
         return st.button(label=label, key=key, icon=icon, use_container_width=True)
-
-
-
 
 def gradient_text(text, font_size):
     """

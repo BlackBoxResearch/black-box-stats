@@ -1,10 +1,19 @@
 from static.elements import gradient_text
 import streamlit as st
 from utils.db import execute_query
-from static.elements import tile, line_chart, scatter_chart, metric_tile
+from static.elements import tile, line_chart, scatter_chart, column_chart, metric_tile
 import time
 import pandas as pd
 from utils.stats import calculate_trade_statistics, get_account_trades, get_user_accounts, get_account_info
+
+primary_background = '#111111'
+secondary_background = '#171717'
+dark_text_color = '#171717'
+light_text_color = '#E8E8E8'
+color_1 = '#5A85F3' #Blue
+color_2 = '#CDFFD8' #Green
+border_color = '#3c3c3c'
+caption_color = '#878884'
 
 def AccountsPage():
     with st.container(border=False):
@@ -128,23 +137,126 @@ def AccountsPage():
                             st.subheader("Overview", anchor=False)
                             st.caption('''A high-level summary of the account’s overall performance, profitability, and key return metrics.''')
 
-                            with tile(
-                                key="balance-line-chart",
-                                height=385,
-                                border=True):
+                            tile_1, tile_2, tile_3, tile_4 = st.columns(4, vertical_alignment="bottom")
+                            
+                            with tile_1:
+                                metric_tile(
+                                    key="accounts-performance-overview-tile-1",
+                                    stat="Total Gain",
+                                    value="30%",
+                                    height=42,
+                                    type="primary",
+                                    border=True,
+                                    tooltip=None)
 
-                                st.caption("Cumulative Gain (%)")
-                                st.header("30.21%", anchor=False)
-                                st.markdown(":green[↓ 25%]")
+                            with tile_2:
+                                metric_tile(
+                                    key="accounts-performance-overview-tile-2",
+                                    stat="Max Drawdown",
+                                    value="10%",
+                                    height=42,
+                                    type="primary",
+                                    border=True,
+                                    tooltip=None)
+
+                            with tile_3:
+                                metric_tile(
+                                    key="accounts-performance-overview-tile-3",
+                                    stat="Strike Rate",
+                                    value="67%",
+                                    height=42,
+                                    type="primary",
+                                    border=True,
+                                    tooltip=None)
+
+                            with tile_4:
+                                metric_tile(
+                                    key="accounts-performance-overview-tile-4",
+                                    stat="Profit Factor",
+                                    value="1.12",
+                                    height=42,
+                                    type="primary",
+                                    border=True,
+                                    tooltip=None)
+                            
+                            with tile(
+                                key="accounts-performance-overview-chart-1",
+                                height=250,
+                                border=True
+                            ):
+                                st.markdown(
+                                    f"""
+                                        <div style="line-height: 1.3;">
+                                            <p style="margin: 0; font-size: 0.8em; color: {caption_color};">Balance</p>
+                                            <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">$12,345.67</p>
+                                        </div>
+                                        """,
+                                    unsafe_allow_html=True)
+
+                                st.markdown("")
 
                                 line_chart(
                                     data=trades_df, 
-                                    x='ticket', 
+                                    x='close_time', 
                                     y='cum_gain', 
                                     x_label='', 
                                     y_label='', 
-                                    height=250
+                                    height=180
                                 )
+                                
+                            col1, col2 = st.columns(2, vertical_alignment="bottom")
+
+                            with col1:
+                                with tile(
+                                    key="accounts-performance-overview-chart-2",
+                                    height=250,
+                                    border=True
+                                ):
+                                    st.markdown(
+                                        f"""
+                                            <div style="line-height: 1.3;">
+                                                <p style="margin: 0; font-size: 0.8em; color: {caption_color};">Daily Profit/Loss</p>
+                                                <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">$124.12</p>
+                                            </div>
+                                            """,
+                                        unsafe_allow_html=True)
+                                
+                                    st.markdown("")
+
+                                    column_chart(
+                                        data=trades_df, 
+                                        x='close_time', 
+                                        y='gain', 
+                                        x_label='', 
+                                        y_label='', 
+                                        height=180
+                                    )
+
+                            with col2:
+                                with tile(
+                                    key="accounts-performance-overview-chart-3",
+                                    height=250,
+                                    border=True
+                                ):
+                                    st.markdown(
+                                        f"""
+                                            <div style="line-height: 1.3;">
+                                                <p style="margin: 0; font-size: 0.8em; color: {caption_color};">Net Daily Profit/Loss</p>
+                                                <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">$12,345.67</p>
+                                            </div>
+                                            """,
+                                        unsafe_allow_html=True)
+                                
+                                    st.markdown("")
+
+                                    scatter_chart(
+                                        data=trades_df, 
+                                        x='close_time', 
+                                        y='gain', 
+                                        x_label='', 
+                                        y_label='', 
+                                        height=180
+                                    )
 
                             st.markdown('''
                                             **Charts & Visuals:**
