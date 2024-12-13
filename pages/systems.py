@@ -1,5 +1,5 @@
-from streamlit_extras.stylable_container import stylable_container
 import streamlit as st
+from static.elements import tile
 
 primary_background = '#111111'
 secondary_background = '#171717'
@@ -15,24 +15,16 @@ def SystemsPage():
     with st.container(border=False):    
         st.subheader("Systems", anchor=False)
 
-        with stylable_container(
-            key="image_container", 
-            css_styles=f"""
-                background-image: linear-gradient(to right, #141e30, #243b55); 
-                background-size: cover;
-                background-position: center;
-                border: 1px solid {border_color};
-                border-radius: 0.5rem;
-                padding: calc(1em - 1px);
-                color: {light_text_color};
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                """
-            ):
-            with st.container(border=False, height=100):
-                st.markdown("### Save with cryptocurrency")
-                st.markdown("**Permanently discounted prices**")
+        with tile(
+            key="systems_metric",
+            height=50,
+            border=True
+        ):
+            st.metric(
+                label="Test Stat",
+                value="50")
+        
+        
 
 if __name__ == "__main__":
     SystemsPage()

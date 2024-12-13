@@ -79,6 +79,8 @@ def tile(key, height, border):
         css_styles=f'''
         {{
             background-color: {secondary_background};
+            font-family: "Source Sans Pro", sans-serif;
+            font-weight: 400;
             border-radius: 0.5rem;
             border: {border_style};
             padding: calc(1em - 1px);
