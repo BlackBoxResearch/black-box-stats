@@ -96,11 +96,34 @@ def AccountsPage():
                         'close_time': 'Close Time',
                         'close_price': 'Close Price',
                         'profit': 'Profit',
-                        'gain': 'Gain'
+                        'gain': 'Gain',
+                        'duration_mins': 'Duration'
                     })[
                         ['Ticket', 'Symbol', 'Type', 'Volume', 'Open Time', 
-                        'Open Price', 'Close Time', 'Close Price', 'Profit', 'Gain']
+                        'Open Price', 'Close Time', 'Close Price', 'Profit', 'Gain', 'Duration']
                     ]
+
+                    
+                    # Convert 'close_time' to datetime
+                    trades_df['close_time'] = pd.to_datetime(trades_df['close_time'])
+
+                    # Create a column for dates
+                    trades_df['close_date'] = trades_df['close_time'].dt.date
+
+                    # Group by the date and sum the 'gain' column
+                    daily_gain = trades_df.groupby('close_date')['gain'].sum().reset_index()
+
+                    # Rename columns for clarity
+                    daily_gain = daily_gain.rename(columns={'close_date': 'Date', 'gain': 'Total Daily Gain'})
+
+                    # Generate a complete date range covering all dates in 'close_time'
+                    all_dates = pd.date_range(start=daily_gain['Date'].min(), end=daily_gain['Date'].max())
+
+                    # Reindex the DataFrame to include all dates, filling missing values with 0
+                    daily_gain = daily_gain.set_index('Date').reindex(all_dates, fill_value=0).reset_index()
+
+                    # Rename the index column back to 'Date'
+                    daily_gain = daily_gain.rename(columns={'index': 'Date'})
 
                     performance, trade_journal, advanced_analytics, ai_insights, account_settings = st.tabs(["Performance", 
                                                                                                             "Trade Journal", 
@@ -204,7 +227,7 @@ def AccountsPage():
                                     height=180
                                 )
                                 
-                            col1, col2 = st.columns(2, vertical_alignment="bottom")
+                            col1, col2 = st.columns(2, vertical_alignment="top")
 
                             with col1:
                                 with tile(
@@ -216,7 +239,7 @@ def AccountsPage():
                                         f"""
                                             <div style="line-height: 1.3;">
                                                 <p style="margin: 0; font-size: 0.8em; color: {caption_color};">Daily Profit/Loss</p>
-                                                <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">$124.12</p>
+                                                <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">x̄ = $124.12</p>
                                             </div>
                                             """,
                                         unsafe_allow_html=True)
@@ -224,9 +247,9 @@ def AccountsPage():
                                     st.markdown("")
 
                                     column_chart(
-                                        data=trades_df, 
-                                        x='close_time', 
-                                        y='gain', 
+                                        data=daily_gain, 
+                                        x='Date', 
+                                        y='Total Daily Gain', 
                                         x_label='', 
                                         y_label='', 
                                         height=180
@@ -241,8 +264,8 @@ def AccountsPage():
                                     st.markdown(
                                         f"""
                                             <div style="line-height: 1.3;">
-                                                <p style="margin: 0; font-size: 0.8em; color: {caption_color};">Net Daily Profit/Loss</p>
-                                                <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">$12,345.67</p>
+                                                <p style="margin: 0; font-size: 0.8em; color: {caption_color};">Duration vs. Gain</p>
+                                                <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {light_text_color};">x̄ = $12,345.67</p>
                                             </div>
                                             """,
                                         unsafe_allow_html=True)
@@ -251,37 +274,47 @@ def AccountsPage():
 
                                     scatter_chart(
                                         data=trades_df, 
-                                        x='close_time', 
+                                        x='duration_mins', 
                                         y='gain', 
                                         x_label='', 
                                         y_label='', 
                                         height=180
                                     )
 
-                            st.markdown('''
-                                            **Charts & Visuals:**
+                            col1, col2 = st.columns([2,1], vertical_alignment="top")
 
-                                            - **Balance (Line Chart)**: Show evolution of account balance over time.
-                                            - **Daily & Cumulative Net P/L (Bar and Line Chart)**: Bar for daily P/L, line for cumulative P/L over same timeline.
-                                            - **Net Daily P/L Bar**: Daily profits/losses as a bar chart.
+                            with col1:
+                                with tile(
+                                    key="accounts-performance-overview-stats-1",
+                                    height=600,
+                                    border=True
+                                ):
 
-                                            **KPIs (Tiles/Tables):**
+                                    st.markdown('''
+                                                    **KPIs (Tiles/Tables):**
 
-                                            - Total P/L
-                                            - Gross Profit
-                                            - Gross Loss
-                                            - Dividends
-                                            - Swaps
-                                            - Commissions (Total Commissions, Total Fees)
-                                            - Annualised Return
-                                            - Average Daily P&L
-                                            - Monthly Gain (Table: month-by-month P/L)
-                                            - Best Month & Lowest Month + related figures (e.g. $13,582.24 in Aug 2024)
-                                            - Average per Month
-                                            - Account Balance & P/L (Overall summaries)
-                                            - ATH quote, Days since ATH, Return since ATH
-                                            - Top 5 Symbol Net Profit (Tile or small table)
-                                        ''')
+                                                    - Total P/L
+                                                    - Gross Profit
+                                                    - Gross Loss
+                                                    - Dividends
+                                                    - Swaps
+                                                    - Commissions (Total Commissions, Total Fees)
+                                                    - Annualised Return
+                                                    - Average Daily P&L
+                                                    - Monthly Gain (Table: month-by-month P/L)
+                                                    - Best Month & Lowest Month + related figures (e.g. $13,582.24 in Aug 2024)
+                                                    - Average per Month
+                                                    - Account Balance & P/L (Overall summaries)
+                                                    - ATH quote, Days since ATH, Return since ATH
+                                                    - Top 5 Symbol Net Profit (Tile or small table)
+                                                ''')
+
+                            with col2:
+                                tile(
+                                    key="accounts-performance-overview-stats-2",
+                                    height=600,
+                                    border=True
+                                )
 
                         with risk_drawdown_analysis:
                             st.subheader("Risk Analysis", anchor=False)  

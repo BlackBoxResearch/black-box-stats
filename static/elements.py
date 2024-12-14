@@ -552,16 +552,18 @@ def line_chart(data, x, y, x_label, y_label, height=280, show_labels=True):
 
     # Create the main line chart with a gradient fill
     chart = alt.Chart(data).mark_area(
-        line={'color': color_1},  # Line color
+        line={'color': '#E8E8E8'},  # Line color
         color=alt.Gradient(  # Gradient fill with specified opacity
             gradient='linear',
             stops=[
-                alt.GradientStop(color='rgba(148, 185, 255, 0.5)', offset=0),
-                alt.GradientStop(color='rgba(148, 185, 255, 0)', offset=1)
+                alt.GradientStop(color='rgba(232, 232, 232, 0.5)', offset=0),
+                alt.GradientStop(color='rgba(232, 232, 232, 0)', offset=1)
             ],
             x1=1, x2=1, y1=1, y2=0
         ),
         interpolate='monotone'  # Smooth the line
+
+
     ).encode(
         x=x_axis,  # Configure x-axis
         y=y_axis   # Configure y-axis
@@ -659,3 +661,6 @@ def column_chart(data, x, y, x_label, y_label, height=280, show_labels=True):
     )
     
     return st.altair_chart(chart, use_container_width=True)
+
+
+
