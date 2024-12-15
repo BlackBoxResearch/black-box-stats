@@ -30,7 +30,7 @@ def PricingPage():
                 with st.container(height=400, border=False):
                     st.markdown(
                         """
-                        <div style="text-align: center; font-size: 1.5rem; color: "#3c3c3c"; font-weight: "bold";>
+                        <div style="text-align: center; font-size: 1.2rem; color: "#3c3c3c"; font-weight: "bold";>
                             Free
                         </div>
                         """,
@@ -39,7 +39,7 @@ def PricingPage():
                     st.markdown(
                         """
                         <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                            <span style="font-size: 2.4rem; font-weight: bold; color: "#3c3c3c";">£0</span>
+                            <span style="font-size: 1.8rem; font-weight: bold; color: "#3c3c3c";">£0</span>
                             <span style="font-size: 0.8rem; color: grey; margin-top: -10px;">/ month</span>
                         </div>
                         """,
@@ -76,7 +76,7 @@ def PricingPage():
             ):
                     st.markdown(
                         """
-                        <div style="text-align: center; font-size: 1.5rem; color: "#3c3c3c"; font-weight: "bold";>
+                        <div style="text-align: center; font-size: 1.2rem; color: "#3c3c3c"; font-weight: "bold";>
                             Plus
                         </div>
                         """,
@@ -85,7 +85,7 @@ def PricingPage():
                     st.markdown(
                         """
                         <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                            <span style="font-size: 2.4rem; font-weight: bold; color: "#3c3c3c";">£19.99</span>
+                            <span style="font-size: 1.8rem; font-weight: bold; color: "#3c3c3c";">£19.99</span>
                             <span style="font-size: 0.8rem; color: grey; margin-top: -10px;">/ month</span>
                         </div>
                         """,
@@ -123,7 +123,7 @@ def PricingPage():
             ):
                     st.markdown(
                         """
-                        <div style="text-align: center; font-size: 1.5rem; color: "#3c3c3c"; font-weight: "bold";>
+                        <div style="text-align: center; font-size: 1.2rem; color: "#3c3c3c"; font-weight: "bold";>
                             Premium
                         </div>
                         """,
@@ -132,7 +132,7 @@ def PricingPage():
                     st.markdown(
                         """
                         <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                            <span style="font-size: 2.4rem; font-weight: bold; color: "#3c3c3c";">£49.99</span>
+                            <span style="font-size: 1.8rem; font-weight: bold; color: "#3c3c3c";">£49.99</span>
                             <span style="font-size: 0.8rem; color: grey; margin-top: -10px;">/ month</span>
                         </div>
                         """,

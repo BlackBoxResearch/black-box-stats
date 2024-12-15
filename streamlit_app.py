@@ -2,7 +2,7 @@ import streamlit as st
 from static.elements import animated_container, promo_container
 from streamlit_extras.bottom_container import bottom
 from st_social_media_links import SocialMediaIcons
-from pages import login, profile, dashboard, logout, systems, settings, support, accounts, leaderboard, pricing
+from pages import login, profile, dashboard, logout, systems, settings, support, accounts, leaderboard, pricing, changelog
 
 primary_background = '#111111'
 secondary_background = '#171717'
@@ -53,6 +53,7 @@ logout_page = st.Page(page=logout.LogoutPage, title="Logout", icon=":material/lo
 accounts_page = st.Page(page=accounts.AccountsPage, title="Accounts", icon=":material/group:")
 leaderboard_page = st.Page(page=leaderboard.LeaderboardPage, title="Leaderboard", icon=":material/social_leaderboard:")
 pricing_page = st.Page(page=pricing.PricingPage, title="Pricing", icon=":material/payments:")
+changelog_page = st.Page(page=changelog.ChangelogPage, title="Change Log", icon=":material/construction:")
 
 # Group pages for logged-out users
 logged_out_pages = [login_page]
@@ -60,7 +61,7 @@ logged_out_pages = [login_page]
 # Group pages for logged-in users
 logged_in_pages = {
     "Home": [dashboard_page, accounts_page, systems_page, leaderboard_page, pricing_page],
-    "Settings": [profile_page, settings_page, logout_page]  # Logout page added here
+    "Settings": [profile_page, changelog_page, settings_page, logout_page]  # Logout page added here
 }
 
 def create_navigation(pages):
