@@ -51,37 +51,66 @@ def open_register_dialog():
 
 def LoginPage():
     with st.container(border=False):
-        #st.image(image="static/bbs_type_logo.png")
-        st.subheader("Sign up today for free!", anchor=False)
+        col1, col2, col3 = st.columns([1,3,1], vertical_alignment="top")
+        
+        with col2:
+            st.image(image="static/analytiq_type_logo.png", use_container_width=True)
 
-        with st.expander("Register", icon=":material/app_registration:"):
-            with st.form("register_form", border=False):
-                col1, col2 = st.columns(2)
-                first_name = col1.text_input("First name")
-                last_name = col2.text_input("Last name")
-                email = col1.text_input("Email")
-                country = col2.selectbox("Country", countries)
-                password = col1.text_input("Password", type="password")
-                repeat_password = col2.text_input("Repeat password", type="password")
-                password_hint = st.text_input("Password hint")
-                marketing_preferences = st.checkbox("Opt out of communications")
-                terms_and_conditions = st.checkbox("I agree to the Terms of Use")
+            st.markdown("")
 
-                if st.form_submit_button("Register", use_container_width=True, type='secondary', icon=":material/app_registration:"):
-                    if password != repeat_password:
-                        st.error("Passwords do not match.")
-                    elif not first_name or not last_name or not email or not password:
-                        st.error("All fields are required.")
-                    else:
-                        register_user(first_name, last_name, email, country, password, password_hint)
+            with st.container(border=False):
 
-        st.caption("Or sign into your account")
-    
-        with st.expander("Sign In", icon=":material/login:"):
-            email_input = st.text_input("Email")
-            password_input = st.text_input("Password", type="password")
+                st.markdown(
+                    """
+                    <div style="text-align: center; font-size: 1rem; color: "#3c3c3c";>
+                        Log in to your account
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
-            if st.button(key="sign_in_button", label="Sign In", use_container_width=True, type='secondary', icon=":material/login:"):
+                email_input = st.text_input("Email")
+                password_input = st.text_input("Password", type="password")
+                st.markdown("")
+                login_button = st.button(key="login_button", label="Log In", use_container_width=True, type='secondary', icon=":material/login:")
+
+            st.markdown(
+                """
+                <div style="display: flex; align-items: center; text-align: center; margin: 5px 0px 15px 0px;">
+                    <hr style="flex-grow: 1; border: none; border-top: 1px solid #E8E8E8;" />
+                    <span style="margin: 0 30px; color: #E8E8E8; font-size: 1rem;">or</span>
+                    <hr style="flex-grow: 1; border: none; border-top: 1px solid #E8E8E8;" />
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            @st.dialog("Sign Up")
+            def sign_up():
+                with st.form("sign_up_form", border=False):
+                    col1, col2 = st.columns(2)
+                    first_name = col1.text_input("First name")
+                    last_name = col2.text_input("Last name")
+                    email = col1.text_input("Email")
+                    country = col2.selectbox("Country", countries)
+                    password = col1.text_input("Password", type="password")
+                    repeat_password = col2.text_input("Repeat password", type="password")
+                    password_hint = st.text_input("Password hint")
+                    marketing_preferences = st.checkbox("Opt out of communications")
+                    terms_and_conditions = st.checkbox("I agree to the Terms of Use")
+
+                    if st.form_submit_button("Sign Up", use_container_width=True, type='secondary', icon=":material/app_registration:"):
+                        if password != repeat_password:
+                            st.error("Passwords do not match.")
+                        elif not first_name or not last_name or not email or not password:
+                            st.error("All fields are required.")
+                        else:
+                            register_user(first_name, last_name, email, country, password, password_hint)
+
+            if st.button("Sign Up For Free!", icon=":material/app_registration:", use_container_width=True):
+                sign_up()
+        
+            if login_button:
                 user_id, email, first_name, last_name, subscription_level = check_login(email_input, password_input)
                 if email:
                     # Reset the logged_out state when logging in successfully

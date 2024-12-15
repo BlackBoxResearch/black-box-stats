@@ -1,4 +1,3 @@
-from static.elements import gradient_text
 import streamlit as st
 
 def SettingsPage():

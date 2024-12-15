@@ -2,7 +2,7 @@ import streamlit as st
 from static.elements import animated_container, promo_container
 from streamlit_extras.bottom_container import bottom
 from st_social_media_links import SocialMediaIcons
-from pages import login, profile, dashboard, logout, systems, settings, support, accounts, leaderboard
+from pages import login, profile, dashboard, logout, systems, settings, support, accounts, leaderboard, pricing
 
 primary_background = '#111111'
 secondary_background = '#171717'
@@ -40,13 +40,14 @@ settings_page = st.Page(page=settings.SettingsPage, title="Settings", icon=":mat
 logout_page = st.Page(page=logout.LogoutPage, title="Logout", icon=":material/logout:")
 accounts_page = st.Page(page=accounts.AccountsPage, title="Accounts", icon=":material/group:")
 leaderboard_page = st.Page(page=leaderboard.LeaderboardPage, title="Leaderboard", icon=":material/social_leaderboard:")
+pricing_page = st.Page(page=pricing.PricingPage, title="Pricing", icon=":material/payments:")
 
 # Group pages for logged-out users
 logged_out_pages = [login_page]
 
 # Group pages for logged-in users
 logged_in_pages = {
-    "Home": [dashboard_page, accounts_page, systems_page, leaderboard_page],
+    "Home": [dashboard_page, accounts_page, systems_page, leaderboard_page, pricing_page],
     "Settings": [profile_page, settings_page, logout_page]  # Logout page added here
 }
 
@@ -67,7 +68,7 @@ def main():
 
     # Display pages based on login state
     if st.session_state["logged_in"]:
-        st.logo(image="static/bbs_type_logo.png", size="large", icon_image="static/bbs-icon.png")
+        st.logo(image="static/analytiq_type_logo.png", size="large", icon_image="static/bbs-icon.png")
 
         # with st.sidebar:   
         #     animated_container(
