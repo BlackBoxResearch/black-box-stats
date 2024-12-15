@@ -47,7 +47,7 @@ def PricingPage():
                     )
                     st.markdown("")
                     st.markdown("")
-                    st.button("Buy Now", key="plan-1-subscribe", icon=":material/task_alt:", type="primary", use_container_width=True)
+                    st.button("Buy Now", key="plan-1-subscribe", icon=":material/task_alt:", type="secondary", use_container_width=True)
                     st.markdown(
                     """
                     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -93,7 +93,7 @@ def PricingPage():
                     )
                     st.markdown("")
                     st.markdown("")
-                    st.button("Buy Now", key="plan-2-subscribe", icon=":material/task_alt:", type="primary", use_container_width=True)
+                    st.button("Buy Now", key="plan-2-subscribe", icon=":material/task_alt:", type="secondary", use_container_width=True)
                     st.markdown(
                     """
                     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
