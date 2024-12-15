@@ -30,16 +30,16 @@ with open('./static/styles.html') as f_html:
 
 st.markdown(html, unsafe_allow_html=True)
 
-# # Custom CSS to hide the header
-# st.markdown(
-#     """
-#     <style>
-#         /* Hide the Streamlit header */
-#         header {visibility: hidden;}
-#     </style>
-#     """,
-#     unsafe_allow_html=True
-# )
+# # # Custom CSS to hide the header
+st.markdown(
+    """
+    <style>
+        /* Hide the Streamlit header */
+        header {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # Define pages with icons
