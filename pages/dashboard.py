@@ -69,9 +69,9 @@ def DashboardPage():
                 tooltip=None
                 )
         
-        tab1, tab2, tab3 = st.tabs(["Overview", "Systems", "Trading Tools"])
+        overview_tab, systems_tab, tools_tab = st.tabs(["Overview", "Systems", "Trading Tools"])
 
-        with tab1:
+        with overview_tab:
             with tile(
                 "systems-accounts-performance-chart",
                 300,
@@ -96,6 +96,60 @@ def DashboardPage():
                         show_labels=False
                         )
                 
+            # Sample data for systems
+            accounts_data = [
+                {
+                    "Account No.": f"800{np.random.randint(10000, 99999)}",
+                    "Net Gain (%)": round(np.random.uniform(-10, 50), 2),
+                    "Performance": np.random.randn(30).cumsum(),
+                    "Drawdown": -np.abs(np.random.randn(30).cumsum()),
+                    "Black Box Score": np.random.randint(60, 100),
+                }
+                for _ in range(10)  # Generate 10 sample accounts
+            ]
+
+            # Print the data
+            for account in accounts_data:
+                print(account)
+
+            # Convert data to DataFrame
+            accounts_df = pd.DataFrame(accounts_data)
+
+            # Displaying the table for systems
+            st.dataframe(
+                accounts_df,
+                column_config={
+                    "Account No.": st.column_config.TextColumn(
+                        label="Account Number",
+                        help="Unique identifier for the account."
+                    ),
+                    "Net Gain (%)": st.column_config.NumberColumn(
+                        label="Net Gain (%)",
+                        format="%.2f%%"
+                    ),
+                    "Performance": st.column_config.AreaChartColumn(
+                        label="Performance Sparkline",
+                        y_min=accounts_df["Performance"].apply(lambda x: min(x)).min(),
+                        y_max=accounts_df["Performance"].apply(lambda x: max(x)).max(),
+                        help="Cumulative performance over time."
+                    ),
+                    "Drawdown": st.column_config.BarChartColumn(
+                        label="Drawdown Sparkline",
+                        y_min=accounts_df["Drawdown"].apply(lambda x: min(x)).min(),
+                        y_max=accounts_df["Drawdown"].apply(lambda x: max(x)).max(),
+                        help="Visual representation of drawdown over time."
+                    ),
+                    "Black Box Score": st.column_config.ProgressColumn(
+                        label="Black Box Score",
+                        format="%d",
+                        help="Rating of the system based on historical performance and risk."
+                    ),
+                },
+                hide_index=True,
+                use_container_width=True
+            )
+
+
             with tile(
                 "tab-test",
                 300,
@@ -106,7 +160,7 @@ def DashboardPage():
                 with subtab1:
                     st.caption("Test")
 
-        with tab2:
+        with systems_tab:
 
             col1, col2 = st.columns(2, vertical_alignment="bottom")
 

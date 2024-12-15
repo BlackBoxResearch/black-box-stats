@@ -30,16 +30,17 @@ with open('./static/styles.html') as f_html:
 
 st.markdown(html, unsafe_allow_html=True)
 
-# Custom CSS to hide the header
-st.markdown(
-    """
-    <style>
-        /* Hide the Streamlit header */
-        header {visibility: hidden;}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# # Custom CSS to hide the header
+# st.markdown(
+#     """
+#     <style>
+#         /* Hide the Streamlit header */
+#         header {visibility: hidden;}
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
+
 
 # Define pages with icons
 login_page = st.Page(page=login.LoginPage, title="Login", icon=":material/login:")
@@ -79,7 +80,7 @@ def main():
 
     # Display pages based on login state
     if st.session_state["logged_in"]:
-        st.logo(image="static/analytiq_type_logo.png", size="large", icon_image="static/bbs-icon.png")
+        st.logo(image="static/bbs_type_logo.png", size="large", icon_image="static/bbs-icon.png")
 
         # with st.sidebar:   
         #     animated_container(
