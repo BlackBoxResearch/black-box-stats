@@ -30,6 +30,17 @@ with open('./static/styles.html') as f_html:
 
 st.markdown(html, unsafe_allow_html=True)
 
+# Custom CSS to hide the header
+st.markdown(
+    """
+    <style>
+        /* Hide the Streamlit header */
+        header {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Define pages with icons
 login_page = st.Page(page=login.LoginPage, title="Login", icon=":material/login:")
 dashboard_page = st.Page(page=dashboard.DashboardPage, title="Dashboard", icon=":material/dashboard:")
