@@ -71,10 +71,9 @@ def LoginPage():
 
                 email_input = st.text_input("Email")
                 password_input = st.text_input("Password", type="password")
-                col1, col2 = st.columns([1.3, 0.7], vertical_alignment="top")
-                col1.checkbox("Remember Me")
-                col2.button("Forgot Password?", type="tertiary")
-                st.markdown("")
+                col1, col2 = st.columns(2, vertical_alignment="top")
+                #col1.checkbox("Remember Me")
+                col1.button("**Forgot Password?**", type="tertiary")
                 login_button = st.button(key="login_button", label="Log In", use_container_width=True, type='secondary', icon=":material/login:")
 
             st.markdown(

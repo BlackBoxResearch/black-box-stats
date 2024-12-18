@@ -29,7 +29,7 @@ def DashboardPage():
             animated_container(
                 key="dashboard_plan_card", 
                 content=f"""
-                    <div style="line-height: 1.44;">
+                    <div style="line-height: 1.4;">
                         <p style="margin: 0; font-size: 0.75em; color: #878884;">Plan</p>
                         <p style="margin: 0; font-size: 1em; font-weight: bold; color: #E8E8E8;">Premium ✨</p>
                     </div>

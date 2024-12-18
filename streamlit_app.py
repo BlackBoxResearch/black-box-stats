@@ -13,7 +13,7 @@ color_2 = '#CDFFD8'
 
 st.set_page_config(
     layout="centered",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
     menu_items={
         'Get Help': 'https://www.extremelycoolapp.com/help',
         'Report a bug': "https://www.extremelycoolapp.com/bug",

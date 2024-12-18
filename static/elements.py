@@ -33,9 +33,9 @@ def metric_tile(key, stat, value, height, type, border, tooltip):
         with tile(key, height, border):
             st.markdown(
                 f"""
-                    <div style="line-height: 1.3;">
-                        <p style="margin: 0; font-size: 0.8em; color: {caption_color};">{stat}</p>
-                        <p style="margin: 0; font-size: 1.2em; font-weight: bold; color: {text_color};">{value}</p>
+                    <div style="line-height: 1.4;">
+                        <p style="margin: 0; font-size: 0.75em; color: {caption_color};">{stat}</p>
+                        <p style="margin: 0; font-size: 1em; font-weight: bold; color: {text_color};">{value}</p>
                     </div>
                     """,
                 unsafe_allow_html=True, help=tooltip
