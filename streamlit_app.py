@@ -81,60 +81,7 @@ def main():
 
     # Display pages based on login state
     if st.session_state["logged_in"]:
-        st.logo(image="static/bbs_type_logo.png", size="large", icon_image="static/bbs-icon.png")
-
-        # with st.sidebar:   
-        #     animated_container(
-        #         key="pro-lifetime_promo", 
-        #         content=f'''
-        #             <div>
-        #                 <h3 style="
-        #                     font-size: 1.5em;
-        #                     font-weight: bold;
-        #                     text-align: left;
-        #                     font-family: 'Segoe UI', sans-serif;
-        #                     margin: 0;
-        #                     color: {light_text_color};">
-        #                     Upgrade to Pro for Life
-        #                 </h3>
-        #                 <p style="
-        #                     font-size: 1em; 
-        #                     font-weight: bold; 
-        #                     font-family: 'Segoe UI', sans-serif;
-        #                     background: linear-gradient(90deg, {color_1}, {color_2}); 
-        #                     -webkit-background-clip: text; 
-        #                     -webkit-text-fill-color: transparent;
-        #                     margin: 5px 0;">
-        #                     Limited lifetime deal ends soon!
-        #                 </p>
-        #                 <p style="
-        #                     font-size: 0.85em; 
-        #                     font-family: 'Segoe UI', sans-serif;
-        #                     color: #CCCCCC; 
-        #                     margin: 10px 0;">
-        #                     After this exclusive early access deal, we are switching to monthly/annual pricing.
-        #                 </p>
-        #                 <div style="text-align: center; margin-top: 20px;">
-        #                     <a href="https://pay.analytiq.trade/b/test_6oE0043QndEzbLi5kk" 
-        #                         target="_blank" 
-        #                         style="
-        #                             display: inline-block; 
-        #                             padding: 0.5em 1em; 
-        #                             background-image: linear-gradient(90deg, {color_1}, {color_2}); 
-        #                             color: {dark_text_color}; 
-        #                             text-decoration: none; 
-        #                             font-size: 0.85em;
-        #                             border-radius: 0.5rem;
-        #                             box-shadow: 20px 0 100px {color_1}40;
-        #                             transition: transform 0.2s ease, box-shadow 0.2s ease;
-        #                         "
-        #                         >
-        #                         ✨ Upgrade Now
-        #                     </a>
-        #                 </div>
-        #             </div>
-        #         '''
-        #         )
+        st.logo(image="static/analytiq_type_logo.png", size="large", icon_image="static/analytiq_icon.png")
 
         create_navigation(logged_in_pages)
     else:
