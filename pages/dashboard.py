@@ -128,19 +128,19 @@ def DashboardPage():
                         format="%.2f%%"
                     ),
                     "Performance": st.column_config.AreaChartColumn(
-                        label="Performance Sparkline",
+                        label="Performance",
                         y_min=accounts_df["Performance"].apply(lambda x: min(x)).min(),
                         y_max=accounts_df["Performance"].apply(lambda x: max(x)).max(),
                         help="Cumulative performance over time."
                     ),
                     "Drawdown": st.column_config.BarChartColumn(
-                        label="Drawdown Sparkline",
+                        label="Drawdown",
                         y_min=accounts_df["Drawdown"].apply(lambda x: min(x)).min(),
                         y_max=accounts_df["Drawdown"].apply(lambda x: max(x)).max(),
                         help="Visual representation of drawdown over time."
                     ),
                     "Black Box Score": st.column_config.ProgressColumn(
-                        label="Black Box Score",
+                        label="AnalytiQ Score",
                         format="%d",
                         help="Rating of the system based on historical performance and risk."
                     ),

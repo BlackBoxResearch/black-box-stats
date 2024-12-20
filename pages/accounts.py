@@ -201,7 +201,7 @@ def AccountsPage():
                                     type="primary",
                                     border=True,
                                     tooltip=None)
-                            
+
                             with tile(
                                 key="accounts-performance-overview-chart-1",
                                 height=250,
@@ -235,6 +235,7 @@ def AccountsPage():
                                     height=250,
                                     border=True
                                 ):
+
                                     st.markdown(
                                         f"""
                                             <div style="line-height: 1.3;">
