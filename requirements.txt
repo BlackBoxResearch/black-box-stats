@@ -9,3 +9,4 @@ altair
 asyncio
 st_social_media_links
 vega-datasets
+asyncpg
