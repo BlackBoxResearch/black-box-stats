@@ -45,6 +45,8 @@ def process_deals(deals):
             'takeProfit': None,
             'closeTime': None,
             'closePrice': None,
+            'commission': None,
+            'swap': None,
             'profit': 0.0
         }
         
@@ -82,7 +84,9 @@ def process_deals(deals):
             total_profit += deal.get('profit', 0.0)
         
         # Calculate total profit as sum of commission, swap, and profit
-        position['profit'] = round(total_commission + total_swap + total_profit, 2)
+        position['commission'] = round(total_commission, 2)
+        position['swap'] = round(total_swap, 2)
+        position['profit'] = round(total_profit, 2)
         
         positions[position_id] = position
     
