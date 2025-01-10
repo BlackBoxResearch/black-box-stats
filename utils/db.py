@@ -1,48 +1,50 @@
-from sqlalchemy.sql import text
-import streamlit as st
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
+# Database connection parameters
+DB_HOST = "analytiq-test-database.c102eee68lij.eu-west-2.rds.amazonaws.com"
+DB_PORT = 5432
+DB_NAME = "postgres"
+DB_USER = "blackboxresearch"
+DB_PASSWORD = "!Audacious2011"
 
-def execute_query(query, params=None):
+def execute_query(query, params=None, fetch_results=True):
     """
-    Executes a read-only SQL query and returns the result.
+    Executes a SQL query and optionally fetches results.
     Args:
         query (str): The SQL query to execute.
-        params (dict): Parameters for the query, if any.
+        params (tuple or dict): Parameters for the query, if any.
+        fetch_results (bool): Whether to fetch results (for SELECT queries).
     Returns:
-        list: List of rows resulting from the query.
+        list or None: Query results or None for write operations.
     """
-    conn = st.connection('blackboxstats_db', type='sql')
-    with conn.session as s:
-        try:
-            # Mark the query as a text object
-            result = s.execute(text(query), params or {})
-            return result.fetchall()
-        except Exception as e:
-            st.error(f"Error executing query: {e}")
-            return []
+    try:
+        # Connect to the PostgreSQL database
+        with psycopg2.connect(
+            host=DB_HOST,
+            port=DB_PORT,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD
+        ) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cursor:
+                # Execute the query with parameters
+                cursor.execute(query, params)
 
+                # Commit for write queries
+                if not fetch_results:
+                    conn.commit()
+                    print("Query executed and committed successfully.")
+                    return None
 
-def execute_write(query, params=None):
-    """
-    Executes a write (INSERT/UPDATE/DELETE) SQL query and commits the changes.
-    Args:
-        query (str): The SQL query to execute.
-        params (dict): Parameters for the query, if any.
-    Returns:
-        bool: True if the operation was successful, False otherwise.
-    """
-    conn = st.connection('blackboxstats_db', type='sql')
-    with conn.session as s:
-        try:
-            # Execute the query
-            s.execute(text(query), params or {})
-            # Commit the transaction
-            s.commit()
-            st.success("Operation successful!")
-            return True
-        except Exception as e:
-            # Rollback in case of an error
-            s.rollback()
-            st.error(f"Error executing write operation: {e}")
-            return False
+                # Fetch and return results for read-only queries
+                result = cursor.fetchall()
+                print("Query executed successfully.")
+                return result
 
+    except psycopg2.Error as e:
+        print(f"Database error: {e}")
+        return None
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return None

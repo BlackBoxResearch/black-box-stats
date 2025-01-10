@@ -9,6 +9,7 @@ import asyncio
 import psycopg2
 from metaapi_cloud_sdk import MetaApi
 from datetime import datetime, timedelta
+from db import execute_query
 
 # Database connection parameters
 DB_HOST = "analytiq-test-database.c102eee68lij.eu-west-2.rds.amazonaws.com"
@@ -22,12 +23,98 @@ TOKEN = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIyYTY2MGNmN2Q0ZWRlZDUzNz
 TEST_ACCOUNT_1 = 'ab9bbaba-bc20-440d-9b3a-fa2e9a72267f'
 TEST_ACCOUNT_2 = '573b4688-0b9d-4b26-b38d-742de1248235'
 
-
-
-
-async def AddAccount(user_id, login, password, server_name, platform):
+def add_user(first_name, last_name, email, country, password_hash, password_hint, marketing):
+    query = '''
+        INSERT INTO users (
+            first_name, 
+            last_name, 
+            email, 
+            country, 
+            password_hash, 
+            password_hint, 
+            marketing
+        ) 
+        VALUES (
+            %s, %s, %s, %s, %s, %s, %s
+        );
     '''
-    Step 2: Add and deploy a new account to MetaAPI.
+    params = (
+        first_name,
+        last_name,
+        email,
+        country,
+        password_hash,
+        password_hint,
+        marketing
+    )
+
+    # Execute the query without fetching results
+    execute_query(query, params, fetch_results=False)
+
+
+async def deploy_account(login, password, server_name, platform):
+    '''
+    Step 2: Deploy a new account to MetaAPI.
     '''
     api = MetaApi(TOKEN)
+    api_account_id = ''
 
+    try:
+        # Get the list of accounts and find the matching one
+        accounts = await api.metatrader_account_api.get_accounts_with_infinite_scroll_pagination()
+        account = None
+        for item in accounts:
+            if item.login == login and item.type.startswith('cloud'):
+                account = item
+                break
+
+        # If the account exists, save the ID
+        if account:
+            api_account_id = account.id
+            print('Account already exists on MetaAPI!')
+        else:
+            # If the account doesn't exist on MetaAPI, create it
+            print('Adding account.')
+            account = await api.metatrader_account_api.create_account(
+                {
+                    'name': 'Test account',
+                    'type': 'cloud',
+                    'login': login,
+                    'password': password,
+                    'server': server_name,
+                    'platform': platform,
+                    'application': 'MetaApi',
+                    'magic': 1000,
+                }
+            )
+            api_account_id = account.id
+
+        # Deploy the account and wait until it's connected
+        print('Deploying account')
+        await account.deploy()
+
+    except Exception as e:
+        print(f"Error in adding account: {e}")
+
+
+async def get_account_info(account_id):
+    api = MetaApi(TOKEN)
+
+    try:
+        # Retrieve MetaApi account
+        account = await api.metatrader_account_api.get_account(TEST_ACCOUNT_1)
+
+        await account.wait_connected()
+        connection = account.get_rpc_connection()
+        await connection.connect()
+        await connection.wait_synchronized()
+
+        account_info = await connection.get_account_information()
+        print(account_info)
+
+    except Exception as e:
+        print(f"Error in continuous_streaming: {e}")
+
+
+if __name__ == "__main__":
+    asyncio.run(get_account_info(TEST_ACCOUNT_1))
