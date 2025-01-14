@@ -10,4 +10,4 @@ asyncio
 st_social_media_links
 vega-datasets
 asyncpg
-psycopg2
+psycopg2-binary
